@@ -8,6 +8,7 @@
   --text: #e6eefb;
   --muted: #9bb0cc;
   --border: #1f2c40;
+  --header-bg: rgba(11, 23, 38, 0.9);
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
   --radius: 14px;
   --max-width: 1100px;
@@ -24,6 +25,7 @@
   --text: #0f1b2d;
   --muted: #52607a;
   --border: #d9e2ef;
+  --header-bg: rgba(255, 255, 255, 0.92);
   --shadow: 0 8px 30px rgba(15, 27, 45, 0.08);
 }
 
@@ -66,7 +68,7 @@ main {
   left: 0;
   right: 0;
   backdrop-filter: blur(12px);
-  background: rgba(11, 23, 38, 0.9);
+  background: var(--header-bg);
   border-bottom: 1px solid var(--border);
   z-index: 10;
 }
@@ -327,7 +329,7 @@ ul {
     display: none;
     width: 100%;
     flex-direction: column;
-    background: rgba(11, 23, 38, 0.97);
+    background: var(--header-bg);
     margin-top: 10px;
     border: 1px solid var(--border);
     border-radius: 12px;
