@@ -12,7 +12,7 @@ Static site for EP16.TOKT11122 hosted with GitHub Pages.
 3. Visit `http://localhost:8000`.
 
 ## Structure
-- `index.html` — main page using content from `Syllabus_alt.md`.
-- `style.css` — layout and theme.
+- `index.html` — main page using content from `Syllabus_alt.md` (includes light/dark toggle).
+- `style.css` — layout and theme variables for light/dark modes.
 - `img/` — logos, instructor photo, textbook covers.
 
