@@ -257,19 +257,19 @@ main {
 }
 
 .schedule-table tbody tr.lecture {
-  background: linear-gradient(90deg, rgba(11, 116, 222, 0.08), transparent 40%);
+  background: linear-gradient(90deg, rgba(11, 116, 222, 0.22), transparent 45%);
 }
 
 .schedule-table tbody tr.lab {
-  background: linear-gradient(90deg, rgba(0, 194, 255, 0.1), transparent 40%);
+  background: linear-gradient(90deg, rgba(5, 173, 94, 0.22), transparent 45%);
 }
 
 :root[data-theme="dark"] .schedule-table tbody tr.lecture {
-  background: linear-gradient(90deg, rgba(0, 194, 255, 0.12), transparent 40%);
+  background: linear-gradient(90deg, rgba(0, 194, 255, 0.28), transparent 45%);
 }
 
 :root[data-theme="dark"] .schedule-table tbody tr.lab {
-  background: linear-gradient(90deg, rgba(0, 255, 188, 0.12), transparent 40%);
+  background: linear-gradient(90deg, rgba(0, 255, 188, 0.28), transparent 45%);
 }
 
 ul {
