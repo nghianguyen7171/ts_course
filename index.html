@@ -368,8 +368,7 @@
     };
 
     const savedTheme = localStorage.getItem(THEME_KEY);
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    applyTheme(savedTheme || (prefersLight ? 'light' : 'dark'));
+    applyTheme(savedTheme || 'light');
 
     themeToggle.addEventListener('click', () => {
       const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
