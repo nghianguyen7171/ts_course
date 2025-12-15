@@ -9,4 +9,5 @@
 - 2025-12-15: Defaulted site to light theme and aligned all panels/backgrounds with theme variables.
 - 2025-12-15: Applied theme colors to header/nav and replaced hero image with `mainpage_img.jpeg`.
 - 2025-12-15: Swapped hero image to `bg2.jpeg` for light-mode header consistency.
+- 2025-12-15: Added lecture/lab row highlighting in the teaching plan schedule.
 
