@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time Series Analysis and Forecasting</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="#top"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="#top"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="#top"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="#general">General Info</a></li>
+        <li><a href="#instructor">Instructor</a></li>
+        <li><a href="#description">Description</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#objectives">Objectives</a></li>
+        <li><a href="#clos">CLOs</a></li>
+        <li><a href="#assessment">Assessment</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#regulations">Regulations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">EP16.TOKT11122 · 3 credits</p>
+        <h1>Time Series Analysis and Forecasting</h1>
+        <p class="tagline">
+          Practical, project-based exploration of classical and modern time series methods with real data in Python.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#schedule">View Schedule</a>
+          <a class="btn" href="#resources">View Resources</a>
+        </div>
+      </div>
+      <div class="hero-logos">
+        <img src="img/bg_img.png" alt="Time series illustration" />
+      </div>
+    </section>
+
+    <section id="general" class="card">
+      <h2>1. General Information</h2>
+      <table class="info-table">
+        <tbody>
+          <tr>
+            <th>Course title</th>
+            <td>Time Series Analysis and Forecasting</td>
+          </tr>
+          <tr>
+            <th>Course code</th>
+            <td>EP16.TOKT11122</td>
+          </tr>
+          <tr>
+            <th>Type</th>
+            <td>Compulsory</td>
+          </tr>
+          <tr>
+            <th>Credits / hours</th>
+            <td>3 credits · Lecture: 30h · Lab: 15h · Self-study: 90h</td>
+          </tr>
+          <tr>
+            <th>Prerequisites</th>
+            <td>EP16.TOKT1145; EP16.TOKT11108</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="instructor" class="card">
+      <h2>2. Department and Instructor</h2>
+      <p><strong>Department:</strong> Faculty of Data Science and Artificial Intelligence, National Economics University.</p>
+      <p><strong>Address:</strong> Suite 1105, Building A1, NEU.</p>
+      <div class="instructor">
+        <img src="img/author.png" alt="Dr. Trong-Nghia Nguyen" />
+        <div>
+          <h3>Dr. Trong-Nghia Nguyen</h3>
+          <p>Email: <a href="mailto:nghiant@neu.edu.vn">nghiant@neu.edu.vn</a></p>
+          <p>Website: <a href="http://nghianguyen7171.github.io/" target="_blank" rel="noopener">http://nghianguyen7171.github.io/</a></p>
+          <p>Office Hours: To be determined</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="description" class="card">
+      <h2>3. Course Description</h2>
+      <p>
+        This course provides a practical introduction to time series analysis and forecasting with applications in finance, economics, and healthcare. Students use Python (NumPy, Pandas, Matplotlib, Statsmodels, Scikit-learn, and optionally deep learning frameworks) to work with real-world time-indexed data.
+      </p>
+      <p>
+        Core topics include time series concepts and components, exploratory analysis, stationarity, ARIMA and SARIMA models. In later weeks, students are introduced to machine learning and deep learning methods for time series, such as tree-based models and simple recurrent or convolutional neural networks.
+      </p>
+      <p>
+        The course is strongly project-based with groups working on real datasets (e.g., stock prices, macroeconomic indicators, vital signs, EEG/ECG signals). Labs focus on project progress. A Midterm Project Baseline replaces a written exam; the final deliverable is a comprehensive group project combining classical and ML/DL methods.
+      </p>
+    </section>
+
+    <section id="resources" class="card">
+      <h2>4. Learning Resources</h2>
+      <h3>Main textbooks</h3>
+      <ul>
+        <li>Gebhard Kirchgässner, Jürgen Wolters (2013), <em>Introduction to Modern Time Series Analysis</em>, Springer.</li>
+        <li>Wes McKinney (2022), <em>Python for Data Analysis</em>, O’Reilly Media.</li>
+        <li>Eryk Lewinson (2022), <em>Python for Finance Cookbook</em>, Packt Publishing.</li>
+      </ul>
+      <h3>Other references</h3>
+      <ul>
+        <li>Tarek A. Atwan (2022), <em>Time Series Analysis with Python Cookbook</em>, Packt Publishing.</li>
+        <li>Changquan Huang &amp; Alla Petukhina (2022), <em>Applied Time Series Analysis and Forecasting with Python</em>, Springer.</li>
+        <li>Ben Auffarth (2021), <em>Machine Learning for Time-Series with Python</em>, Packt Publishing.</li>
+        <li>Francesca Lazzeri (2020), <em>Machine Learning for Time Series Forecasting with Python</em>, Wiley.</li>
+        <li>Online notes: <a href="https://online.stat.psu.edu/stat510/" target="_blank" rel="noopener">https://online.stat.psu.edu/stat510/</a></li>
+      </ul>
+      <div class="book-grid">
+        <img src="img/book[1].png" alt="Introduction to Modern Time Series Analysis cover" />
+        <img src="img/book[2].png" alt="Python for Data Analysis cover" />
+        <img src="img/book[3].png" alt="Python for Finance Cookbook cover" />
+        <img src="img/book[6].png" alt="Machine Learning for Time-Series with Python cover" />
+        <img src="img/book[7].png" alt="Machine Learning for Time Series Forecasting with Python cover" />
+      </div>
+    </section>
+
+    <section id="objectives" class="card">
+      <h2>5. Course Objectives</h2>
+      <ul class="columns">
+        <li><strong>G1.</strong> Understand fundamental time series concepts and applications in finance, economics, healthcare.</li>
+        <li><strong>G2.</strong> Collect, preprocess, and manipulate time series data in Python using appropriate libraries.</li>
+        <li><strong>G3.</strong> Conduct exploratory time series analysis, including visualization, decomposition, and stationarity assessment.</li>
+        <li><strong>G4.</strong> Model and forecast time series data using core statistical methods such as ARIMA and SARIMA.</li>
+        <li><strong>G5.</strong> Apply and compare traditional time series models with basic machine learning and deep learning methods.</li>
+        <li><strong>G6.</strong> Develop teamwork, self-study, and shared responsibility through project-based learning.</li>
+      </ul>
+    </section>
+
+    <section id="clos" class="card">
+      <h2>6. Course Learning Outcomes</h2>
+      <ul>
+        <li><strong>CLO 1.1 (G1):</strong> Explain key time series concepts and real-world relevance.</li>
+        <li><strong>CLO 1.2 (G2):</strong> Use Python (Pandas, NumPy, Matplotlib, Statsmodels) to load, preprocess, and visualize time series.</li>
+        <li><strong>CLO 2.1 (G3):</strong> Perform exploratory analysis using ACF/PACF, decomposition, and smoothing.</li>
+        <li><strong>CLO 3.1 (G3, G4):</strong> Explain stationarity and apply differencing and ADF tests.</li>
+        <li><strong>CLO 3.2 (G4):</strong> Build and interpret AR, MA, and ARMA models in Python.</li>
+        <li><strong>CLO 4.1 (G4):</strong> Build, evaluate, and diagnose ARIMA and SARIMA models using Box–Jenkins.</li>
+        <li><strong>CLO 4.2 (G5):</strong> Transform time series into supervised format and implement ML models (e.g., tree-based).</li>
+        <li><strong>CLO 4.3 (G5):</strong> Describe and implement simple DL models (RNN/LSTM/CNN) for time series.</li>
+        <li><strong>CLO 5.1 (G5):</strong> Design and implement a complete forecasting pipeline on a real dataset, combining classical and ML/DL approaches.</li>
+        <li><strong>CLO 5.2 (G5):</strong> Analyze and interpret results, compare methods, and provide insights.</li>
+        <li><strong>CLO 6.1 (G6):</strong> Demonstrate self-study and independent work via homework and project contributions.</li>
+        <li><strong>CLO 6.2 (G6):</strong> Collaborate effectively in teams and report progress clearly.</li>
+      </ul>
+    </section>
+
+    <section id="assessment" class="card">
+      <h2>7. Course Assessment</h2>
+      <div class="table-scroll">
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Content</th>
+              <th>Week</th>
+              <th>CLOs</th>
+              <th>Tools / Criteria</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Homework</td>
+              <td>Theory &amp; programming (individual)</td>
+              <td>Selected weeks</td>
+              <td>1.2, 2.1, 3.1, 3.2, 4.1, 4.2, 4.3, 6.1</td>
+              <td>LMS submission; correctness; application to time series; time management</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td>Midterm Project Baseline</td>
+              <td>Group baseline report (PDF) + presentation</td>
+              <td>Week 10</td>
+              <td>1.2–4.1, 5.1, 5.2, 6.1, 6.2</td>
+              <td>EDA, ARIMA/SARIMA baseline, forecasts &amp; plots; clarity and structure</td>
+              <td>30%</td>
+            </tr>
+            <tr>
+              <td>Final Project</td>
+              <td>Full group project report + final presentation</td>
+              <td>Week 15</td>
+              <td>1.1–5.2, 6.1, 6.2</td>
+              <td>Integration of classical + ML/DL models; depth; comparison; clarity; teamwork</td>
+              <td>50%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Lab weeks are used for group progress presentations; midterm baseline replaces a written exam.</p>
+    </section>
+
+    <section id="schedule" class="card">
+      <h2>8. Teaching Plan (15 Weeks)</h2>
+      <div class="table-scroll">
+        <table class="info-table schedule-table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Format</th>
+              <th>Content Highlights</th>
+              <th>Activities / Assessment</th>
+              <th>CLOs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Lecture</td>
+              <td>Intro, project requirements, Python ecosystem, environment setup, Kaggle overview</td>
+              <td>Lecture, demo, Q&amp;A</td>
+              <td>1.1, 1.2, 6.1, 6.2</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Lecture</td>
+              <td>NumPy review; Pandas for time series; resampling, rolling stats; SMA/EMA/RSI/MACD</td>
+              <td>Lecture + code walkthrough; Homework 1</td>
+              <td>1.2, 2.1, 6.1</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Lab</td>
+              <td>Project kick-off; dataset intro; first plots</td>
+              <td>Short group presentations; progress check</td>
+              <td>1.2, 5.1, 6.1, 6.2</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Lecture</td>
+              <td>Time series components; ACF/PACF; decomposition; smoothing</td>
+              <td>Lecture + code examples; Homework 2</td>
+              <td>2.1, 3.1, 6.1</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Lab</td>
+              <td>EDA on project data; trends/seasonality; issues</td>
+              <td>Group presentations; feedback</td>
+              <td>2.1, 3.1, 5.1, 5.2, 6.1, 6.2</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Lecture</td>
+              <td>Stationarity; unit root tests; differencing; AR/MA/ARMA models</td>
+              <td>Lecture + examples; Homework 3</td>
+              <td>3.1, 3.2, 4.1, 6.1</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Lab</td>
+              <td>Stationarity checks; AR/MA/ARMA on project data</td>
+              <td>Group presentations; feedback</td>
+              <td>3.1, 3.2, 4.1, 5.1, 6.1, 6.2</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>Lecture</td>
+              <td>ARIMA, Box–Jenkins process, model selection, forecasting</td>
+              <td>Lecture + code-along; Homework 4</td>
+              <td>3.1, 4.1, 5.1, 6.1</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Lab</td>
+              <td>ARIMA on project data; model selection; diagnostics; midterm briefing</td>
+              <td>Group presentations; midterm prep guidance</td>
+              <td>3.1, 4.1, 5.1, 5.2, 6.1, 6.2</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Lecture/Presentations</td>
+              <td>Midterm Project Baseline submissions and presentations</td>
+              <td>5–7 min group presentations; feedback</td>
+              <td>1.2–4.1, 5.1, 5.2, 6.1, 6.2</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Lecture</td>
+              <td>Seasonality, SARIMA structure, seasonal differencing, SARIMAX</td>
+              <td>Lecture + demos; Homework 5</td>
+              <td>3.1, 4.1, 5.1, 6.1</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Lab</td>
+              <td>SARIMA refinements; finalize classical models; plan ML/DL phase</td>
+              <td>Group presentations; design discussion</td>
+              <td>3.1, 4.1, 5.1, 5.2, 6.1, 6.2</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>Lecture</td>
+              <td>Time series as supervised learning; features; tree-based models; validation</td>
+              <td>Lecture + examples; Homework 6</td>
+              <td>4.2, 5.1, 5.2, 6.1</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>Lecture</td>
+              <td>Deep learning basics for time series: RNN/LSTM/GRU/CNN; workflows; simple example</td>
+              <td>Lecture + walkthrough; optional DL mini-extension</td>
+              <td>4.3, 5.1, 5.2, 6.1</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>Lab/Presentations</td>
+              <td>Final project presentations; model comparison; insights</td>
+              <td>10–15 min group presentations; submit report, code, slides</td>
+              <td>1.1–5.2, 6.1, 6.2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="regulations" class="card">
+      <h2>9. Class Regulations</h2>
+      <ul>
+        <li>Attendance: at least 80% of classes.</li>
+        <li>Active participation in lectures and labs is expected.</li>
+        <li>Participation in the group project is mandatory.</li>
+        <li>In class: avoid phones/eating; use laptops/tablets for course activities only.</li>
+        <li>Academic integrity is strictly enforced; plagiarism/cheating follow university rules.</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="card contact">
+      <h2>Contact</h2>
+      <p>Questions about the course or projects? Reach out anytime.</p>
+      <p>Email: <a href="mailto:nghiant@neu.edu.vn">nghiant@neu.edu.vn</a></p>
+      <p>Website: <a href="http://nghianguyen7171.github.io/" target="_blank" rel="noopener">http://nghianguyen7171.github.io/</a></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="#top">Back to top</a>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav ul');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+  </script>
+</body>
+</html>
+
