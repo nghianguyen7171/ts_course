@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 9: Airline Passenger Time Series - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 9</p>
+        <h1>Airline Passenger Time Series</h1>
+        <div class="topic-badges">
+          <span class="badge easy">Easy</span>
+          
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/9.Airline_Passengers/9.Airline.jpeg" alt="Airline Passenger Time Series" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 9 – Airline Passenger Time Series (Statsmodels built-in)</h1>
+<strong>Level:</strong> Easy
+<strong>Goal:</strong> Classic monthly airline passenger series (trend + seasonality) using a library dataset.
+<h2>Dataset & Library</h2>
+<ul>
+<li><strong>Dataset:</strong> AirPassengers dataset via <code>statsmodels.datasets.get_rdataset</code></li>
+<li><strong>Library:</strong> statsmodels</li>
+</ul>
+<h2>Installation</h2>
+<pre><code class="language-bash">pip install statsmodels</code></pre>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+from statsmodels.datasets import get_rdataset
+data = get_rdataset("AirPassengers", "datasets").data
+<h1>Original data typically has a 'time' or 'Month' column and 'value' column</h1>
+print(data.head())
+<h1>If there is only an index and a passenger column:</h1>
+<h1>Example conversion (adapt depending on structure)</h1>
+data["Month"] = pd.date_range(start="1949-01-01", periods=len(data), freq="M")
+data = data.set_index("Month").sort_index()
+data.rename(columns={data.columns[0]: "Passengers"}, inplace=True)
+print(data.head())</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Loading and Exploration</h3>
+<ul>
+<li>Load AirPassengers dataset using statsmodels</li>
+<li>Inspect data structure and format</li>
+<li>Convert to proper time series format (datetime index)</li>
+<li>Examine basic statistics and data range</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot the time series (should show clear trend and seasonality)</li>
+<li>Identify trend (increasing over time)</li>
+<li>Identify seasonality (yearly pattern, peak in summer)</li>
+<li>Perform time series decomposition (additive or multiplicative)</li>
+<li>Calculate and visualize ACF/PACF plots</li>
+</ul>
+<h3>3. Stationarity Analysis</h3>
+<ul>
+<li>Test for stationarity (ADF test) - will be non-stationary</li>
+<li>Apply first differencing</li>
+<li>Apply seasonal differencing if needed</li>
+<li>Test transformed series for stationarity</li>
+</ul>
+<h3>4. Model Building</h3>
+<ul>
+<li><strong>ARIMA Models:</strong></li>
+<li>Use ACF/PACF to identify (p, d, q)</li>
+<li>Try multiple ARIMA configurations</li>
+<li><strong>SARIMA Models (recommended):</strong></li>
+<li>Identify seasonal pattern (12 months)</li>
+<li>Fit SARIMA models: SARIMA(p, d, q)(P, D, Q)12</li>
+<li>Try different seasonal configurations</li>
+<li><strong>Exponential Smoothing:</strong></li>
+<li>Holt-Winters method (additive or multiplicative)</li>
+<li>Compare with ARIMA/SARIMA</li>
+</ul>
+<h3>5. Model Selection</h3>
+<ul>
+<li>Compare models using AIC/BIC</li>
+<li>Use cross-validation or hold-out validation</li>
+<li>Select best model based on validation performance</li>
+<li>Check residual diagnostics</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Split data (e.g., last 2 years as test set)</li>
+<li>Generate forecasts</li>
+<li>Calculate accuracy metrics (MAE, RMSE, MAPE)</li>
+<li>Visualize forecasts with actual values</li>
+<li>Analyze forecast errors</li>
+</ul>
+<h3>7. Forecasting</h3>
+<ul>
+<li>Generate future forecasts (e.g., next 12-24 months)</li>
+<li>Include prediction intervals</li>
+<li>Visualize with historical data</li>
+<li>Interpret results</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>Time series plot showing trend and seasonality</li>
+<li>Decomposition plots (trend, seasonal, residual)</li>
+<li>ACF/PACF plots</li>
+<li>Stationarity test results</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Best model with parameters (e.g., SARIMA(1,1,1)(1,1,1)12)</li>
+<li>Model diagnostics (residual plots, ACF of residuals)</li>
+<li>Forecast accuracy metrics</li>
+<li>Forecast plots with confidence intervals</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for model fitting and evaluation</li>
+<li>Visualization utilities</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>This is a classic dataset perfect for learning ARIMA/SARIMA</li>
+<li>Strong seasonality (yearly pattern) - SARIMA is highly recommended</li>
+<li>Multiplicative seasonality is common (variance increases with level)</li>
+<li>Use seasonal differencing for SARIMA models</li>
+<li>Compare additive vs multiplicative models</li>
+<li>This dataset is well-studied - results should align with literature</li>
+<li>Good for demonstrating Box-Jenkins methodology</li>
+<li>Perfect for understanding trend + seasonality decomposition</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/9.Airline_Passengers/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

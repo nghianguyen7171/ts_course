@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 6: Multivariate Financial Time Series Bundle - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 6</p>
+        <h1>Multivariate Financial Time Series Bundle</h1>
+        <div class="topic-badges">
+          <span class="badge hard">Hard</span>
+          <span class="bonus-badge ">+1.5 Bonus Points</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/6.Multivariate_Financial/6.Multi_finacial.jpeg" alt="Multivariate Financial Time Series Bundle" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 6 – Multivariate Financial Time Series Bundle</h1>
+<strong>Level:</strong> Medium → Hard
+<strong>Goal:</strong> Model several assets jointly (correlations, VAR, multivariate forecasting).
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> Financial Time Series Datasets – Kaggle</li>
+<li><strong>Link:</strong> https://www.kaggle.com/datasets/praxitelisk/financial-time-series-datasets</li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset page above.</li>
+<li>Click "Download".</li>
+<li>Extract to <code>data/financial/</code>.</li>
+<li>Choose some CSVs (indices, FX, commodities).</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+import os
+print(os.listdir("data/financial"))
+sp500 = pd.read_csv("data/financial/sp500.csv")  # adjust
+oil   = pd.read_csv("data/financial/oil.csv")    # adjust
+for df_ in (sp500, oil):
+df_["Date"] = pd.to_datetime(df_["Date"])
+df_.set_index("Date", inplace=True)
+df_.sort_index(inplace=True)
+merged = sp500[["Close"]].rename(columns={"Close": "SP500"}).join(
+oil[["Close"]].rename(columns={"Close": "OIL"}), how="inner"
+)</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load multiple financial time series (e.g., stock indices, commodities, FX)</li>
+<li>Select 3-5 series for multivariate analysis</li>
+<li>Align time indices (handle different frequencies)</li>
+<li>Inspect data quality and missing values</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot each series individually</li>
+<li>Calculate pairwise correlations</li>
+<li>Visualize correlation matrix (heatmap)</li>
+<li>Analyze co-movements and relationships</li>
+<li>Perform time series decomposition for each series</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li>Align series to common time index</li>
+<li>Handle missing values (forward fill, interpolation)</li>
+<li>Calculate returns for each asset</li>
+<li>Test each series for stationarity</li>
+<li>Apply transformations (differencing, log) as needed</li>
+</ul>
+<h3>4. Correlation Analysis</h3>
+<ul>
+<li>Calculate correlation matrix of returns</li>
+<li>Analyze time-varying correlations (rolling correlations)</li>
+<li>Identify periods of high/low correlation</li>
+<li>Visualize correlation dynamics over time</li>
+</ul>
+<h3>5. Model Building</h3>
+<ul>
+<li><strong>Univariate Models (baseline):</strong></li>
+<li>ARIMA for each series individually</li>
+<li><strong>Multivariate Models:</strong></li>
+<li><strong>VAR (Vector Autoregression):</strong></li>
+<li>Select optimal lag order (AIC/BIC)</li>
+<li>Estimate VAR model</li>
+<li>Granger causality tests</li>
+<li><strong>VECM (Vector Error Correction Model):</strong></li>
+<li>Test for cointegration (Johansen test)</li>
+<li>If cointegrated, estimate VECM</li>
+<li><strong>Dynamic Correlation Models (advanced):</strong></li>
+<li>DCC-GARCH for time-varying correlations</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Split data temporally</li>
+<li>Generate multivariate forecasts</li>
+<li>Calculate forecast accuracy for each series</li>
+<li>Compare univariate vs multivariate approaches</li>
+<li>Visualize joint forecasts</li>
+</ul>
+<h3>7. Portfolio Analysis (Optional)</h3>
+<ul>
+<li>Construct portfolio weights</li>
+<li>Analyze portfolio returns and volatility</li>
+<li>Compare with individual asset performance</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>Individual series plots</li>
+<li>Correlation analysis and heatmaps</li>
+<li>Time-varying correlation plots</li>
+<li>Stationarity test results</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>VAR model parameters</li>
+<li>Cointegration test results (if applicable)</li>
+<li>Forecast accuracy comparison</li>
+<li>Multivariate forecast plots</li>
+<li>Granger causality results</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for multivariate analysis</li>
+<li>Visualization utilities</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>Select related assets (e.g., stock indices, commodities) for meaningful relationships</li>
+<li>Align data frequencies (daily, weekly) before merging</li>
+<li>Returns are typically more stationary than prices</li>
+<li>VAR models require stationary series</li>
+<li>Test for cointegration if analyzing prices directly</li>
+<li>Use appropriate lag selection criteria (AIC, BIC, HQIC)</li>
+<li>Multivariate models can capture spillover effects between assets</li>
+<li>Consider economic/financial relationships when interpreting results</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/6.Multivariate_Financial/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

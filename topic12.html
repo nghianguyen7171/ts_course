@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 12: Open Multidomain Time Series - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 12</p>
+        <h1>Open Multidomain Time Series</h1>
+        <div class="topic-badges">
+          <span class="badge hard">Hard</span>
+          <span class="bonus-badge ">+1.5 Bonus Points</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/12.Open_Time_Series/12.Open_ts.jpeg" alt="Open Multidomain Time Series" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 12 – Open Multidomain Time Series (Custom Advanced Topic)</h1>
+<strong>Level:</strong> Hard
+<strong>Goal:</strong> Choose a series from a curated collection and design a custom forecasting/classification problem.
+<h2>Collection</h2>
+<ul>
+<li><strong>Source:</strong> Open Time Series Datasets – GitHub</li>
+<li><strong>Link:</strong> https://github.com/liaoyuhua/open-time-series-datasets</li>
+</ul>
+<h2>Download & Load Instructions</h2>
+<ol>
+<li>Open the GitHub link above.</li>
+<li>Find a dataset (e.g., airline passengers, air pollution, traffic).</li>
+<li>Click file → "Download" or "Raw" and save as CSV to <code>data/open_ts/</code>.</li>
+</ol>
+<h2>Data Loading (Example)</h2>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_csv("data/open_ts/example.csv")  # adjust
+df["Date"] = pd.to_datetime(df["Date"])       # adapt column name
+df = df.set_index("Date").sort_index()</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Dataset Selection</h3>
+<ul>
+<li>Browse the open time series collection</li>
+<li>Select a dataset that interests you</li>
+<li>Consider:</li>
+<li>Data availability and quality</li>
+<li>Problem complexity</li>
+<li>Domain knowledge</li>
+<li>Research questions</li>
+</ul>
+<h3>2. Problem Formulation</h3>
+<ul>
+<li>Define clear objectives:</li>
+<li>Forecasting (univariate or multivariate)</li>
+<li>Classification</li>
+<li>Anomaly detection</li>
+<li>Pattern recognition</li>
+<li>Formulate research questions</li>
+<li>Define success metrics</li>
+</ul>
+<h3>3. Data Exploration</h3>
+<ul>
+<li>Load and inspect selected dataset</li>
+<li>Understand data structure and variables</li>
+<li>Examine data quality (missing values, outliers)</li>
+<li>Analyze data frequency and time range</li>
+<li>Explore domain-specific characteristics</li>
+</ul>
+<h3>4. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot time series</li>
+<li>Identify trends, seasonality, cycles</li>
+<li>Perform time series decomposition</li>
+<li>Calculate and visualize ACF/PACF</li>
+<li>Analyze relationships between variables (if multivariate)</li>
+<li>Apply domain knowledge</li>
+</ul>
+<h3>5. Data Preprocessing</h3>
+<ul>
+<li>Handle missing values appropriately</li>
+<li>Detect and handle outliers</li>
+<li>Apply transformations (log, differencing) if needed</li>
+<li>Test for stationarity</li>
+<li>Prepare data for modeling</li>
+</ul>
+<h3>6. Model Building</h3>
+<ul>
+<li><strong>Classical Methods:</strong></li>
+<li>ARIMA/SARIMA models</li>
+<li>Exponential smoothing</li>
+<li><strong>Machine Learning:</strong></li>
+<li>Feature engineering (lags, rolling stats, calendar features)</li>
+<li>Tree-based models (Random Forest, XGBoost)</li>
+<li>Linear models with features</li>
+<li><strong>Deep Learning (optional):</strong></li>
+<li>LSTM/GRU networks</li>
+<li>CNN for time series</li>
+<li><strong>Hybrid Approaches:</strong></li>
+<li>Combine multiple methods</li>
+<li>Ensemble forecasts</li>
+</ul>
+<h3>7. Model Evaluation</h3>
+<ul>
+<li>Design appropriate train/validation/test splits</li>
+<li>Use time series cross-validation</li>
+<li>Calculate relevant metrics</li>
+<li>Compare multiple approaches</li>
+<li>Analyze model performance</li>
+</ul>
+<h3>8. Advanced Analysis (Customize Based on Problem)</h3>
+<ul>
+<li><strong>If Forecasting:</strong></li>
+<li>Generate future forecasts</li>
+<li>Analyze forecast uncertainty</li>
+<li>Compare forecast horizons</li>
+<li><strong>If Classification:</strong></li>
+<li>Build classification models</li>
+<li>Evaluate classification performance</li>
+<li>Analyze feature importance</li>
+<li><strong>If Anomaly Detection:</strong></li>
+<li>Detect anomalies</li>
+<li>Analyze anomaly patterns</li>
+<li>Validate detections</li>
+</ul>
+<h3>9. Interpretation and Discussion</h3>
+<ul>
+<li>Interpret results in domain context</li>
+<li>Discuss implications</li>
+<li>Identify limitations</li>
+<li>Suggest future work</li>
+<li>Compare with existing literature</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>Problem Definition:</strong></li>
+</ol>
+<ul>
+<li>Clear problem statement</li>
+<li>Research questions</li>
+<li>Success criteria</li>
+</ul>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>Comprehensive data exploration</li>
+<li>Visualizations</li>
+<li>Domain-specific insights</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Multiple model approaches</li>
+<li>Performance comparison</li>
+<li>Best model selection</li>
+<li>Detailed results</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete, well-documented notebook</li>
+<li>Reusable functions</li>
+<li>Clear structure</li>
+</ul>
+<ol>
+<li><strong>Discussion:</strong></li>
+</ol>
+<ul>
+<li>Interpretation of results</li>
+<li>Domain insights</li>
+<li>Limitations and future work</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>Choose a dataset that matches your interests and skill level</li>
+<li>Start with a clear problem definition</li>
+<li>Apply domain knowledge throughout</li>
+<li>Try multiple approaches and compare</li>
+<li>Document all decisions and rationale</li>
+<li>Consider both classical and ML methods</li>
+<li>Use appropriate evaluation metrics for your problem</li>
+<li>Interpret results in domain context</li>
+<li>This is an opportunity to be creative and explore</li>
+<li>Consider real-world applications and implications</li>
+<li>Consult domain literature for context</li>
+<li>Think about what makes your analysis unique or valuable</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/12.Open_Time_Series/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

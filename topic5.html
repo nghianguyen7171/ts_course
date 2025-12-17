@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 5: Single-Stock Case Study: NVIDIA (NVDA) - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 5</p>
+        <h1>Single-Stock Case Study: NVIDIA (NVDA)</h1>
+        <div class="topic-badges">
+          <span class="badge medium">Medium</span>
+          <span class="bonus-badge medium-bonus">+1 Bonus Point</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/5.NVIDIA_Stock/5.NVIDIA.jpeg" alt="Single-Stock Case Study: NVIDIA (NVDA)" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 5 – Single-Stock Case Study: NVIDIA (NVDA)</h1>
+<strong>Level:</strong> Medium
+<strong>Goal:</strong> Univariate forecasting and volatility exploration for a single stock.
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> NVIDIA (NVDA) Historical Stock Price Data – Kaggle</li>
+<li><strong>Link:</strong> https://www.kaggle.com/datasets/elnazalikarami/nvidia-corporation-stock-historical-quotes</li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset link above.</li>
+<li>Click "Download".</li>
+<li>Extract to <code>data/</code>.</li>
+<li>Use the main CSV (e.g. <code>HistoricalData_....csv</code>).</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_csv("data/NVDA_HistoricalData.csv")  # adjust filename
+df["Date"] = pd.to_datetime(df["Date"])
+df = df.set_index("Date").sort_index()</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load NVIDIA stock price data</li>
+<li>Inspect OHLC (Open, High, Low, Close) and Volume data</li>
+<li>Focus on Close price for forecasting</li>
+<li>Calculate returns (simple and log returns)</li>
+<li>Examine trading volume patterns</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot stock price over time</li>
+<li>Plot returns distribution</li>
+<li>Analyze volatility clustering</li>
+<li>Calculate and visualize rolling statistics (mean, std)</li>
+<li>Perform time series decomposition</li>
+<li>Analyze ACF/PACF of prices and returns</li>
+</ul>
+<h3>3. Volatility Analysis</h3>
+<ul>
+<li>Calculate realized volatility (rolling standard deviation of returns)</li>
+<li>Identify volatility regimes (high vs low volatility periods)</li>
+<li>Analyze volatility clustering (GARCH-like patterns)</li>
+<li>Plot volatility over time</li>
+</ul>
+<h3>4. Stationarity Analysis</h3>
+<ul>
+<li>Test stock prices for stationarity (typically non-stationary)</li>
+<li>Test returns for stationarity (typically stationary)</li>
+<li>Apply differencing to prices if needed</li>
+<li>Consider log transformation</li>
+</ul>
+<h3>5. Model Building</h3>
+<ul>
+<li><strong>Price Forecasting:</strong></li>
+<li>ARIMA models on prices or log prices</li>
+<li>Consider trend models</li>
+<li><strong>Returns Modeling (optional):</strong></li>
+<li>ARMA models on returns</li>
+<li>GARCH models for volatility (if time permits)</li>
+<li><strong>Model Selection:</strong></li>
+<li>Use AIC/BIC for comparison</li>
+<li>Validate on hold-out set</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Split data temporally (e.g., last 20% as test)</li>
+<li>Generate price forecasts</li>
+<li>Calculate accuracy metrics (MAE, RMSE, MAPE)</li>
+<li>Analyze forecast errors</li>
+<li>Visualize forecasts with confidence intervals</li>
+</ul>
+<h3>7. Volatility Forecasting (Advanced)</h3>
+<ul>
+<li>If implementing GARCH:</li>
+<li>Model volatility dynamics</li>
+<li>Forecast future volatility</li>
+<li>Compare with realized volatility</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>Stock price and returns plots</li>
+<li>Volatility analysis</li>
+<li>Decomposition plots</li>
+<li>ACF/PACF analysis</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Selected model with parameters</li>
+<li>Price forecast accuracy</li>
+<li>Volatility analysis (if applicable)</li>
+<li>Forecast plots</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for price/returns analysis</li>
+<li>Volatility calculation utilities</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>Stock prices are typically non-stationary; use returns or differencing</li>
+<li>NVIDIA is a tech stock with high volatility - expect large price swings</li>
+<li>Consider external events (earnings, product launches) that affect prices</li>
+<li>Volatility clustering is common in stock returns</li>
+<li>Use log returns for better statistical properties</li>
+<li>Consider multiple forecast horizons (1-day, 1-week, 1-month)</li>
+<li>Document any major events (splits, earnings) that affect the series</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/5.NVIDIA_Stock/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

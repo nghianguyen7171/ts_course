@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 8: High-Resolution Vital Signs with VitalDB - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 8</p>
+        <h1>High-Resolution Vital Signs with VitalDB</h1>
+        <div class="topic-badges">
+          <span class="badge hard">Hard</span>
+          <span class="bonus-badge ">+1.5 Bonus Points</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/8.VitalDB/8.VitalDB.jpeg" alt="High-Resolution Vital Signs with VitalDB" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 8 – High-Resolution Vital Signs with VitalDB (Python Library)</h1>
+<strong>Level:</strong> Medium → Hard
+<strong>Goal:</strong> Work with high-frequency ICU/OR vital signs via VitalDB library.
+<h2>Dataset & Library</h2>
+<ul>
+<li><strong>VitalDB:</strong> PhysioNet - https://physionet.org/content/vitaldb/</li>
+<li><strong>Python Library:</strong> <code>vitaldb</code> - https://vitaldb.net/docs/</li>
+</ul>
+<h2>Installation</h2>
+<pre><code class="language-bash">pip install vitaldb</code></pre>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import vitaldb
+import pandas as pd
+vf = vitaldb.VitalFile(1)  # example case 1
+tracks = ["SNUADC/ECG", "Solar 8000/ART1"]
+vals, t = vitaldb.vital_recs(vf, track_names=tracks, return_datetime=True)
+df = pd.DataFrame(vals, columns=["ECG", "ART"])
+df["Time"] = t
+df = df.set_index("Time")</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Library Setup and Data Access</h3>
+<ul>
+<li>Install vitaldb library</li>
+<li>Explore available cases and tracks</li>
+<li>Select appropriate case(s) for analysis</li>
+<li>Understand data structure and sampling rates</li>
+</ul>
+<h3>2. Data Exploration</h3>
+<ul>
+<li>Load high-frequency vital signs (ECG, arterial pressure, etc.)</li>
+<li>Inspect sampling rates (typically very high, e.g., 100+ Hz)</li>
+<li>Examine data quality and artifacts</li>
+<li>Identify available time ranges</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li><strong>Downsampling (if needed):</strong></li>
+<li>High-frequency data may need downsampling for time series analysis</li>
+<li>Use appropriate resampling method</li>
+<li><strong>Artifact Removal:</strong></li>
+<li>Identify and handle artifacts (noise, spikes)</li>
+<li>Apply filtering if needed (low-pass, band-pass)</li>
+<li><strong>Missing Data:</strong></li>
+<li>Handle gaps in recording</li>
+<li>Interpolate or segment appropriately</li>
+</ul>
+<h3>4. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot high-resolution signals</li>
+<li>Analyze signal characteristics (amplitude, frequency content)</li>
+<li>Calculate basic statistics</li>
+<li>Identify patterns and events</li>
+<li>Perform time series decomposition (may need adapted methods for high-frequency data)</li>
+</ul>
+<h3>5. Feature Extraction (Optional)</h3>
+<ul>
+<li>Extract relevant features (e.g., heart rate from ECG, systolic/diastolic from arterial pressure)</li>
+<li>Calculate derived metrics</li>
+<li>Create lower-frequency time series for modeling</li>
+</ul>
+<h3>6. Model Building</h3>
+<ul>
+<li><strong>High-Frequency Analysis:</strong></li>
+<li>Consider specialized methods for high-frequency data</li>
+<li>May need to work with derived features rather than raw signals</li>
+<li><strong>Lower-Frequency Models:</strong></li>
+<li>Extract features (e.g., mean HR per minute)</li>
+<li>Apply ARIMA/SARIMA to feature time series</li>
+<li><strong>Event Detection (advanced):</strong></li>
+<li>Detect specific events (arrhythmias, pressure changes)</li>
+<li>Model event occurrences</li>
+</ul>
+<h3>7. Model Evaluation</h3>
+<ul>
+<li>Split data temporally</li>
+<li>Generate forecasts</li>
+<li>Calculate accuracy metrics</li>
+<li>Visualize results</li>
+<li>Compare with clinical expectations</li>
+</ul>
+<h3>8. Clinical Interpretation</h3>
+<ul>
+<li>Interpret results in ICU/OR context</li>
+<li>Discuss implications for monitoring</li>
+<li>Identify clinically relevant patterns</li>
+<li>Compare with medical knowledge</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>High-resolution signal plots</li>
+<li>Feature extraction results</li>
+<li>Statistical summaries</li>
+<li>Pattern identification</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Selected models and parameters</li>
+<li>Forecast accuracy</li>
+<li>Visualization of results</li>
+<li>Clinical interpretation</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for data loading and preprocessing</li>
+<li>Feature extraction utilities</li>
+<li>Visualization tools</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>High-frequency data requires different approaches than standard time series</li>
+<li>Consider extracting features (e.g., heart rate) rather than modeling raw signals</li>
+<li>Downsampling may be necessary for standard time series methods</li>
+<li>Handle artifacts carefully - they may be clinically significant</li>
+<li>Use appropriate filtering for signal processing</li>
+<li>Consider event-based analysis in addition to continuous forecasting</li>
+<li>Document sampling rates and preprocessing steps clearly</li>
+<li>High-frequency data can be computationally intensive - optimize code</li>
+<li>Consult clinical literature for appropriate analysis methods</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/8.VitalDB/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

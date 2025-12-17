@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 13: Retail Store Sales Time Series - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 13</p>
+        <h1>Retail Store Sales Time Series</h1>
+        <div class="topic-badges">
+          <span class="badge hard">Medium → Hard</span>
+          <span class="bonus-badge medium-bonus">+1 Bonus Point</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/13.Store_Sales/13.Store_sales.jpeg" alt="Retail Store Sales Time Series" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 13 – Retail Store Sales Time Series (Kaggle Competition Data)</h1>
+<strong>Level:</strong> Medium → Hard
+<strong>Goal:</strong> Daily sales forecasting for multiple stores/items (panel + time series).
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> Store Sales – Time Series Forecasting (Favorita) – Kaggle</li>
+<li><strong>Link:</strong> https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data</li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the competition link above.</li>
+<li>Go to "Data" tab.</li>
+<li>Accept competition rules (if needed).</li>
+<li>Download <code>train.csv</code> and save to <code>data/store_sales/</code>.</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_csv("data/store_sales/train.csv")
+df["date"] = pd.to_datetime(df["date"])
+df = df.set_index("date").sort_index()
+print(df.head())
+<h1>Columns usually include: date, store_nbr, family, sales, onpromotion, oil_price, etc.</code></pre></h1>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load training data</li>
+<li>Understand data structure:</li>
+<li>Multiple stores</li>
+<li>Multiple product families</li>
+<li>Time series panel data</li>
+<li>Inspect available features (promotions, oil prices, holidays, etc.)</li>
+<li>Examine data quality and missing values</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Aggregate sales by store, family, and time</li>
+<li>Plot overall sales trends</li>
+<li>Analyze seasonality patterns (daily, weekly, monthly, yearly)</li>
+<li>Identify holiday effects</li>
+<li>Analyze promotion effects</li>
+<li>Examine relationships between features</li>
+<li>Calculate sales statistics by store/family</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li>Handle missing values</li>
+<li>Create time-based features (day of week, month, year, holidays)</li>
+<li>Encode categorical variables (store, family)</li>
+<li>Handle promotions and external variables</li>
+<li>Prepare panel data structure</li>
+</ul>
+<h3>4. Feature Engineering</h3>
+<ul>
+<li><strong>Time Features:</strong></li>
+<li>Day of week, month, year</li>
+<li>Holiday indicators</li>
+<li>Lag features (previous day, week, month sales)</li>
+<li><strong>Rolling Statistics:</strong></li>
+<li>Rolling mean, std (7-day, 30-day windows)</li>
+<li>Rolling max, min</li>
+<li><strong>External Features:</strong></li>
+<li>Oil prices</li>
+<li>Promotion indicators</li>
+<li>Store/family characteristics</li>
+</ul>
+<h3>5. Model Building</h3>
+<ul>
+<li><strong>Univariate Approaches (per store-family):</strong></li>
+<li>ARIMA/SARIMA for individual series</li>
+<li>Exponential smoothing</li>
+<li><strong>Panel Data Approaches:</strong></li>
+<li>Hierarchical models</li>
+<li>Store/family-specific models</li>
+<li><strong>Machine Learning:</strong></li>
+<li>Feature-based models (Random Forest, XGBoost, LightGBM)</li>
+<li>Handle panel structure appropriately</li>
+<li><strong>Hybrid Approaches:</strong></li>
+<li>Combine classical and ML methods</li>
+<li>Ensemble forecasts</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Use time series cross-validation (walk-forward)</li>
+<li>Split data temporally (respect time ordering)</li>
+<li>Calculate metrics (MAE, RMSE, MAPE)</li>
+<li>Evaluate at different aggregation levels (store, family, overall)</li>
+<li>Compare multiple approaches</li>
+</ul>
+<h3>7. Forecasting</h3>
+<ul>
+<li>Generate forecasts for test period</li>
+<li>Aggregate forecasts appropriately</li>
+<li>Handle multiple stores/families</li>
+<li>Include uncertainty estimates</li>
+<li>Visualize forecasts</li>
+</ul>
+<h3>8. Advanced Analysis (Optional)</h3>
+<ul>
+<li>Analyze store/family-specific patterns</li>
+<li>Identify important features</li>
+<li>Analyze promotion effectiveness</li>
+<li>Compare store performance</li>
+<li>Seasonal pattern analysis</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>Sales trends and patterns</li>
+<li>Seasonality analysis</li>
+<li>Feature analysis</li>
+<li>Store/family comparisons</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Selected model(s) with parameters</li>
+<li>Performance metrics (by store/family and overall)</li>
+<li>Feature importance (if using ML)</li>
+<li>Forecast plots</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for data processing</li>
+<li>Feature engineering utilities</li>
+<li>Modeling pipeline</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>This is panel data - handle multiple stores/families appropriately</li>
+<li>Strong seasonality expected (weekly, monthly, yearly patterns)</li>
+<li>Holidays and promotions have significant effects</li>
+<li>Use appropriate aggregation levels for analysis</li>
+<li>Feature engineering is crucial for good performance</li>
+<li>Consider hierarchical models (store → family → item)</li>
+<li>Use time series cross-validation (don't shuffle time series data)</li>
+<li>Handle missing values carefully (forward fill, interpolation)</li>
+<li>External features (oil prices, promotions) can improve forecasts</li>
+<li>Consider store/family-specific models vs global models</li>
+<li>This is competition data - aim for good performance</li>
+<li>Document all feature engineering decisions</li>
+<li>Compare simple models (ARIMA) with complex models (XGBoost)</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/13.Store_Sales/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

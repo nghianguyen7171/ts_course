@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 11: ECG Analysis with MIT-BIH - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 11</p>
+        <h1>ECG Analysis with MIT-BIH</h1>
+        <div class="topic-badges">
+          <span class="badge hard">Hard</span>
+          <span class="bonus-badge ">+1.5 Bonus Points</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/11.ECG_MIT_BIH/11.ECG.jpeg" alt="ECG Analysis with MIT-BIH" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 11 – ECG Analysis with MIT-BIH (WFDB)</h1>
+<strong>Level:</strong> Hard
+<strong>Goal:</strong> Work with ECG waveforms (e.g., MIT-BIH Arrhythmia).
+<h2>Library & Data</h2>
+<ul>
+<li><strong>WFDB Python:</strong> https://wfdb.io/software/python.html</li>
+<li><strong>MIT-BIH Database:</strong> Available via WFDB</li>
+</ul>
+<h2>Installation</h2>
+<pre><code class="language-bash">pip install wfdb</code></pre>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import wfdb
+import pandas as pd
+import numpy as np
+record = wfdb.rdrecord("100", pn_dir="mitdb")
+signal = record.p_signal[:, 0]  # first channel
+fs = record.fs
+times = pd.to_timedelta(np.arange(len(signal)) / fs, unit="s")
+ecg_series = pd.Series(signal, index=times)</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Library Setup and Data Access</h3>
+<ul>
+<li>Install WFDB library</li>
+<li>Access MIT-BIH Arrhythmia database</li>
+<li>Explore available records</li>
+<li>Select record(s) for analysis</li>
+<li>Understand WFDB data structure</li>
+</ul>
+<h3>2. Data Exploration</h3>
+<ul>
+<li>Load ECG signals from selected records</li>
+<li>Inspect sampling rate (typically 360 Hz for MIT-BIH)</li>
+<li>Plot raw ECG waveforms</li>
+<li>Identify QRS complexes and other features</li>
+<li>Examine signal quality</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li><strong>Filtering:</strong></li>
+<li>Apply band-pass filter (e.g., 0.5-40 Hz)</li>
+<li>Remove baseline wander</li>
+<li>Remove power line interference (50/60 Hz)</li>
+<li><strong>Artifact Removal:</strong></li>
+<li>Identify and handle artifacts</li>
+<li>Use appropriate filtering techniques</li>
+<li><strong>Normalization:</strong></li>
+<li>Normalize amplitude if needed</li>
+</ul>
+<h3>4. Feature Extraction</h3>
+<ul>
+<li><strong>QRS Detection:</strong></li>
+<li>Detect R-peaks (heartbeats)</li>
+<li>Calculate heart rate (HR) time series</li>
+<li>Extract RR intervals</li>
+<li><strong>Waveform Features:</strong></li>
+<li>Extract P, Q, R, S, T wave features</li>
+<li>Calculate morphological features</li>
+<li><strong>Create Time Series:</strong></li>
+<li>Heart rate over time</li>
+<li>RR interval series</li>
+<li>Other derived features</li>
+</ul>
+<h3>5. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot ECG waveforms</li>
+<li>Visualize heart rate over time</li>
+<li>Analyze RR interval distributions</li>
+<li>Identify arrhythmias or abnormal patterns</li>
+<li>Perform time series decomposition of HR</li>
+</ul>
+<h3>6. Stationarity Analysis</h3>
+<ul>
+<li>Test extracted features (e.g., HR) for stationarity</li>
+<li>Apply transformations if needed</li>
+<li>Consider segmenting by rhythm type</li>
+</ul>
+<h3>7. Model Building</h3>
+<ul>
+<li><strong>Heart Rate Time Series:</strong></li>
+<li>Apply ARIMA/SARIMA to HR series</li>
+<li>Model RR intervals</li>
+<li><strong>Event Detection (advanced):</strong></li>
+<li>Detect arrhythmias</li>
+<li>Model event occurrences</li>
+<li><strong>Morphological Analysis (advanced):</strong></li>
+<li>Analyze waveform changes over time</li>
+</ul>
+<h3>8. Model Evaluation</h3>
+<ul>
+<li>Split data temporally</li>
+<li>Generate forecasts (e.g., future HR)</li>
+<li>Calculate accuracy metrics</li>
+<li>Visualize results</li>
+<li>Compare with clinical expectations</li>
+</ul>
+<h3>9. Clinical Interpretation</h3>
+<ul>
+<li>Interpret results in cardiology context</li>
+<li>Identify normal vs abnormal patterns</li>
+<li>Discuss implications for monitoring</li>
+<li>Compare with ECG literature</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>ECG waveform plots</li>
+<li>Heart rate analysis</li>
+<li>RR interval analysis</li>
+<li>Pattern identification</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Selected models for HR/features</li>
+<li>Forecast accuracy</li>
+<li>Visualization of results</li>
+<li>Clinical interpretation</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>WFDB data loading functions</li>
+<li>QRS detection and feature extraction</li>
+<li>Visualization utilities</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>ECG data requires specialized preprocessing and analysis</li>
+<li>QRS detection is crucial for extracting meaningful features</li>
+<li>Heart rate time series is more suitable for standard time series methods than raw ECG</li>
+<li>Use appropriate filtering (band-pass, notch) for clean signals</li>
+<li>Understand ECG morphology (P, Q, R, S, T waves) for proper analysis</li>
+<li>Consider different rhythm types (normal sinus, arrhythmias) in analysis</li>
+<li>RR intervals can be modeled as time series</li>
+<li>Document all preprocessing steps clearly</li>
+<li>Use WFDB's built-in functions for reading and processing</li>
+<li>Consult cardiology literature for appropriate analysis methods</li>
+<li>Consider event-based analysis (arrhythmia detection) in addition to continuous forecasting</li>
+<li>High-frequency raw ECG may need downsampling or feature extraction for standard methods</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/11.ECG_MIT_BIH/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

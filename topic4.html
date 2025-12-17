@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 4: US Macroeconomic Indicators - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 4</p>
+        <h1>US Macroeconomic Indicators</h1>
+        <div class="topic-badges">
+          <span class="badge medium">Medium</span>
+          <span class="bonus-badge medium-bonus">+1 Bonus Point</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/4.US_Macro/4.US_macro.jpeg" alt="US Macroeconomic Indicators" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 4 – US Macroeconomic Indicators (Kaggle)</h1>
+<strong>Level:</strong> Medium
+<strong>Goal:</strong> Model and forecast key US macro indicators (unemployment, inflation, etc.).
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> U.S. Economic Time Series – Kaggle</li>
+<li><strong>Link:</strong> https://www.kaggle.com/datasets/utkarshx27/us-economic-time-series</li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset link above.</li>
+<li>Click "Download".</li>
+<li>Extract to <code>data/</code>.</li>
+<li>Use the main CSV, e.g. <code>USEconomicData.csv</code>.</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_csv("data/USEconomicData.csv")  # adjust filename
+df["DATE"] = pd.to_datetime(df["DATE"])
+df = df.set_index("DATE").sort_index()</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load dataset and explore available indicators</li>
+<li>Select key indicators to analyze (e.g., unemployment rate, inflation, GDP, interest rates)</li>
+<li>Inspect data frequency (monthly, quarterly, annual)</li>
+<li>Check for missing values and data quality issues</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot each selected indicator over time</li>
+<li>Identify trends, cycles, and structural breaks</li>
+<li>Calculate correlations between indicators</li>
+<li>Perform time series decomposition for each series</li>
+<li>Analyze ACF/PACF for each indicator</li>
+</ul>
+<h3>3. Stationarity Analysis</h3>
+<ul>
+<li>Test each indicator for stationarity (ADF test)</li>
+<li>Apply appropriate transformations (differencing, log transformation)</li>
+<li>Handle non-stationarity appropriately</li>
+<li>Document transformation decisions</li>
+</ul>
+<h3>4. Model Building</h3>
+<ul>
+<li><strong>Univariate Models:</strong></li>
+<li>ARIMA/SARIMA for each indicator individually</li>
+<li>Model selection using AIC/BIC</li>
+<li><strong>Multivariate Models (optional):</strong></li>
+<li>VAR (Vector Autoregression) models</li>
+<li>Analyze relationships between indicators</li>
+<li>Granger causality tests</li>
+</ul>
+<h3>5. Model Evaluation</h3>
+<ul>
+<li>Split data temporally (keep recent data for testing)</li>
+<li>Generate forecasts for each indicator</li>
+<li>Calculate forecast accuracy metrics (MAE, RMSE, MAPE)</li>
+<li>Compare univariate vs multivariate approaches</li>
+<li>Visualize forecasts with actual values</li>
+</ul>
+<h3>6. Economic Interpretation</h3>
+<ul>
+<li>Interpret model results in economic context</li>
+<li>Discuss relationships between indicators</li>
+<li>Analyze forecast implications</li>
+<li>Compare with economic theory</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>Time series plots for each indicator</li>
+<li>Correlation analysis</li>
+<li>Decomposition plots</li>
+<li>Stationarity test results</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Model parameters for each indicator</li>
+<li>Performance metrics table</li>
+<li>Forecast plots</li>
+<li>Economic interpretation</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for indicator analysis</li>
+<li>Visualization utilities</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>Macroeconomic indicators often have strong trends and cycles</li>
+<li>Consider external factors (recessions, policy changes) in analysis</li>
+<li>VAR models can capture relationships between indicators</li>
+<li>Use appropriate frequency (monthly vs quarterly) based on data availability</li>
+<li>Economic indicators may have different units - normalize for comparison</li>
+<li>Consider leading/lagging relationships between indicators</li>
+<li>Document economic context and policy implications</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/4.US_Macro/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

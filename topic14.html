@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 14: Electricity Load Diagrams - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 14</p>
+        <h1>Electricity Load Diagrams</h1>
+        <div class="topic-badges">
+          <span class="badge hard">Hard</span>
+          <span class="bonus-badge ">+1.5 Bonus Points</span>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/14.Electricity_Load/14.Elec.jpeg" alt="Electricity Load Diagrams" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 14 – Electricity Load Diagrams (Energy Consumption, Library Dataset)</h1>
+<strong>Level:</strong> Hard
+<strong>Goal:</strong> Model and forecast electricity demand (multiple time series, rich seasonality).
+<h2>Dataset (Example Source)</h2>
+<ul>
+<li><strong>Source:</strong> Electricity load diagrams dataset (via libraries like GluonTS/HuggingFace, etc.)</li>
+<li><strong>Example Link:</strong> https://huggingface.co/datasets/tulipa762/electricity_load_diagrams</li>
+</ul>
+<h2>Download (Simple Manual Approach)</h2>
+<ol>
+<li>Open the link above.</li>
+<li>Download the CSV file containing the load data (if provided).</li>
+<li>Save to <code>data/electricity/</code>.</li>
+</ol>
+<h2>Data Loading (If CSV is Available)</h2>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_csv("data/electricity/electricity.csv")  # adjust filename
+print(df.head())
+<h1>Example: parse datetime column like "timestamp"</h1>
+df["timestamp"] = pd.to_datetime(df["timestamp"])
+df = df.set_index("timestamp").sort_index()</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Loading and Exploration</h3>
+<ul>
+<li>Load electricity load data</li>
+<li>Understand data structure (multiple consumers, time series)</li>
+<li>Inspect data frequency (hourly, daily)</li>
+<li>Examine data quality and missing values</li>
+<li>Identify available variables</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot load time series (overall and by consumer if multiple)</li>
+<li>Identify strong seasonality patterns:</li>
+<li>Daily patterns (hourly data)</li>
+<li>Weekly patterns (weekday vs weekend)</li>
+<li>Yearly patterns (seasonal variations)</li>
+<li>Analyze load distributions</li>
+<li>Calculate basic statistics</li>
+<li>Perform time series decomposition</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li>Handle missing values</li>
+<li>Handle outliers (may be real events)</li>
+<li>Create time-based features (hour, day of week, month, season)</li>
+<li>Normalize or scale if needed</li>
+<li>Prepare data for modeling</li>
+</ul>
+<h3>4. Feature Engineering</h3>
+<ul>
+<li><strong>Time Features:</strong></li>
+<li>Hour of day, day of week, month, season</li>
+<li>Holiday indicators</li>
+<li>Weekend indicators</li>
+<li><strong>Lag Features:</strong></li>
+<li>Previous hour, day, week loads</li>
+<li>Same hour previous day, week</li>
+<li><strong>Rolling Statistics:</strong></li>
+<li>Rolling mean, std (daily, weekly windows)</li>
+<li><strong>External Features (if available):</strong></li>
+<li>Temperature, weather data</li>
+<li>Economic indicators</li>
+</ul>
+<h3>5. Model Building</h3>
+<ul>
+<li><strong>Univariate Models (per consumer):</strong></li>
+<li>ARIMA/SARIMA (strong seasonality - multiple seasonal patterns)</li>
+<li>Exponential smoothing (Holt-Winters with multiple seasonality)</li>
+<li><strong>Multivariate Models:</strong></li>
+<li>VAR models for multiple consumers</li>
+<li>Hierarchical models</li>
+<li><strong>Machine Learning:</strong></li>
+<li>Feature-based models (XGBoost, LightGBM)</li>
+<li>Handle multiple seasonality with features</li>
+<li><strong>Advanced (if using libraries):</strong></li>
+<li>GluonTS, darts, or similar time series libraries</li>
+<li>Deep learning models (LSTM, Transformer)</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Use time series cross-validation</li>
+<li>Split data temporally</li>
+<li>Calculate metrics (MAE, RMSE, MAPE)</li>
+<li>Evaluate at different time horizons (1-hour, 1-day, 1-week ahead)</li>
+<li>Compare multiple approaches</li>
+</ul>
+<h3>7. Forecasting</h3>
+<ul>
+<li>Generate forecasts for different horizons</li>
+<li>Include prediction intervals</li>
+<li>Aggregate forecasts if multiple consumers</li>
+<li>Visualize forecasts with actual values</li>
+<li>Analyze forecast accuracy by time of day/day of week</li>
+</ul>
+<h3>8. Advanced Analysis (Optional)</h3>
+<ul>
+<li>Analyze load patterns by consumer type</li>
+<li>Identify peak demand periods</li>
+<li>Analyze seasonal variations</li>
+<li>Compare different modeling approaches</li>
+<li>Analyze feature importance</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>Load time series plots</li>
+<li>Seasonality analysis (daily, weekly, yearly)</li>
+<li>Pattern identification</li>
+<li>Statistical summaries</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Selected model(s) with parameters</li>
+<li>Performance metrics (by horizon)</li>
+<li>Forecast plots</li>
+<li>Comparison of approaches</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>Data processing functions</li>
+<li>Feature engineering utilities</li>
+<li>Modeling pipeline</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>Electricity load has very strong and complex seasonality (multiple patterns)</li>
+<li>Daily patterns are crucial (peak hours, off-peak hours)</li>
+<li>Weekly patterns (weekday vs weekend) are important</li>
+<li>Yearly patterns (summer vs winter) affect demand</li>
+<li>Multiple seasonality requires SARIMA with multiple seasonal components or feature engineering</li>
+<li>Consider using specialized time series libraries (GluonTS, darts) for complex seasonality</li>
+<li>Feature engineering is essential (time features, lags, rolling stats)</li>
+<li>External features (temperature) can significantly improve forecasts</li>
+<li>Handle multiple consumers appropriately (panel data structure)</li>
+<li>Use appropriate evaluation metrics and cross-validation</li>
+<li>Document all preprocessing and feature engineering steps</li>
+<li>Compare simple models (ARIMA) with complex models (XGBoost, LSTM)</li>
+<li>Consider ensemble methods for better performance</li>
+<li>This is a challenging problem - expect to try multiple approaches</li>
+</ul>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/14.Electricity_Load/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>
