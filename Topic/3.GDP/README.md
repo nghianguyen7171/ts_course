@@ -1,6 +1,6 @@
 # Topic 3 – GDP Time Series for Multiple Countries (Kaggle)
 
-**Level:** Easy → Medium  
+**Level:** Easy  
 **Goal:** Forecast annual GDP for 1–3 countries, compare trends and growth.
 
 ## Dataset

@@ -1,6 +1,6 @@
 # Topic 8 – High-Resolution Vital Signs with VitalDB (Python Library)
 
-**Level:** Medium → Hard  
+**Level:** Medium  
 **Goal:** Work with high-frequency ICU/OR vital signs via VitalDB library.
 
 ## Dataset & Library

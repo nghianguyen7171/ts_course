@@ -1,6 +1,6 @@
 # Topic 6 – Multivariate Financial Time Series Bundle
 
-**Level:** Medium → Hard  
+**Level:** Medium  
 **Goal:** Model several assets jointly (correlations, VAR, multivariate forecasting).
 
 ## Dataset
