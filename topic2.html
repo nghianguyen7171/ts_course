@@ -145,77 +145,15 @@ df = df.set_index("Month").sort_index()</code></pre>
 
     <section class="card starter-notebook-section">
       <h2>Starter Notebook</h2>
-      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
-      <div class="notebook-content">
-<div class="notebook-markdown"><h1>Topic 2 – Monthly Business Sales Time Series</h1>
-<p><strong>Level:</strong> Easy <strong>Goal:</strong> Analyze and forecast monthly / periodic sales or revenue.</p>
-<h2>Dataset</h2>
-<ul>
-<li><strong>Source:</strong> Business Sales Time Series Starter – OpenDataBay</li>
-<li><strong>Link:</strong> https://www.opendatabay.com/data/ai-ml/f86d74d9-4656-4313-94d7-0cbd12bb7ffd</li>
-</ul>
-<h2>Download Instructions</h2>
-<ol>
-<li>Open the link above</li>
-<li>Click "Download CSV" (e.g. <code>Month_Value_1.csv</code>)</li>
-<li>Save as <code>data/business_sales.csv</code></li>
-</ol></div>
-<div class="notebook-markdown"><h2>Installation</h2>
-<p>Install required packages:</p></div>
-<div class="notebook-code"><pre><code class="language-python"># Install required packages (uncomment if needed)
-# !pip install pandas numpy matplotlib seaborn statsmodels scikit-learn
-</code></pre></div>
-<div class="notebook-markdown"><h2>Data Loading</h2>
-<p>Load the monthly business sales data.</p></div>
-<div class="notebook-code"><pre><code class="language-python">import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Set plotting style
-plt.style.use(&#x27;seaborn-v0_8-darkgrid&#x27;)
-sns.set_palette(&quot;husl&quot;)
-
-# Load the dataset
-df = pd.read_csv(&quot;data/business_sales.csv&quot;)
-
-# Convert Month column to datetime and set as index
-df[&quot;Month&quot;] = pd.to_datetime(df[&quot;Month&quot;])
-df = df.set_index(&quot;Month&quot;).sort_index()
-
-# Display basic information
-print(f&quot;Dataset shape: {df.shape}&quot;)
-print(f&quot;
-Columns: {df.columns.tolist()}&quot;)
-print(f&quot;
-Date range: {df.index.min()} to {df.index.max()}&quot;)
-print(f&quot;
-First few rows:&quot;)
-df.head()
-</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Check for missing values
-print(&quot;Missing values:&quot;)
-print(df.isnull().sum())
-
-# Basic statistics
-print(f&quot;
-Basic statistics:&quot;)
-df.describe()
-</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Plot the time series
-plt.figure(figsize=(12, 6))
-plt.plot(df.index, df.iloc[:, 0], linewidth=1.5)
-plt.title(&quot;Monthly Business Sales Over Time&quot;, fontsize=14, fontweight=&#x27;bold&#x27;)
-plt.xlabel(&quot;Month&quot;, fontsize=12)
-plt.ylabel(&quot;Sales Value&quot;, fontsize=12)
-plt.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-</code></pre></div>
-      </div>
+      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
       <div style="margin-top: 20px;">
-        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/2.*/starter.ipynb</code> directory.</p>
+        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/2.Business_Sales/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
+          📓 View Starter Notebook on GitHub
+        </a>
       </div>
+      <p style="margin-top: 15px; color: var(--muted);">
+        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+      </p>
     </section>
 
     <section class="card">

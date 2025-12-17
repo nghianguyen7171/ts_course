@@ -184,16 +184,30 @@ def notebook_to_html(notebook_path):
     
     return '\n'.join(html_parts)
 
-def update_topic_page(topic_num, notebook_html):
-    """Update a topic HTML page with starter notebook content."""
+def get_topic_dir_name(topic_num):
+    """Get the topic directory name for a given topic number."""
+    topic_dirs = sorted(Path('Topic').glob(f'{topic_num}.*'))
+    if topic_dirs:
+        return topic_dirs[0].name
+    return None
+
+def update_topic_page(topic_num, topic_dir_name):
+    """Update a topic HTML page with a link to the starter notebook on GitHub."""
     topic_file = Path(f'topic{topic_num}.html')
     
     if not topic_file.exists():
         print(f"Warning: {topic_file} not found, skipping...")
         return False
     
+    if not topic_dir_name:
+        print(f"Warning: Topic directory not found for topic {topic_num}, skipping...")
+        return False
+    
     with open(topic_file, 'r', encoding='utf-8') as f:
         content = f.read()
+    
+    # GitHub repository URL
+    github_url = f"https://github.com/nghianguyen7171/ts_course/blob/main/Topic/{topic_dir_name}/starter.ipynb"
     
     # Check if starter notebook section already exists
     if 'starter-notebook-section' in content:
@@ -201,13 +215,15 @@ def update_topic_page(topic_num, notebook_html):
         pattern = r'<section class="card starter-notebook-section">.*?</section>'
         replacement = f'''<section class="card starter-notebook-section">
       <h2>Starter Notebook</h2>
-      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
-      <div class="notebook-content">
-{notebook_html}
-      </div>
+      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
       <div style="margin-top: 20px;">
-        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/{topic_num}.*/starter.ipynb</code> directory.</p>
+        <a href="{github_url}" target="_blank" class="btn" style="display: inline-block;">
+          📓 View Starter Notebook on GitHub
+        </a>
       </div>
+      <p style="margin-top: 15px; color: var(--muted);">
+        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+      </p>
     </section>'''
         content = re.sub(pattern, replacement, content, flags=re.DOTALL)
     else:
@@ -215,13 +231,15 @@ def update_topic_page(topic_num, notebook_html):
         getting_started_pattern = r'(<section class="card">\s*<h2>Getting Started</h2>)'
         replacement = f'''<section class="card starter-notebook-section">
       <h2>Starter Notebook</h2>
-      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
-      <div class="notebook-content">
-{notebook_html}
-      </div>
+      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
       <div style="margin-top: 20px;">
-        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/{topic_num}.*/starter.ipynb</code> directory.</p>
+        <a href="{github_url}" target="_blank" class="btn" style="display: inline-block;">
+          📓 View Starter Notebook on GitHub
+        </a>
       </div>
+      <p style="margin-top: 15px; color: var(--muted);">
+        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+      </p>
     </section>
 
     \\1'''
@@ -245,11 +263,11 @@ def main():
         
         # Extract topic number from directory name
         topic_num = topic_dir.name.split('.')[0]
+        topic_dir_name = topic_dir.name
         
         try:
             print(f"Processing Topic {topic_num}...")
-            notebook_html = notebook_to_html(notebook_path)
-            success = update_topic_page(topic_num, notebook_html)
+            success = update_topic_page(topic_num, topic_dir_name)
             
             if success:
                 print(f"✓ Updated topic{topic_num}.html")

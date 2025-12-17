@@ -190,54 +190,15 @@ ecg_series = pd.Series(signal, index=times)</code></pre>
 
     <section class="card starter-notebook-section">
       <h2>Starter Notebook</h2>
-      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
-      <div class="notebook-content">
-<div class="notebook-markdown"><h1>Topic 11 – ECG Analysis with MIT-BIH (WFDB)</h1>
-<p><strong>Level:</strong> Hard <strong>Goal:</strong> Work with ECG waveforms (e.g. MIT-BIH Arrhythmia).</p>
-<h2>Dataset</h2>
-<ul>
-<li><strong>Source:</strong> WFDB Python</li>
-<li><strong>Link:</strong> https://wfdb.io/software/python.html</li>
-</ul>
-<h2>Download Instructions</h2>
-<ol>
-<li>Install WFDB: <code>pip install wfdb</code></li>
-</ol></div>
-<div class="notebook-markdown"><h2>Installation</h2>
-<p>Install required packages:</p></div>
-<div class="notebook-code"><pre><code class="language-python">!pip install wfdb</code></pre></div>
-<div class="notebook-markdown"><h2>Data Loading</h2>
-<p>Load the dataset.</p></div>
-<div class="notebook-code"><pre><code class="language-python">import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Set plotting style
-plt.style.use(&#x27;seaborn-v0_8-darkgrid&#x27;)
-sns.set_palette(&quot;husl&quot;)</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python">import wfdbrecord = wfdb.rdrecord(&quot;100&quot;, pn_dir=&quot;mitdb&quot;)signal = record.p_signal[:, 0]  # first channelfs = record.fstimes = pd.to_timedelta(np.arange(len(signal)) / fs, unit=&quot;s&quot;)ecg_series = pd.Series(signal, index=times)</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Check for missing values
-print(&quot;Missing values:&quot;)
-print(data.isnull().sum())
-
-# Basic statistics
-print(f&quot;
-Basic statistics:&quot;)
-data.describe()</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Plot the time series
-plt.figure(figsize=(12, 6))
-plt.plot(data.index, data.iloc[:, 0], linewidth=1.5)
-plt.title(&quot;Time Series Plot&quot;, fontsize=14, fontweight=&#x27;bold&#x27;)
-plt.xlabel(&quot;Date&quot;, fontsize=12)
-plt.ylabel(&quot;Value&quot;, fontsize=12)
-plt.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()</code></pre></div>
-      </div>
+      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
       <div style="margin-top: 20px;">
-        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/11.*/starter.ipynb</code> directory.</p>
+        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/11.ECG_MIT_BIH/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
+          📓 View Starter Notebook on GitHub
+        </a>
       </div>
+      <p style="margin-top: 15px; color: var(--muted);">
+        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+      </p>
     </section>
 
     <section class="card">

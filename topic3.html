@@ -152,60 +152,15 @@ country = country.set_index("Year").sort_index()</code></pre>
 
     <section class="card starter-notebook-section">
       <h2>Starter Notebook</h2>
-      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
-      <div class="notebook-content">
-<div class="notebook-markdown"><h1>Topic 3 – GDP Time Series for Multiple Countries (Kaggle)</h1>
-<p><strong>Level:</strong> Easy → Medium <strong>Goal:</strong> Forecast annual GDP for 1–3 countries, compare trends and growth.</p>
-<h2>Dataset</h2>
-<ul>
-<li><strong>Source:</strong> GDP Timeseries Data for various Countries – Kaggle</li>
-<li><strong>Link:</strong> https://www.kaggle.com/datasets/iamtushara/gdp-timeseries-data-for-various-countries</li>
-</ul>
-<h2>Download Instructions</h2>
-<ol>
-<li>Open the dataset link above</li>
-<li>Click "Download"</li>
-<li>Extract to <code>data/</code> folder</li>
-<li>Use the main GDP CSV (e.g. <code>gdp_timeseries.csv</code>)</li>
-</ol></div>
-<div class="notebook-markdown"><h2>Installation</h2>
-<p>Install required packages:</p></div>
-<div class="notebook-code"><pre><code class="language-python"># !pip install pandas numpy matplotlib seaborn statsmodels scikit-learn</code></pre></div>
-<div class="notebook-markdown"><h2>Data Loading</h2>
-<p>Load the dataset.</p></div>
-<div class="notebook-code"><pre><code class="language-python">import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Set plotting style
-plt.style.use(&#x27;seaborn-v0_8-darkgrid&#x27;)
-sns.set_palette(&quot;husl&quot;)</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python">df = pd.read_csv(&quot;data/gdp_timeseries.csv&quot;)  # adjust filename if needed
-country_data = df[df[&quot;Country&quot;] == &quot;Vietnam&quot;].copy()  # example filter
-country_data[&quot;Year&quot;] = pd.to_datetime(country_data[&quot;Year&quot;], format=&quot;%Y&quot;)
-country_data = country_data.set_index(&quot;Year&quot;).sort_index()</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Check for missing values
-print(&quot;Missing values:&quot;)
-print(df.isnull().sum())
-
-# Basic statistics
-print(f&quot;
-Basic statistics:&quot;)
-df.describe()</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Plot the time series
-plt.figure(figsize=(12, 6))
-plt.plot(df.index, df.iloc[:, 0], linewidth=1.5)
-plt.title(&quot;Time Series Plot&quot;, fontsize=14, fontweight=&#x27;bold&#x27;)
-plt.xlabel(&quot;Date&quot;, fontsize=12)
-plt.ylabel(&quot;Value&quot;, fontsize=12)
-plt.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()</code></pre></div>
-      </div>
+      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
       <div style="margin-top: 20px;">
-        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/3.*/starter.ipynb</code> directory.</p>
+        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/3.GDP/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
+          📓 View Starter Notebook on GitHub
+        </a>
       </div>
+      <p style="margin-top: 15px; color: var(--muted);">
+        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+      </p>
     </section>
 
     <section class="card">

@@ -163,52 +163,15 @@ print(data.head())</code></pre>
 
     <section class="card starter-notebook-section">
       <h2>Starter Notebook</h2>
-      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
-      <div class="notebook-content">
-<div class="notebook-markdown"><h1>Topic 9 – Airline Passenger Time Series (Statsmodels built-in)</h1>
-<p><strong>Level:</strong> Easy <strong>Goal:</strong> Classic monthly airline passenger series (trend + seasonality) using a library dataset.</p>
-<h2>Dataset</h2>
-<ul>
-<li><strong>Source:</strong> AirPassengers dataset via statsmodels</li>
-<li><strong>Link:</strong> https://www.statsmodels.org/</li>
-</ul>
-<h2>Download Instructions</h2>
-<ol>
-<li>No manual download needed - data loads from Python</li>
-</ol></div>
-<div class="notebook-markdown"><h2>Installation</h2>
-<p>Install required packages:</p></div>
-<div class="notebook-code"><pre><code class="language-python"># !pip install statsmodels</code></pre></div>
-<div class="notebook-markdown"><h2>Data Loading</h2>
-<p>Load the dataset.</p></div>
-<div class="notebook-code"><pre><code class="language-python">import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Set plotting style
-plt.style.use(&#x27;seaborn-v0_8-darkgrid&#x27;)
-sns.set_palette(&quot;husl&quot;)</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python">from statsmodels.datasets import get_rdataset
-data = get_rdataset(&quot;AirPassengers&quot;, &quot;datasets&quot;).data
-data[&quot;Month&quot;] = pd.date_range(start=&quot;1949-01-01&quot;, periods=len(data), freq=&quot;M&quot;)
-data = data.set_index(&quot;Month&quot;).sort_index()
-data.rename(columns={data.columns[0]: &quot;Passengers&quot;}, inplace=True)</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Display basic information
-print(f&quot;Dataset shape: {data.shape}&quot;)
-print(f&quot;
-Columns: {data.columns.tolist()}&quot;)
-print(f&quot;
-Date range: {data.index.min()} to {data.index.max()}&quot;)
-print(f&quot;
-Number of observations: {len(data)}&quot;)
-print(f&quot;
-First few rows:&quot;)
-data.head()</code></pre></div>
-      </div>
+      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
       <div style="margin-top: 20px;">
-        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/9.*/starter.ipynb</code> directory.</p>
+        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/9.Airline_Passengers/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
+          📓 View Starter Notebook on GitHub
+        </a>
       </div>
+      <p style="margin-top: 15px; color: var(--muted);">
+        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+      </p>
     </section>
 
     <section class="card">

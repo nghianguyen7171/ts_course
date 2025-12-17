@@ -145,97 +145,15 @@ aapl = aapl.set_index("date").sort_index()</code></pre>
 
     <section class="card starter-notebook-section">
       <h2>Starter Notebook</h2>
-      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
-      <div class="notebook-content">
-<div class="notebook-markdown"><h1>Topic 1 – Basic Stock Price Time Series (S&P 500)</h1>
-<p><strong>Level:</strong> Easy <strong>Goal:</strong> Univariate forecasting of daily stock prices (close price) for one S&P 500 company.</p>
-<h2>Dataset</h2>
-<ul>
-<li><strong>Source:</strong> S&P 500 stock data – Kaggle</li>
-<li><strong>Link:</strong> https://www.kaggle.com/datasets/camnugent/sandp500</li>
-</ul>
-<h2>Download Instructions</h2>
-<ol>
-<li>Open https://www.kaggle.com/datasets/camnugent/sandp500</li>
-<li>Log in to Kaggle</li>
-<li>Click "Download"</li>
-<li>Extract ZIP to <code>data/</code> folder</li>
-<li>Use <code>all_stocks_5yr.csv</code></li>
-</ol></div>
-<div class="notebook-markdown"><h2>Installation</h2>
-<p>Install required packages:</p></div>
-<div class="notebook-code"><pre><code class="language-python"># Install required packages (uncomment if needed)
-# !pip install pandas numpy matplotlib seaborn statsmodels scikit-learn
-</code></pre></div>
-<div class="notebook-markdown"><h2>Data Loading</h2>
-<p>Load the S&P 500 stock data and select a company for analysis.</p></div>
-<div class="notebook-code"><pre><code class="language-python">import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Set plotting style
-plt.style.use(&#x27;seaborn-v0_8-darkgrid&#x27;)
-sns.set_palette(&quot;husl&quot;)
-
-# Load the dataset
-df = pd.read_csv(&quot;data/all_stocks_5yr.csv&quot;)
-
-# Display basic information
-print(f&quot;Dataset shape: {df.shape}&quot;)
-print(f&quot;
-Columns: {df.columns.tolist()}&quot;)
-print(f&quot;
-First few rows:&quot;)
-df.head()
-</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Check available companies
-print(&quot;Available companies:&quot;)
-print(df[&quot;Name&quot;].unique()[:20])  # Show first 20 companies
-print(f&quot;
-Total number of companies: {df[&#x27;Name&#x27;].nunique()}&quot;)
-</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Select a company (e.g., AAPL, MSFT, GOOGL)
-company_name = &quot;AAPL&quot;  # Change this to select a different company
-
-# Filter data for selected company
-stock_data = df[df[&quot;Name&quot;] == company_name].copy()
-
-# Convert date column to datetime and set as index
-stock_data[&quot;date&quot;] = pd.to_datetime(stock_data[&quot;date&quot;])
-stock_data = stock_data.set_index(&quot;date&quot;).sort_index()
-
-# Display basic information
-print(f&quot;Data for {company_name}:&quot;)
-print(f&quot;Date range: {stock_data.index.min()} to {stock_data.index.max()}&quot;)
-print(f&quot;Number of observations: {len(stock_data)}&quot;)
-print(f&quot;
-First few rows:&quot;)
-stock_data.head()
-</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Check for missing values
-print(&quot;Missing values:&quot;)
-print(stock_data.isnull().sum())
-
-# Basic statistics
-print(f&quot;
-Basic statistics for {company_name}:&quot;)
-stock_data.describe()
-</code></pre></div>
-<div class="notebook-code"><pre><code class="language-python"># Plot the close price over time
-plt.figure(figsize=(12, 6))
-plt.plot(stock_data.index, stock_data[&quot;close&quot;], linewidth=1.5)
-plt.title(f&quot;{company_name} Stock Price (Close) Over Time&quot;, fontsize=14, fontweight=&#x27;bold&#x27;)
-plt.xlabel(&quot;Date&quot;, fontsize=12)
-plt.ylabel(&quot;Close Price ($)&quot;, fontsize=12)
-plt.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-</code></pre></div>
-      </div>
+      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
       <div style="margin-top: 20px;">
-        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/1.*/starter.ipynb</code> directory.</p>
+        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/1.SP_500/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
+          📓 View Starter Notebook on GitHub
+        </a>
       </div>
+      <p style="margin-top: 15px; color: var(--muted);">
+        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+      </p>
     </section>
 
     <section class="card">
