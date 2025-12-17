@@ -1,5 +1,6 @@
 .DS_Store
-Topic/
+Topic/*/data/
+Topic/*/textbook/
 textbook/
 *.pdf
 Opendatabay_recovery_codes.txt
