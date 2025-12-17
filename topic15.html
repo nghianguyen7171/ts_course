@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Topic 15: Daily Hospital Admissions Time Series - Time Series Analysis</title>
+  <title>Topic 15: Healthcare Call Data Analysis During Emergency Times - Time Series Analysis</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -29,63 +29,72 @@
     <section class="hero topic-hero">
       <div class="hero-content">
         <p class="eyebrow">Topic 15</p>
-        <h1>Daily Hospital Admissions Time Series</h1>
+        <h1>Healthcare Call Data Analysis During Emergency Times</h1>
         <div class="topic-badges">
           <span class="badge easy">Easy</span>
           
         </div>
       </div>
       <div class="hero-image">
-        <img src="Topic/15.Daily_Hospital_Admissions/15.Hospital_Admissions.jpeg" alt="Daily Hospital Admissions Time Series" />
+        <img src="Topic/15.Healthcare_Call_Data/15.Med_em.jpeg" alt="Healthcare Call Data Analysis During Emergency Times" />
       </div>
     </section>
 
     <section class="card topic-content">
-      <h1>Topic 15 – Daily Hospital Admissions Time Series (Kaggle)</h1>
+      <h1>Topic 15 – Healthcare Call Data Analysis During Emergency Times (Kaggle)</h1>
 <strong>Level:</strong> Easy
-<strong>Goal:</strong> Forecast daily hospital admissions using univariate time series analysis. Suitable for both traditional ARIMA/SARIMA methods and ML/DL approaches.
+<strong>Goal:</strong> Analyze and forecast healthcare call center data during emergency periods using time series analysis. Suitable for both traditional ARIMA/SARIMA methods and ML/DL approaches.
 <h2>Dataset</h2>
 <ul>
-<li><strong>Source:</strong> Daily hospital admissions time series dataset from Kaggle</li>
-<li><strong>Link:</strong> Search Kaggle for a suitable dataset (e.g., search for "hospital admissions", "emergency department visits", or "daily patient admissions"). Choose a dataset that provides a date column and an admissions/count column.</li>
+<li><strong>Source:</strong> Healthcare Call Data Analysis During Emergency Times – Kaggle</li>
+<li><strong>Link:</strong> https://www.kaggle.com/datasets/shuvokumarbasak2030/healthcare-call-data-analysis-duringemergencytimes/data</li>
 </ul>
 <h2>Download Instructions</h2>
 <ol>
-<li>Search Kaggle for a suitable daily hospital admissions dataset.</li>
+<li>Open the dataset link above.</li>
 <li>Log in to Kaggle.</li>
-<li>Click "Download" for your chosen dataset.</li>
-<li>Extract to <code>data/hospital/</code>.</li>
-<li>Use the main CSV file (e.g., <code>hospital_admissions.csv</code> or <code>daily_admissions.csv</code>).</li>
+<li>Click "Download".</li>
+<li>Extract to <code>data/healthcare_calls/</code>.</li>
+<li>Use the file <code>daily_and_month_call_report.csv</code>.</li>
 </ol>
 <h2>Data Loading</h2>
 <pre><code class="language-python">import pandas as pd
 
-df = pd.read_csv("data/hospital/hospital_admissions.csv")  # adjust filename
-df["Date"] = pd.to_datetime(df["Date"])  # adapt column name if different
-df = df.set_index("Date").sort_index()</code></pre>
+df = pd.read_csv("data/healthcare_calls/daily_and_month_call_report.csv")
+
+# Create datetime index from Year and Month columns
+df['Date'] = pd.to_datetime(df['Year'].astype(str) + '-' + df['Month'] + '-01')
+df = df.set_index('Date').sort_index()
+
+# Select a time series to analyze (e.g., Total Number of Calls)
+ts = df['Total Number of Calls']</code></pre>
 <h2>Implementation Steps</h2>
 <h3>1. Data Exploration</h3>
 <ul>
 <li>Load the dataset and inspect structure</li>
-<li>Visualize the time series (daily admissions over time)</li>
+<li>Understand the multiple time series available (calls, consultations, health info, ambulance info, complaints, service inquiries)</li>
+<li>Select one or more time series for analysis (e.g., Total Number of Calls)</li>
+<li>Visualize the time series over time</li>
 <li>Check for missing values and handle them appropriately</li>
 <li>Examine basic statistics (mean, std, min, max)</li>
-<li>Identify any obvious patterns (trends, seasonality)</li>
+<li>Identify patterns, especially during emergency periods (e.g., 2021-2022)</li>
 </ul>
 <h3>2. Exploratory Data Analysis (EDA)</h3>
 <ul>
 <li>Plot time series with trend lines</li>
+<li>Identify emergency periods and their impact on call volumes</li>
 <li>Perform time series decomposition (trend, seasonality, residual)</li>
 <li>Calculate and visualize ACF/PACF plots</li>
-<li>Identify weekly patterns (weekday vs weekend effects)</li>
-<li>Check for monthly or yearly seasonality</li>
-<li>Analyze outliers or unusual patterns</li>
+<li>Identify monthly and yearly seasonality patterns</li>
+<li>Analyze outliers or unusual patterns (especially during emergency times)</li>
+<li>Compare call volumes across different emergency periods</li>
 </ul>
 <h3>3. Stationarity Analysis</h3>
 <ul>
 <li>Test for stationarity using ADF test</li>
 <li>Apply differencing if needed (1st or 2nd order)</li>
-<li>Consider seasonal differencing if strong weekly patterns exist</li>
+<li>Consider seasonal differencing if strong monthly/yearly patterns exist</li>
+<li>Consider segmenting data by emergency vs normal periods</li>
 <li>Apply log transformation if variance is non-constant</li>
 </ul>
 <h3>4. Model Building</h3>
@@ -96,16 +105,18 @@ df = df.set_index("Date").sort_index()</code></pre>
 <li>Try multiple ARIMA configurations</li>
 <li>Use AIC/BIC for model selection</li>
 <li><strong>SARIMA Models:</strong></li>
-<li>Identify seasonal patterns (weekly: 7 days, monthly: 30 days)</li>
-<li>Fit SARIMA models with seasonal components</li>
+<li>Identify seasonal patterns (monthly: 12 months, yearly patterns)</li>
+<li>Fit SARIMA models with seasonal components (e.g., SARIMA(p, d, q)(P, D, Q)12)</li>
 <li>Compare different seasonal configurations</li>
+<li>Consider models that account for emergency period effects</li>
 </ul>
 <h4>Machine Learning Methods:</h4>
 <ul>
 <li><strong>Feature Engineering:</strong></li>
-<li>Create lag features (previous day, week)</li>
-<li>Add time-based features (day of week, month, is_weekend)</li>
-<li>Rolling statistics (7-day, 30-day averages)</li>
+<li>Create lag features (previous month, year)</li>
+<li>Add time-based features (month, year, quarter, is_emergency_period)</li>
+<li>Rolling statistics (3-month, 12-month averages)</li>
+<li>Create dummy variables for emergency periods</li>
 <li><strong>Models:</strong></li>
 <li>Random Forest or XGBoost for regression</li>
 <li>Linear regression with features</li>
@@ -132,10 +143,12 @@ df = df.set_index("Date").sort_index()</code></pre>
 </ul>
 <h3>6. Forecasting</h3>
 <ul>
-<li>Generate future forecasts (e.g., next 30 days)</li>
+<li>Generate future forecasts (e.g., next 6-12 months)</li>
 <li>Include prediction intervals/confidence bands</li>
 <li>Visualize forecasts with historical data</li>
-<li>Interpret results in healthcare context</li>
+<li>Interpret results in healthcare emergency context</li>
+<li>Consider scenario analysis for future emergency periods</li>
+<li>Consider scenario analysis for future emergency periods</li>
 </ul>
 <h2>Expected Deliverables</h2>
 <ol>
@@ -146,7 +159,8 @@ df = df.set_index("Date").sort_index()</code></pre>
 <li>Decomposition plots (trend, seasonal, residual)</li>
 <li>ACF/PACF plots</li>
 <li>Stationarity test results</li>
-<li>Weekly/monthly pattern analysis</li>
+<li>Monthly/yearly pattern analysis</li>
+<li>Comparison of emergency vs normal periods</li>
 </ul>
 <ol>
 <li><strong>Model Results:</strong></li>
@@ -157,6 +171,7 @@ df = df.set_index("Date").sort_index()</code></pre>
 <li>Best DL model (if implemented) with architecture</li>
 <li>Performance comparison table</li>
 <li>Forecast plots with confidence intervals</li>
+<li>Analysis of model performance during different periods</li>
 </ul>
 <ol>
 <li><strong>Code:</strong></li>
@@ -169,8 +184,11 @@ df = df.set_index("Date").sort_index()</code></pre>
 </ul>
 <h2>Tips</h2>
 <ul>
-<li>Hospital admissions often show weekly patterns (lower on weekends)</li>
-<li>Consider external factors (holidays, events) that might affect admissions</li>
+<li>The dataset contains monthly data, not daily - adjust your analysis accordingly</li>
+<li>Pay special attention to emergency periods (e.g., 2021-2022) which show significant spikes</li>
+<li>Consider creating separate models for emergency vs normal periods</li>
+<li>Monthly seasonality (12-month patterns) is likely important</li>
+<li>Feature engineering should include emergency period indicators</li>
 <li>Use appropriate train/validation/test splits (temporal, not random)</li>
 <li>Start with simple models (ARIMA) before moving to complex ML/DL</li>
 <li>Feature engineering is crucial for ML models - create meaningful time-based features</li>
@@ -184,7 +202,7 @@ df = df.set_index("Date").sort_index()</code></pre>
       <h2>Starter Notebook</h2>
       <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
       <div style="margin-top: 20px;">
-        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/15.Daily_Hospital_Admissions/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
+        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/15.Healthcare_Call_Data/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
           📓 View Starter Notebook on GitHub
         </a>
       </div>
@@ -201,7 +219,7 @@ df = df.set_index("Date").sort_index()</code></pre>
         <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
         <li><strong>Featured image</strong> - Visual representation of the topic</li>
       </ul>
-      <p>Navigate to the <code>Topic/15.Daily_Hospital_Admissions/</code> directory to access all resources.</p>
+      <p>Navigate to the <code>Topic/15.Healthcare_Call_Data/</code> directory to access all resources.</p>
       <div style="margin-top: 20px;">
         <a href="topics.html" class="btn">← Back to All Topics</a>
       </div>
