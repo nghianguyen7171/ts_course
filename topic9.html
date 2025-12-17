@@ -54,14 +54,17 @@
 <h2>Data Loading</h2>
 <pre><code class="language-python">import pandas as pd
 from statsmodels.datasets import get_rdataset
+
 data = get_rdataset("AirPassengers", "datasets").data
-<h1>Original data typically has a 'time' or 'Month' column and 'value' column</h1>
+# Original data typically has a 'time' or 'Month' column and 'value' column
 print(data.head())
-<h1>If there is only an index and a passenger column:</h1>
-<h1>Example conversion (adapt depending on structure)</h1>
+
+# If there is only an index and a passenger column:
+# Example conversion (adapt depending on structure)
 data["Month"] = pd.date_range(start="1949-01-01", periods=len(data), freq="M")
 data = data.set_index("Month").sort_index()
 data.rename(columns={data.columns[0]: "Passengers"}, inplace=True)
+
 print(data.head())</code></pre>
 <h2>Implementation Steps</h2>
 <h3>1. Data Loading and Exploration</h3>
