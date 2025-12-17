@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 15: Daily Hospital Admissions Time Series - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Topic 15</p>
+        <h1>Daily Hospital Admissions Time Series</h1>
+        <div class="topic-badges">
+          <span class="badge easy">Easy</span>
+          
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="Topic/15.Daily_Hospital_Admissions/15.Hospital_Admissions.jpeg" alt="Daily Hospital Admissions Time Series" />
+      </div>
+    </section>
+
+    <section class="card topic-content">
+      <h1>Topic 15 – Daily Hospital Admissions Time Series (Kaggle)</h1>
+<strong>Level:</strong> Easy
+<strong>Goal:</strong> Forecast daily hospital admissions using univariate time series analysis. Suitable for both traditional ARIMA/SARIMA methods and ML/DL approaches.
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> Hospital Daily Admissions Dataset – Kaggle</li>
+<li><strong>Link:</strong> https://www.kaggle.com/datasets/arindam235/hospital-daily-admissions</li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset link above.</li>
+<li>Log in to Kaggle.</li>
+<li>Click "Download".</li>
+<li>Extract to <code>data/hospital/</code>.</li>
+<li>Use the main CSV file (e.g., <code>hospital_admissions.csv</code> or <code>daily_admissions.csv</code>).</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv("data/hospital/hospital_admissions.csv")  # adjust filename
+df["Date"] = pd.to_datetime(df["Date"])  # adapt column name if different
+df = df.set_index("Date").sort_index()</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load the dataset and inspect structure</li>
+<li>Visualize the time series (daily admissions over time)</li>
+<li>Check for missing values and handle them appropriately</li>
+<li>Examine basic statistics (mean, std, min, max)</li>
+<li>Identify any obvious patterns (trends, seasonality)</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot time series with trend lines</li>
+<li>Perform time series decomposition (trend, seasonality, residual)</li>
+<li>Calculate and visualize ACF/PACF plots</li>
+<li>Identify weekly patterns (weekday vs weekend effects)</li>
+<li>Check for monthly or yearly seasonality</li>
+<li>Analyze outliers or unusual patterns</li>
+</ul>
+<h3>3. Stationarity Analysis</h3>
+<ul>
+<li>Test for stationarity using ADF test</li>
+<li>Apply differencing if needed (1st or 2nd order)</li>
+<li>Consider seasonal differencing if strong weekly patterns exist</li>
+<li>Apply log transformation if variance is non-constant</li>
+</ul>
+<h3>4. Model Building</h3>
+<h4>Traditional Methods:</h4>
+<ul>
+<li><strong>ARIMA Models:</strong></li>
+<li>Use ACF/PACF to identify initial (p, d, q) parameters</li>
+<li>Try multiple ARIMA configurations</li>
+<li>Use AIC/BIC for model selection</li>
+<li><strong>SARIMA Models:</strong></li>
+<li>Identify seasonal patterns (weekly: 7 days, monthly: 30 days)</li>
+<li>Fit SARIMA models with seasonal components</li>
+<li>Compare different seasonal configurations</li>
+</ul>
+<h4>Machine Learning Methods:</h4>
+<ul>
+<li><strong>Feature Engineering:</strong></li>
+<li>Create lag features (previous day, week)</li>
+<li>Add time-based features (day of week, month, is_weekend)</li>
+<li>Rolling statistics (7-day, 30-day averages)</li>
+<li><strong>Models:</strong></li>
+<li>Random Forest or XGBoost for regression</li>
+<li>Linear regression with features</li>
+<li>Compare with ARIMA/SARIMA baseline</li>
+</ul>
+<h4>Deep Learning Methods (Optional):</h4>
+<ul>
+<li><strong>LSTM/GRU:</strong></li>
+<li>Prepare sequences for RNN models</li>
+<li>Train LSTM or GRU networks</li>
+<li>Tune hyperparameters</li>
+<li><strong>Simple CNN:</strong></li>
+<li>Use 1D convolutions for time series</li>
+<li>Compare with RNN approaches</li>
+</ul>
+<h3>5. Model Evaluation</h3>
+<ul>
+<li>Split data temporally (e.g., last 20-30% as test set)</li>
+<li>Use walk-forward validation for time series</li>
+<li>Calculate metrics: MAE, RMSE, MAPE</li>
+<li>Compare traditional vs ML/DL approaches</li>
+<li>Visualize actual vs predicted values</li>
+<li>Analyze forecast errors and residuals</li>
+</ul>
+<h3>6. Forecasting</h3>
+<ul>
+<li>Generate future forecasts (e.g., next 30 days)</li>
+<li>Include prediction intervals/confidence bands</li>
+<li>Visualize forecasts with historical data</li>
+<li>Interpret results in healthcare context</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><strong>EDA Report:</strong></li>
+</ol>
+<ul>
+<li>Time series plots showing patterns</li>
+<li>Decomposition plots (trend, seasonal, residual)</li>
+<li>ACF/PACF plots</li>
+<li>Stationarity test results</li>
+<li>Weekly/monthly pattern analysis</li>
+</ul>
+<ol>
+<li><strong>Model Results:</strong></li>
+</ol>
+<ul>
+<li>Best traditional model (ARIMA/SARIMA) with parameters</li>
+<li>Best ML model with feature importance</li>
+<li>Best DL model (if implemented) with architecture</li>
+<li>Performance comparison table</li>
+<li>Forecast plots with confidence intervals</li>
+</ul>
+<ol>
+<li><strong>Code:</strong></li>
+</ol>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for data preprocessing, feature engineering, modeling</li>
+<li>Visualization utilities</li>
+<li>Model comparison scripts</li>
+</ul>
+<h2>Tips</h2>
+<ul>
+<li>Hospital admissions often show weekly patterns (lower on weekends)</li>
+<li>Consider external factors (holidays, events) that might affect admissions</li>
+<li>Use appropriate train/validation/test splits (temporal, not random)</li>
+<li>Start with simple models (ARIMA) before moving to complex ML/DL</li>
+<li>Feature engineering is crucial for ML models - create meaningful time-based features</li>
+<li>Compare multiple approaches and justify your choice</li>
+<li>Document any data preprocessing steps clearly</li>
+<li>Consider the healthcare context when interpreting results</li>
+</ul>
+    </section>
+
+    <section class="card starter-notebook-section">
+      <h2>Starter Notebook</h2>
+      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
+      <div style="margin-top: 20px;">
+        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/15.Daily_Hospital_Admissions/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
+          📓 View Starter Notebook on GitHub
+        </a>
+      </div>
+      <p style="margin-top: 15px; color: var(--muted);">
+        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Getting Started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/15.Daily_Hospital_Admissions/</code> directory to access all resources.</p>
+      <div style="margin-top: 20px;">
+        <a href="topics.html" class="btn">← Back to All Topics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>
+
