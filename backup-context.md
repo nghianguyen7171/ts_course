@@ -193,6 +193,19 @@
   - Logo positioned at height 1.2cm with proper spacing
   - Logo appears in the colored header box above the title
   - Verified successful compilation (PDF generated: 617KB, 2 pages - size increased due to logo inclusion)
+- 2025-12-16: Updated topics page color scheme and bonus points system:
+  - Improved color differentiation for difficulty levels:
+    * Easy: Green (#22c55e) with subtle shadow
+    * Medium: Amber/Yellow (#fbbf24) with subtle shadow
+    * Hard: Red (#ef4444) with subtle shadow
+  - Added colored left border to topic cards matching difficulty level
+  - Updated bonus points system:
+    * Easy topics: 0 bonus points (no badge)
+    * Medium topics: +1 bonus point (amber/yellow badge)
+    * Hard topics: +1.5 bonus points (red badge)
+  - Added bonus badges to all medium topics (4, 5, 7, 13)
+  - Updated difficulty legend with correct bonus point information
+  - Enhanced badge styling with better contrast and shadows for both light and dark themes
 - 2025-12-16: Removed Class Regulations section and added Topics page to website:
   - Removed "Class Regulations" section from main index.html
   - Added "Topics" link to navigation menu
