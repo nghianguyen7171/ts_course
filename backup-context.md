@@ -276,4 +276,36 @@
     * Initial visualization cells for time series plotting
     * Notebooks are ready-to-use templates that students can build upon
     * Special handling for library-based datasets (VitalDB, MNE, WFDB, statsmodels)
+- 2025-12-16: Updated Topic 15 from "Daily Hospital Admissions" to "Healthcare Call Data Analysis During Emergency Times":
+  - Changed topic title and focus to healthcare call center data during emergency periods
+  - Updated dataset link to correct Kaggle dataset: https://www.kaggle.com/datasets/shuvokumarbasak2030/healthcare-call-data-analysis-duringemergencytimes/data
+  - Renamed folder from `15.Daily_Hospital_Admissions/` to `15.Healthcare_Call_Data/`
+  - Changed representation image from `15.Hospital_Admissions.jpeg` to `15.Med_em.jpeg`
+  - Updated README.md with new topic description:
+    * Changed from daily hospital admissions to monthly healthcare call data
+    * Updated dataset instructions to use `daily_and_month_call_report.csv`
+    * Added focus on emergency period analysis (2021-2022 spikes)
+    * Updated implementation steps for monthly data (12-month seasonality)
+    * Added emergency period considerations in feature engineering and modeling
+  - Updated starter.ipynb to work with new dataset structure:
+    * Changed data loading to create datetime from Year/Month columns
+    * Updated to load `daily_and_month_call_report.csv` from `data/healthcare_calls/`
+    * Modified plotting to show "Total Number of Calls" time series
+    * Added information about multiple available time series (calls, consultations, health info, ambulance info, complaints, service inquiries)
+  - Updated topic15.html with new topic information:
+    * Changed hero section title and image reference
+    * Updated all content to reflect monthly data analysis
+    * Added emergency period analysis focus
+    * Updated tips section for monthly data and emergency periods
+  - Updated topics.html with new topic name, description, and image reference
+  - All files committed and pushed to GitHub
+- 2025-12-16: Reordered topics on topics.html page from easiest to hardest:
+  - Reorganized topic cards to display in difficulty order while maintaining original topic numbers
+  - New display order:
+    * Easy topics (5): Topic 1 (S&P 500), Topic 2 (Business Sales), Topic 3 (GDP), Topic 9 (Airline Passengers), Topic 15 (Healthcare Call Data)
+    * Medium topics (6): Topic 4 (US Macro), Topic 5 (NVIDIA Stock), Topic 6 (Multivariate Financial), Topic 7 (Human Vital Signs), Topic 8 (VitalDB), Topic 13 (Store Sales)
+    * Hard topics (4): Topic 10 (EEG), Topic 11 (ECG), Topic 12 (Open Time Series), Topic 14 (Electricity Load)
+  - Added HTML comments to group topics by difficulty level (Easy Topics, Medium Topics, Hard Topics)
+  - Original topic numbers preserved in titles (Topic 1, Topic 2, etc.)
+  - Changes committed and pushed to GitHub
 
