@@ -5,14 +5,14 @@
 
 ## Dataset
 
-- **Source:** Hospital Daily Admissions Dataset – Kaggle
-- **Link:** https://www.kaggle.com/datasets/arindam235/hospital-daily-admissions
+- **Source:** Daily hospital admissions time series dataset from Kaggle
+- **Link:** Search Kaggle for a suitable dataset (e.g., search for "hospital admissions", "emergency department visits", or "daily patient admissions"). Choose a dataset that provides a date column and an admissions/count column.
 
 ## Download Instructions
 
-1. Open the dataset link above.
+1. Search Kaggle for a suitable daily hospital admissions dataset.
 2. Log in to Kaggle.
-3. Click "Download".
+3. Click "Download" for your chosen dataset.
 4. Extract to `data/hospital/`.
 5. Use the main CSV file (e.g., `hospital_admissions.csv` or `daily_admissions.csv`).
 
