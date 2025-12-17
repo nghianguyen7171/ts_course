@@ -170,6 +170,56 @@ df = df.set_index("Time")</code></pre>
 </ul>
     </section>
 
+    <section class="card starter-notebook-section">
+      <h2>Starter Notebook</h2>
+      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
+      <div class="notebook-content">
+<div class="notebook-markdown"><h1>Topic 8 – High-Resolution Vital Signs with VitalDB (Python Library)</h1>
+<p><strong>Level:</strong> Medium → Hard <strong>Goal:</strong> Work with high-frequency ICU/OR vital signs via VitalDB library.</p>
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> VitalDB – PhysioNet</li>
+<li><strong>Link:</strong> https://physionet.org/content/vitaldb/</li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Install vitaldb library: <code>pip install vitaldb</code></li>
+</ol></div>
+<div class="notebook-markdown"><h2>Installation</h2>
+<p>Install required packages:</p></div>
+<div class="notebook-code"><pre><code class="language-python">!pip install vitaldb</code></pre></div>
+<div class="notebook-markdown"><h2>Data Loading</h2>
+<p>Load the dataset.</p></div>
+<div class="notebook-code"><pre><code class="language-python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set plotting style
+plt.style.use(&#x27;seaborn-v0_8-darkgrid&#x27;)
+sns.set_palette(&quot;husl&quot;)</code></pre></div>
+<div class="notebook-code"><pre><code class="language-python">import vitaldb
+vf = vitaldb.VitalFile(1)  # example case 1
+tracks = [&quot;SNUADC/ECG&quot;, &quot;Solar 8000/ART1&quot;]
+vals, t = vitaldb.vital_recs(vf, track_names=tracks, return_datetime=True)
+df = pd.DataFrame(vals, columns=[&quot;ECG&quot;, &quot;ART&quot;])
+df[&quot;Time&quot;] = t
+df = df.set_index(&quot;Time&quot;)</code></pre></div>
+<div class="notebook-code"><pre><code class="language-python"># Display basic information
+print(f&quot;Dataset shape: {df.shape}&quot;)
+print(f&quot;
+Columns: {df.columns.tolist()}&quot;)
+print(f&quot;
+Date range: {df.index.min()} to {df.index.max()}&quot;)
+print(f&quot;
+First few rows:&quot;)
+df.head()</code></pre></div>
+      </div>
+      <div style="margin-top: 20px;">
+        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/8.*/starter.ipynb</code> directory.</p>
+      </div>
+    </section>
+
     <section class="card">
       <h2>Getting Started</h2>
       <p>This topic includes:</p>

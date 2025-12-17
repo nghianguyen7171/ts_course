@@ -148,6 +148,61 @@ df = df.set_index("DATE").sort_index()</code></pre>
 </ul>
     </section>
 
+    <section class="card starter-notebook-section">
+      <h2>Starter Notebook</h2>
+      <p>Below is the starter notebook with installation instructions and data loading code to help you get started:</p>
+      <div class="notebook-content">
+<div class="notebook-markdown"><h1>Topic 4 – US Macroeconomic Indicators (Kaggle)</h1>
+<p><strong>Level:</strong> Medium <strong>Goal:</strong> Model and forecast key US macro indicators (unemployment, inflation, etc.).</p>
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> U.S. Economic Time Series – Kaggle</li>
+<li><strong>Link:</strong> https://www.kaggle.com/datasets/utkarshx27/us-economic-time-series</li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset link above</li>
+<li>Click "Download"</li>
+<li>Extract to <code>data/</code> folder</li>
+<li>Use the main CSV, e.g. <code>USEconomicData.csv</code></li>
+</ol></div>
+<div class="notebook-markdown"><h2>Installation</h2>
+<p>Install required packages:</p></div>
+<div class="notebook-code"><pre><code class="language-python"># !pip install pandas numpy matplotlib seaborn statsmodels scikit-learn</code></pre></div>
+<div class="notebook-markdown"><h2>Data Loading</h2>
+<p>Load the dataset.</p></div>
+<div class="notebook-code"><pre><code class="language-python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set plotting style
+plt.style.use(&#x27;seaborn-v0_8-darkgrid&#x27;)
+sns.set_palette(&quot;husl&quot;)</code></pre></div>
+<div class="notebook-code"><pre><code class="language-python">df = pd.read_csv(&quot;data/USEconomicData.csv&quot;)  # adjust filename if neededdf[&quot;DATE&quot;] = pd.to_datetime(df[&quot;DATE&quot;])df = df.set_index(&quot;DATE&quot;).sort_index()</code></pre></div>
+<div class="notebook-code"><pre><code class="language-python"># Check for missing values
+print(&quot;Missing values:&quot;)
+print(df.isnull().sum())
+
+# Basic statistics
+print(f&quot;
+Basic statistics:&quot;)
+df.describe()</code></pre></div>
+<div class="notebook-code"><pre><code class="language-python"># Plot the time series
+plt.figure(figsize=(12, 6))
+plt.plot(df.index, df.iloc[:, 0], linewidth=1.5)
+plt.title(&quot;Time Series Plot&quot;, fontsize=14, fontweight=&#x27;bold&#x27;)
+plt.xlabel(&quot;Date&quot;, fontsize=12)
+plt.ylabel(&quot;Value&quot;, fontsize=12)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()</code></pre></div>
+      </div>
+      <div style="margin-top: 20px;">
+        <p><strong>Note:</strong> You can also download the notebook file from the <code>Topic/4.*/starter.ipynb</code> directory.</p>
+      </div>
+    </section>
+
     <section class="card">
       <h2>Getting Started</h2>
       <p>This topic includes:</p>
