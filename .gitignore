@@ -3,5 +3,6 @@ Topic/*/data/
 Topic/*/textbook/
 textbook/
 *.pdf
+!slides/*.pdf
 Opendatabay_recovery_codes.txt
 
