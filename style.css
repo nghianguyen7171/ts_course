@@ -294,6 +294,7 @@ ul {
   height: 120px;
   border-radius: 14px;
   object-fit: cover;
+  object-position: top center;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
