@@ -200,6 +200,34 @@
             color: #856404;
         }
 
+        .guide {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .guide h2 {
+            margin-top: 0;
+        }
+
+        .guide .formula {
+            background: #fff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: 'Times New Roman', serif;
+            border-left: 4px solid #2196f3;
+        }
+
+        .guide h4 {
+            color: #1565c0;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
         @media print {
             body {
                 background: white;
@@ -228,6 +256,59 @@
 <div class="container">
 <h1>Time Series Problem Set: Autocorrelation Function (ACF)</h1>
 <p class="subtitle">Problem Set (Without Solutions) - Undergraduate Level</p>
+
+<div class="guide">
+<h2>Calculation Guide: Mean, Variance, Autocovariance, and ACF</h2>
+<p>Use the formulas and code below as a reference when computing statistics by hand or checking your work. For a sample time series <span class="math">x₁, x₂, …, xₙ</span> of length <span class="math">n</span>:</p>
+
+<h4>Sample mean</h4>
+<div class="formula">x̄ = (1/n) Σᵢ xᵢ</div>
+
+<h4>Sample variance (with n−1 denominator)</h4>
+<div class="formula">s² = (1/(n−1)) Σᵢ (xᵢ − x̄)²</div>
+
+<h4>Autocovariance at lag k</h4>
+<p>For lag <span class="math">k</span>, use the <em>demeaned</em> series (subtract the mean first). With <span class="math">n</span> observations, there are <span class="math">n−k</span> pairs <span class="math">(xᵢ − x̄, xᵢ₊ₖ − x̄)</span>.</p>
+<div class="formula">γ(k) = (1/(n−k)) Σᵢ (xᵢ − x̄)(xᵢ₊ₖ − x̄)  &nbsp; (sum over i = 1, …, n−k)</div>
+<p>Some texts use <span class="math">1/n</span> instead of <span class="math">1/(n−k)</span>; be consistent. For this problem set, using <span class="math">1/(n−k)</span> or <span class="math">1/n</span> is acceptable as long as you use the same convention for γ(0) and γ(k).</p>
+
+<h4>Autocorrelation at lag k</h4>
+<div class="formula">ρ(k) = γ(k) / γ(0)</div>
+<p>So <span class="math">ρ(0) = 1</span> always. Autocorrelation is dimensionless and lies in <span class="math">[−1, 1]</span>.</p>
+
+<h4>Python: computing mean, variance, and ACF</h4>
+<p>Example with a small array (replace with your data). For ACF, mean removal is applied.</p>
+<pre><code>import numpy as np
+
+def sample_mean(x):
+    return np.mean(x)
+
+def sample_var(x):
+    return np.var(x, ddof=1)  # ddof=1 gives 1/(n-1)
+
+def autocovariance(x, k):
+    """Sample autocovariance at lag k, with mean removal."""
+    x = np.asarray(x)
+    n = len(x)
+    x_centered = x - np.mean(x)
+    if k >= n:
+        return 0.0
+    return np.sum(x_centered[:-k] * x_centered[k:]) / (n - k)
+
+def autocorrelation(x, k):
+    """Sample autocorrelation at lag k."""
+    return autocovariance(x, k) / autocovariance(x, 0)
+
+# Example: compute for a short series
+x = np.array([2, 4, 6, 8, 10])
+print("Mean:", sample_mean(x))
+print("Variance:", sample_var(x))
+for lag in [0, 1, 2]:
+    print(f"ACF({lag}):", autocorrelation(x, lag))</code></pre>
+
+<p><strong>Without mean removal</strong> (for comparison in Exercise Type 2): use <span class="math">xᵢ</span> and <span class="math">xᵢ₊ₖ</span> directly in the product sum instead of <span class="math">(xᵢ − x̄)(xᵢ₊ₖ − x̄)</span>. In code, replace <code>x_centered</code> with <code>x</code> in the autocovariance sum.</p>
+</div>
+
 <div class="exercise-type">
 <h2>Exercise Type 1: Numerical ACF Calculation</h2>
 <div class="problem">
