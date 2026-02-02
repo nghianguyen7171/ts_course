@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Week 6–7 Practice: Stationarity, Unit Root, Differencing, AR/MA/ARMA</title>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+        .problem {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .problem h4 { color: #2c3e50; margin-bottom: 15px; font-size: 1.2em; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        pre code { background: transparent; color: #f8f8f2; padding: 0; }
+        ul, ol { margin-left: 25px; margin-top: 10px; }
+        li { margin: 8px 0; }
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .summary h2 { background: transparent; border: none; padding: 0; margin-bottom: 20px; }
+        .summary ul { list-style: none; margin-left: 0; }
+        .summary li {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+        .guide {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .guide h2 { margin-top: 0; }
+        .guide h4 { color: #1565c0; margin-top: 20px; margin-bottom: 8px; font-size: 1.1em; }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .note strong { color: #856404; }
+        @media print { body { background: white; padding: 0; } .container { box-shadow: none; padding: 20px; } }
+        @media (max-width: 768px) { .container { padding: 20px; } h1 { font-size: 1.8em; } h2 { font-size: 1.4em; } }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Week 6–7 Practice: Stationarity, Unit Root, Differencing, AR/MA/ARMA</h1>
+<p class="subtitle">Practice Exercises (Kaggle Notebook) — No Solutions</p>
+
+<div class="guide">
+<h2>Kaggle Notebook Environment</h2>
+<p>Complete these exercises in a <strong>Kaggle notebook</strong>. Use the dataset and path conventions below.</p>
+
+<h4>Dataset</h4>
+<ul>
+<li><strong>Kaggle:</strong> <a href="https://www.kaggle.com/datasets/trongnghia7171/hospital-admissions-ts-practice/data" target="_blank" rel="noopener">Hospital Admissions TS Practice</a></li>
+<li><strong>File:</strong> <code>healthcare_ts.csv</code></li>
+<li><strong>Description:</strong> Daily hospital admissions (simulated), one univariate series with columns <code>date</code> and <code>value</code>.</li>
+<li><strong>Length:</strong> 730 daily observations (~2 years).</li>
+</ul>
+
+<h4>Adding the dataset on Kaggle</h4>
+<ul>
+<li>Open the dataset link above (or go to your notebook and click <strong>Add Data</strong>).</li>
+<li>Search for <strong>hospital-admissions-ts-practice</strong> by <code>trongnghia7171</code>, or use the link: <a href="https://www.kaggle.com/datasets/trongnghia7171/hospital-admissions-ts-practice/data" target="_blank" rel="noopener">https://www.kaggle.com/datasets/trongnghia7171/hospital-admissions-ts-practice/data</a>.</li>
+<li>Attach the dataset to your notebook. The file path will be <code>/kaggle/input/hospital-admissions-ts-practice/healthcare_ts.csv</code>.</li>
+</ul>
+
+<h4>Loading the data in the notebook</h4>
+<pre><code>import pandas as pd
+path = "/kaggle/input/hospital-admissions-ts-practice/healthcare_ts.csv"
+df = pd.read_csv(path)
+df["date"] = pd.to_datetime(df["date"])
+df = df.set_index("date").sort_index()
+y = df["value"]</code></pre>
+
+<h4>Required packages</h4>
+<p>Kaggle notebooks include <code>pandas</code>, <code>numpy</code>, <code>matplotlib</code>, and <code>statsmodels</code>. If needed, install in a cell:</p>
+<pre><code># !pip install statsmodels</code></pre>
+</div>
+
+<div class="note">
+<strong>Objective:</strong> Use this healthcare time series to practice the full pipeline from unit root testing through model selection, AR/MA/ARMA fitting, and evaluation (aligned with slides 4.1 and 4.2). Solutions are available separately.
+</div>
+
+<h2>Exercise 1: Load and explore</h2>
+<div class="problem">
+<h4>Task 1.1</h4>
+<p>Load the CSV from the Kaggle input path, parse <code>date</code>, and set it as the datetime index. Use the series <span class="math">y</span> (column <code>value</code>).</p>
+<h4>Task 1.2</h4>
+<p>Plot the series and compute basic statistics (mean, std, min, max). Comment on trend and variability.</p>
+</div>
+
+<h2>Exercise 2: Unit root tests</h2>
+<div class="problem">
+<h4>Task 2.1</h4>
+<p>Run the <strong>Augmented Dickey–Fuller (ADF)</strong> test on the raw series (e.g. <code>statsmodels.tsa.stattools.adfuller</code>). Report the test statistic, p-value, and critical values.</p>
+<h4>Task 2.2</h4>
+<p>Conclude whether the series is stationary or has a unit root. State the null and alternative hypotheses and your decision.</p>
+<h4>Task 2.3 (optional)</h4>
+<p>Run the <strong>KPSS</strong> test and compare conclusions (trend stationary vs difference stationary).</p>
+</div>
+
+<h2>Exercise 3: Differencing</h2>
+<div class="problem">
+<h4>Task 3.1</h4>
+<p>Compute the first difference of the series. Plot the differenced series.</p>
+<h4>Task 3.2</h4>
+<p>Run the ADF test (and optionally KPSS) on the differenced series. Conclude whether the differenced series is stationary and hence whether <span class="math">d = 1</span> is appropriate.</p>
+</div>
+
+<h2>Exercise 4: ACF and PACF for model selection</h2>
+<div class="problem">
+<h4>Task 4.1</h4>
+<p>Plot the <strong>ACF</strong> and <strong>PACF</strong> of the <strong>differenced</strong> series (use a reasonable number of lags, e.g. 20–40). Optionally plot ACF/PACF of the raw series for comparison.</p>
+<h4>Task 4.2</h4>
+<p>Using the usual guidelines (PACF cutoff for AR order, ACF cutoff for MA order), suggest candidate orders <span class="math">(p, q)</span> for the differenced series, and hence <span class="math">(p, d, q)</span> with <span class="math">d = 1</span> for the original series (e.g. ARIMA(1,1,0), ARIMA(0,1,1), or ARIMA(1,1,1)).</p>
+</div>
+
+<h2>Exercise 5: AR/MA/ARMA fit</h2>
+<div class="problem">
+<h4>Task 5.1</h4>
+<p>Fit 2–3 candidate <strong>ARIMA(p, 1, q)</strong> models (e.g. (1,1,0), (0,1,1), (1,1,1)) using the full series.</p>
+<h4>Task 5.2</h4>
+<p>Report estimated coefficients, AIC, and BIC for each model.</p>
+<h4>Task 5.3</h4>
+<p>Choose a preferred model (e.g. by BIC or parsimony) and state the final order.</p>
+</div>
+
+<h2>Exercise 6: Evaluation</h2>
+<div class="problem">
+<h4>Task 6.1 — Residual diagnostics</h4>
+<p>For the chosen model, plot the ACF of the residuals. Run a <strong>Ljung–Box</strong> test (e.g. on the first several lags). Comment on whether the residuals behave like white noise.</p>
+<h4>Task 6.2 — Forecast evaluation</h4>
+<p>Split the data temporally (e.g. last 10–15% as test). Generate one-step or short-horizon forecasts for the test period. Compute <strong>RMSE</strong> and <strong>MAE</strong>. Plot forecasts vs actual values.</p>
+</div>
+
+<div class="summary">
+<h2>Summary</h2>
+<p>This practice set covers:</p>
+<ul>
+<li><strong>Load and explore:</strong> Load healthcare time series in Kaggle and inspect trend and variability.</li>
+<li><strong>Unit root tests:</strong> ADF (and optionally KPSS) on the raw series; conclude non-stationarity.</li>
+<li><strong>Differencing:</strong> First difference; confirm stationarity with ADF.</li>
+<li><strong>ACF/PACF:</strong> Model selection for (p, d, q) with d = 1.</li>
+<li><strong>AR/MA/ARMA fit:</strong> Fit ARIMA(p, 1, q); report coefficients and AIC/BIC; choose preferred model.</li>
+<li><strong>Evaluation:</strong> Residual diagnostics (ACF, Ljung–Box) and forecast evaluation (RMSE, MAE, plot).</li>
+</ul>
+<p style="margin-top: 20px;"><strong>Complete the exercises in a Kaggle notebook. Solutions are available separately.</strong></p>
+</div>
+</div>
+</body>
+</html>
