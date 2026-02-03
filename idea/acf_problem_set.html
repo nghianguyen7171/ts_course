@@ -199,6 +199,22 @@
             color: #856404;
         }
 
+        .solution-key {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-top: 12px;
+            margin-bottom: 6px;
+        }
+        .explanation {
+            background: #f1f8e9;
+            border-left: 3px solid #7cb342;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 0.98em;
+        }
+        .explanation strong { color: #558b2f; }
+
         @media print {
             body {
                 background: white;
@@ -228,6 +244,10 @@
         <h1>Time Series Problem Set: Autocorrelation Function (ACF)</h1>
         <p class="subtitle">Complete Problem Set with Solutions - Undergraduate Level</p>
 
+        <div class="note" style="margin-bottom: 30px;">
+            <strong>How to use this key:</strong> Each solution has a <strong>Key</strong> (short answer or numerical result) and an <strong>Explanation</strong> (why the answer is correct, which formula was used, or how to interpret the result). Work the problem first, then check the key and read the explanation to reinforce your understanding.
+        </div>
+
         <div class="exercise-type">
             <h2>Exercise Type 1: Numerical ACF Calculation</h2>
             
@@ -246,20 +266,17 @@
 
             <div class="solution">
                 <h4>Solution 1.1</h4>
-                <p><strong>1. Sample Mean:</strong></p>
-                <p class="math">x̄ = (2 + 4 + 6 + 8 + 10) / 5 = 30 / 5 = 6</p>
-                
-                <p><strong>2. Sample Variance:</strong></p>
-                <p>Deviations from mean: [-4, -2, 0, 2, 4]</p>
-                <p class="math">s² = [(-4)² + (-2)² + 0² + 2² + 4²] / 4 = 40 / 4 = 10</p>
-                
-                <p><strong>3. Autocovariance:</strong></p>
-                <p>For lag k = 0: γ(0) = 8</p>
-                <p>For lag k = 1: γ(1) = 3.2</p>
-                <p>For lag k = 2: γ(2) = -0.8</p>
-                
-                <p><strong>4. Autocorrelation:</strong></p>
-                <p>ρ(0) = 1.0, ρ(1) = 0.4, ρ(2) = -0.1</p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Sample mean:</strong> x̄ = 6</p>
+                <p><strong>2. Sample variance:</strong> s² = 10</p>
+                <p><strong>3. Autocovariance:</strong> γ(0) = 8, γ(1) = 3.2, γ(2) = -0.8</p>
+                <p><strong>4. Autocorrelation:</strong> ρ(0) = 1.0, ρ(1) = 0.4, ρ(2) = -0.1</p>
+
+                <p class="solution-key">Explanation (how we get these numbers)</p>
+                <p><strong>Mean:</strong> x̄ = (2 + 4 + 6 + 8 + 10) / 5 = 30 / 5 = 6.</p>
+                <p><strong>Variance:</strong> Use s² = (1/(n−1)) Σ (xᵢ − x̄)². Deviations from mean: (2−6, 4−6, 6−6, 8−6, 10−6) = (−4, −2, 0, 2, 4). So s² = [(−4)² + (−2)² + 0² + 2² + 4²] / 4 = 40 / 4 = 10.</p>
+                <p><strong>Autocovariance:</strong> Use γ(k) = (1/(n−k)) Σ (xᵢ − x̄)(xᵢ₊ₖ − x̄) with demeaned series. For <em>k = 0</em>: γ(0) = (1/5)[(−4)² + (−2)² + 0² + 2² + 4²] = 40/5 = 8 (same as variance up to divisor). For <em>k = 1</em>: pairs (x₁−x̄)(x₂−x̄), (x₂−x̄)(x₃−x̄), … → (−4)(−2)+(−2)(0)+(0)(2)+(2)(4) = 8+0+0+8 = 16, and n−k = 4, so γ(1) = 16/4 = 3.2. For <em>k = 2</em>: three pairs; sum = (−4)(0)+(−2)(2)+(0)(4) = −4, γ(2) = −4/3 ≈ −0.8.</p>
+                <p><strong>Autocorrelation:</strong> ρ(k) = γ(k) / γ(0). So ρ(0) = 1, ρ(1) = 3.2/8 = 0.4, ρ(2) = −0.8/8 = −0.1.</p>
             </div>
 
             <div class="problem">
@@ -270,12 +287,10 @@
 
             <div class="solution">
                 <h4>Solution 1.2</h4>
-                <p><strong>Sample Mean:</strong> x̄ = 5</p>
-                <p><strong>Sample Variance:</strong> s² = 0 (all deviations are zero)</p>
-                <p><strong>Autocovariance:</strong> γ(0) = 0, γ(k) = 0 for all k > 0</p>
-                <p><strong>Autocorrelation:</strong> <strong>UNDEFINED</strong> - cannot divide by zero when γ(0) = 0</p>
-                <div class="note">
-                    <strong>Interpretation:</strong> A constant time series has no variability. The ACF cannot be computed because there is no variation to measure correlation against. In practice, such series are considered degenerate and ACF analysis is not meaningful.
+                <p class="solution-key">Key</p>
+                <p>Sample mean x̄ = 5. Sample variance s² = 0. Autocovariance γ(0) = 0, γ(k) = 0 for k &gt; 0. <strong>Autocorrelation is undefined</strong> (we cannot divide by γ(0) = 0).</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> When all values are identical, every deviation (xᵢ − x̄) is zero, so s² = 0 and γ(0) = 0. The formula ρ(k) = γ(k)/γ(0) requires dividing by γ(0); when γ(0) = 0, autocorrelation is not defined. In practice, a constant series has no variability to correlate, so ACF analysis is not meaningful.
                 </div>
             </div>
 
@@ -288,12 +303,10 @@
 
             <div class="solution">
                 <h4>Solution 1.3</h4>
-                <p><strong>Sample Mean:</strong> x̄ = 6</p>
-                <p><strong>Sample Variance:</strong> s² = 10</p>
-                <p><strong>Autocovariance:</strong> γ(0) = 8, γ(1) = 3.2, γ(2) = -0.8</p>
-                <p><strong>Autocorrelation:</strong> ρ(0) = 1.0, ρ(1) = 0.4, ρ(2) = -0.1</p>
-                <div class="note">
-                    <strong>Note:</strong> This series has the same ACF as Problem 1.1 because both are linear trends with the same variance structure.
+                <p class="solution-key">Key</p>
+                <p>Sample mean x̄ = 6. Sample variance s² = 10. γ(0) = 8, γ(1) = 3.2, γ(2) = −0.8. ρ(0) = 1.0, ρ(1) = 0.4, ρ(2) = −0.1.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series [10, 8, 6, 4, 2] is a linear trend (same “shape” as [2, 4, 6, 8, 10] but reversed and shifted). Demeaned values have the same squared sum and the same cross-products at each lag, so the variance and ACF match Problem 1.1. Same variance structure ⇒ same γ(k) and ρ(k).
                 </div>
             </div>
 
@@ -306,12 +319,10 @@
 
             <div class="solution">
                 <h4>Solution 1.4</h4>
-                <p><strong>Sample Mean:</strong> x̄ = 4.6</p>
-                <p><strong>Sample Variance:</strong> s² = 4.8</p>
-                <p><strong>Autocovariance:</strong> γ(0) = 3.84, γ(1) = -3.072, γ(2) = 2.176, γ(3) = -1.536</p>
-                <p><strong>Autocorrelation:</strong> ρ(0) = 1.0, ρ(1) = -0.8, ρ(2) = 0.5667, ρ(3) = -0.4</p>
-                <div class="note">
-                    <strong>Interpretation:</strong> The alternating pattern creates negative autocorrelation at odd lags and positive at even lags.
+                <p class="solution-key">Key</p>
+                <p>Sample mean x̄ = 4.6. Sample variance s² = 4.8. γ(0) = 3.84, γ(1) = −3.072, γ(2) = 2.176, γ(3) = −1.536. ρ(0) = 1.0, ρ(1) = −0.8, ρ(2) ≈ 0.567, ρ(3) = −0.4.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series alternates between 3 and 7. After demeaning, values at the same “phase” (e.g. both 3 or both 7) are positively correlated; values one step apart are out of phase, giving negative correlation. So we get negative ρ at odd lags and positive ρ at even lags.
                 </div>
             </div>
 
@@ -324,12 +335,10 @@
 
             <div class="solution">
                 <h4>Solution 1.5</h4>
-                <p><strong>Sample Mean:</strong> x̄ ≈ 14.571</p>
-                <p><strong>Sample Variance:</strong> s² ≈ 7.286</p>
-                <p><strong>Autocovariance:</strong> γ(0) ≈ 6.245, γ(1) ≈ -2.554, γ(2) ≈ -2.554, γ(3) ≈ 5.298</p>
-                <p><strong>Autocorrelation:</strong> ρ(0) = 1.0, ρ(1) ≈ -0.409, ρ(2) ≈ -0.409, ρ(3) ≈ 0.848</p>
-                <div class="note">
-                    <strong>Interpretation:</strong> The period-3 pattern shows strong positive autocorrelation at lag 3 (the period length).
+                <p class="solution-key">Key</p>
+                <p>Sample mean x̄ ≈ 14.571. Sample variance s² ≈ 7.286. γ(0) ≈ 6.245, γ(1) ≈ −2.554, γ(2) ≈ −2.554, γ(3) ≈ 5.298. ρ(0) = 1.0, ρ(1) ≈ −0.409, ρ(2) ≈ −0.409, ρ(3) ≈ 0.848.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series repeats every 3 time steps (12, 15, 18, 12, 15, 18, 12). At lag 3, we compare values that are in the same position in the cycle (e.g. 12 with 12, 15 with 15), so correlation is high (ρ(3) ≈ 0.85). At lags 1 and 2 we compare different phases, so ρ is smaller and can be negative.
                 </div>
             </div>
         </div>
@@ -350,15 +359,11 @@
 
             <div class="solution">
                 <h4>Solution 2.1</h4>
-                <p><strong>Part 1: Without Mean Removal</strong></p>
-                <p>γ(0) = 89, γ(1) = 68, ρ(1) = 68/89 = 0.764</p>
-                
-                <p><strong>Part 2: With Mean Removal</strong></p>
-                <p>γ(0) = 8, γ(1) = 3.2, ρ(1) = 3.2/8 = 0.4</p>
-                
-                <p><strong>Part 3: Comparison</strong></p>
-                <div class="note">
-                    <strong>Why mean removal is necessary:</strong> When we don't remove the mean, the autocovariance captures both the true correlation structure and the spurious correlation introduced by the non-zero mean. The large mean dominates the calculation, making the series appear more correlated than it actually is. Mean removal isolates the true correlation structure.
+                <p class="solution-key">Key</p>
+                <p><strong>Without mean removal:</strong> γ(0) = 89, γ(1) = 68, ρ(1) = 68/89 ≈ 0.764.</p>
+                <p><strong>With mean removal:</strong> γ(0) = 8, γ(1) = 3.2, ρ(1) = 3.2/8 = 0.4.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> Without demeaning, we use products xᵢ·xᵢ₊ₖ; the non-zero mean (x̄ = 9) makes these products large and similar across lags, so autocorrelation is inflated (0.76). With mean removal we use (xᵢ − x̄)(xᵢ₊ₖ − x̄), which measures only how deviations from the mean co-vary. That gives the true correlation (0.4). Mean removal is necessary so that ACF reflects the actual dependence structure, not the level of the series.
                 </div>
             </div>
 
@@ -374,10 +379,10 @@
 
             <div class="solution">
                 <h4>Solution 2.2</h4>
-                <p><strong>Without mean removal:</strong> ρ(1) ≈ 0.799</p>
-                <p><strong>With mean removal:</strong> ρ(1) = 0.4</p>
-                <div class="note">
-                    <strong>Explanation:</strong> The autocorrelation without mean removal is much higher because the large mean value creates artificial correlation. After mean removal, we see the actual correlation between deviations is only 0.4.
+                <p class="solution-key">Key</p>
+                <p>Without mean removal: ρ(1) ≈ 0.799. With mean removal: ρ(1) = 0.4.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series [100, 102, 104, 106, 108] has the same “shape” as [5, 7, 9, 11, 13] (linear trend), so the <em>demeaned</em> correlation is the same (0.4). Without mean removal, the large values (around 104) dominate the products, so ρ(1) is artificially high (0.80). Demeaning removes this level effect and gives the correct ACF.
                 </div>
             </div>
 
@@ -390,10 +395,10 @@
 
             <div class="solution">
                 <h4>Solution 2.3</h4>
-                <p><strong>Without mean removal:</strong> ρ(1) ≈ 0.829</p>
-                <p><strong>With mean removal:</strong> ρ(1) = 0.5</p>
-                <div class="note">
-                    <strong>Interpretation:</strong> The series has a step change. Without mean removal, autocorrelation is inflated. After mean removal, we see the correlation is 0.5, reflecting the step structure.
+                <p class="solution-key">Key</p>
+                <p>Without mean removal: ρ(1) ≈ 0.829. With mean removal: ρ(1) = 0.5.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series has a step (20, 20, 20, then 25, 25, 25). Without demeaning, the high level and the step both contribute to large, similar products, so ρ(1) is inflated (0.83). With mean removal, we only see how deviations from the overall mean co-vary; the step structure yields ρ(1) = 0.5. So mean removal again gives the correct interpretation of the dependence.
                 </div>
             </div>
 
@@ -405,10 +410,10 @@
 
             <div class="solution">
                 <h4>Solution 2.4</h4>
-                <p><strong>Without mean removal:</strong> ρ(2) ≈ 0.4 (positive)</p>
-                <p><strong>With mean removal:</strong> ρ(2) = -0.5 (negative)</p>
-                <div class="note">
-                    <strong>Explanation:</strong> Mean removal reveals the true correlation structure. Without it, the mean dominates and masks the underlying pattern. The series has period 3, so at lag 2, we're comparing out-of-phase positions, creating negative correlation.
+                <p class="solution-key">Key</p>
+                <p>Without mean removal: ρ(2) ≈ 0.4 (positive). With mean removal: ρ(2) = −0.5 (negative).</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series [1, 3, 5, 1, 3, 5] has period 3. At lag 2 we compare positions that are out of phase (e.g. 1 with 5, 3 with 1, 5 with 3), so the true correlation is negative (−0.5). Without mean removal, the positive mean makes the products mostly positive, so ρ(2) appears positive (0.4) and the true pattern is masked. Mean removal reveals the correct sign and magnitude.
                 </div>
             </div>
 
@@ -424,10 +429,10 @@
 
             <div class="solution">
                 <h4>Solution 2.5</h4>
-                <p><strong>Without mean removal:</strong> ρ(3) ≈ 0.551</p>
-                <p><strong>With mean removal:</strong> ρ(3) ≈ 0.729</p>
-                <div class="note">
-                    <strong>Interpretation:</strong> The method with mean removal gives the correct interpretation. The series has period 3, and at lag 3 we should see strong positive correlation since we're comparing values at the same phase. The autocorrelation of 0.729 correctly identifies the strong periodic pattern.
+                <p class="solution-key">Key</p>
+                <p>Without mean removal: ρ(3) ≈ 0.551. With mean removal: ρ(3) ≈ 0.729.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series has period 3 (10, 12, 14, 10, 12, 14, 10). At lag 3 we compare values in the same phase (10 with 10, 12 with 12, 14 with 14), so we expect strong positive correlation. With mean removal, ρ(3) ≈ 0.73 correctly reflects this. Without mean removal, the level effect dilutes the correlation (0.55). So mean removal gives the correct interpretation of the periodic structure.
                 </div>
             </div>
         </div>
@@ -448,16 +453,11 @@
 
             <div class="solution">
                 <h4>Solution 3.1</h4>
-                <p><strong>1. Process Type:</strong> This indicates a <strong>white noise</strong> process.</p>
-                <p><strong>2. Characteristics:</strong></p>
-                <ul>
-                    <li>No serial correlation (uncorrelated observations)</li>
-                    <li>Constant mean and variance (stationary)</li>
-                    <li>No predictable pattern</li>
-                    <li>Each observation is independent of previous observations</li>
-                    <li>Used as a baseline for model diagnostics</li>
-                </ul>
-                <p><strong>3. Python Code:</strong></p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process type:</strong> <strong>White noise</strong>.</p>
+                <p><strong>2. Characteristics:</strong> No serial correlation (ρ(k) ≈ 0 for k &gt; 0); constant mean and variance (stationary); no predictable pattern; observations uncorrelated across time; used as a baseline for model diagnostics (e.g. residuals should look like white noise).</p>
+                <p><strong>3. Illustration:</strong> The code below generates white noise and plots the series and its ACF. You should see ρ(0) = 1 and ρ(k) near zero within the confidence bands.</p>
+                <p class="solution-key">Python code (runnable)</p>
                 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
 from statsmodels.tsa.stattools import acf
@@ -508,28 +508,27 @@ plt.show()</code></pre>
 
             <div class="solution">
                 <h4>Solution 3.2</h4>
-                <p><strong>1. Pattern Indication:</strong> This indicates a <strong>trend</strong> or <strong>non-stationary</strong> process. The slow decay suggests long memory, typically due to a deterministic or stochastic trend.</p>
-                <p><strong>2. Non-stationarity Type:</strong> Deterministic trend, random walk, or unit root process.</p>
-                <p><strong>3. Python Code:</strong></p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Pattern:</strong> <strong>Trend</strong> or <strong>non-stationary</strong> process. Slow decay of ρ(k) with no cutoff suggests long memory, usually from a deterministic or stochastic trend.</p>
+                <p><strong>2. Non-stationarity:</strong> Likely a deterministic trend (e.g. linear), a random walk, or a unit-root process. First differencing is often needed to obtain a stationary series.</p>
+                <p><strong>3. Illustration:</strong> The code below shows two examples: (i) linear trend + noise and (ii) random walk. Both produce ACFs that decay slowly and stay positive at large lags.</p>
                 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.tsa.stattools import acf
 from statsmodels.graphics.tsaplots import plot_acf
 
-# Generate time series with trend
 n = 200
-time = np.arange(n)
-
-# Option 1: Deterministic linear trend + noise
-trend = 0.05 * time
-noise = np.random.normal(0, 1, n)
-trend_series = trend + noise
-
-# Option 2: Random walk (stochastic trend)
+np.random.seed(42)
+# Option 1: Linear trend + noise
+trend_series = 0.05 * np.arange(n) + np.random.normal(0, 1, n)
+# Option 2: Random walk
 random_walk = np.cumsum(np.random.normal(0, 1, n))
 
-# Plot both series and their ACFs
-# (Full code in markdown file)</code></pre>
+fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+axes[0,0].plot(trend_series); axes[0,0].set_title('Trend + noise')
+plot_acf(trend_series, lags=40, ax=axes[0,1]); axes[0,1].set_title('ACF')
+axes[1,0].plot(random_walk); axes[1,0].set_title('Random walk')
+plot_acf(random_walk, lags=40, ax=axes[1,1]); axes[1,1].set_title('ACF')
+plt.tight_layout(); plt.show()</code></pre>
             </div>
 
             <div class="problem">
@@ -545,29 +544,23 @@ random_walk = np.cumsum(np.random.normal(0, 1, n))
 
             <div class="solution">
                 <h4>Solution 3.3</h4>
-                <p><strong>1. Pattern Indication:</strong> This indicates <strong>seasonality</strong> or <strong>cyclical behavior</strong>.</p>
-                <p><strong>2. Seasonality Type:</strong> Deterministic seasonality, cyclical component, or sinusoidal pattern.</p>
-                <p><strong>3. Python Code:</strong></p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Pattern:</strong> <strong>Seasonality</strong> or <strong>cyclical behavior</strong>. Oscillating ACF (positive/negative by lag) indicates a periodic component in the series.</p>
+                <p><strong>2. Type:</strong> Deterministic seasonality, a cyclical (e.g. sinusoidal) component, or a seasonal AR/MA structure. The period of the oscillation in the ACF matches the seasonal period.</p>
+                <p><strong>3. Illustration:</strong> The code below builds a series with a sinusoidal component (period 12) plus trend and noise. The ACF will show oscillatory (sinusoidal) decay.</p>
                 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.tsa.stattools import acf
 from statsmodels.graphics.tsaplots import plot_acf
 
-# Generate time series with seasonality
 n = 200
-time = np.arange(n)
-
-# Create seasonal component (period = 12)
-seasonal_period = 12
-seasonal_component = 5 * np.sin(2 * np.pi * time / seasonal_period)
-
-# Add trend and noise
-trend = 0.02 * time
-noise = np.random.normal(0, 0.5, n)
-seasonal_series = trend + seasonal_component + noise
-
-# Plot and compute ACF
-# (Full code in markdown file)</code></pre>
+np.random.seed(42)
+t = np.arange(n)
+seasonal = 5 * np.sin(2 * np.pi * t / 12)
+series = 0.02 * t + seasonal + np.random.normal(0, 0.5, n)
+fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+ax[0].plot(series); ax[0].set_title('Seasonal series')
+plot_acf(series, lags=50, ax=ax[1]); ax[1].set_title('ACF')
+plt.tight_layout(); plt.show()</code></pre>
             </div>
 
             <div class="problem">
@@ -583,20 +576,20 @@ seasonal_series = trend + seasonal_component + noise
 
             <div class="solution">
                 <h4>Solution 3.4</h4>
-                <p><strong>1. Process Type:</strong> This suggests a <strong>Moving Average (MA) process of order 2</strong>, specifically <strong>MA(2)</strong>.</p>
-                <p><strong>2. Model Order:</strong> MA(2) or ARIMA(0,0,2)</p>
-                <p><strong>3. Python Code:</strong></p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process type:</strong> <strong>Moving Average of order 2</strong>, MA(2). ACF that is significant at lags 1 and 2 and then cuts off to (approximately) zero is the hallmark of an MA(q) process with q = 2.</p>
+                <p><strong>2. Model order:</strong> MA(2) or ARIMA(0, 0, 2).</p>
+                <p><strong>3. Illustration:</strong> The code below simulates an MA(2) process and plots the series and ACF. You should see ρ(1) and ρ(2) significant and ρ(k) ≈ 0 for k &gt; 2.</p>
                 <pre><code>from statsmodels.tsa.arima_process import ArmaProcess
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
 
-# Generate MA(2) process
-ma_coeffs = np.array([1, 0.5, 0.3])  # [1, θ1, θ2]
-ar_coeffs = np.array([1])
-
-arma_process = ArmaProcess(ar_coeffs, ma_coeffs)
-ma2_series = arma_process.generate_sample(nsample=200)
-
-# Plot and compute ACF
-# (Full code in markdown file)</code></pre>
+ar_coeffs, ma_coeffs = np.array([1]), np.array([1, 0.5, 0.3])  # MA(2)
+ma2_series = ArmaProcess(ar_coeffs, ma_coeffs).generate_sample(nsample=200)
+fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+ax[0].plot(ma2_series); ax[0].set_title('MA(2) series')
+plot_acf(ma2_series, lags=20, ax=ax[1]); ax[1].set_title('ACF')
+plt.tight_layout(); plt.show()</code></pre>
             </div>
 
             <div class="problem">
@@ -612,20 +605,20 @@ ma2_series = arma_process.generate_sample(nsample=200)
 
             <div class="solution">
                 <h4>Solution 3.5</h4>
-                <p><strong>1. Process Type:</strong> This indicates an <strong>Autoregressive (AR) process</strong>.</p>
-                <p><strong>2. Difference from MA:</strong> AR processes show exponential decay (gradual decline), while MA processes cut off sharply after lag q.</p>
-                <p><strong>3. Python Code:</strong></p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process type:</strong> <strong>Autoregressive (AR) process</strong>. Gradual (exponential) decay of ρ(k) with no sharp cutoff is typical of AR processes.</p>
+                <p><strong>2. Difference from MA:</strong> AR: ACF decays gradually (exponential or damped sinusoid). MA: ACF cuts off sharply after lag q (ρ(k) ≈ 0 for k &gt; q). So “exponential decay, no cutoff” ⇒ AR; “significant for a few lags then zero” ⇒ MA.</p>
+                <p><strong>3. Illustration:</strong> The code below simulates an AR(1) process (φ = 0.7). The ACF should decay roughly as ρ(k) ∝ 0.7^k.</p>
                 <pre><code>from statsmodels.tsa.arima_process import ArmaProcess
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
 
-# Generate AR(1) process
-ar_coeffs = np.array([1, -0.7])  # [1, -φ1] for AR(1)
-ma_coeffs = np.array([1])
-
-arma_process = ArmaProcess(ar_coeffs, ma_coeffs)
-ar1_series = arma_process.generate_sample(nsample=200)
-
-# Plot and compute ACF
-# (Full code in markdown file)</code></pre>
+ar_coeffs, ma_coeffs = np.array([1, -0.7]), np.array([1])  # AR(1)
+ar1_series = ArmaProcess(ar_coeffs, ma_coeffs).generate_sample(nsample=200)
+fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+ax[0].plot(ar1_series); ax[0].set_title('AR(1) series')
+plot_acf(ar1_series, lags=20, ax=ax[1]); ax[1].set_title('ACF (exponential decay)')
+plt.tight_layout(); plt.show()</code></pre>
             </div>
         </div>
 
@@ -651,10 +644,11 @@ ar1_series = arma_process.generate_sample(nsample=200)
 
             <div class="solution">
                 <h4>Solution 4.1</h4>
-                <p><strong>1. Memory Length:</strong> The process has <strong>short memory</strong> (approximately 5 time steps).</p>
-                <p><strong>2. Model Order:</strong> AR(1) or ARIMA(1,0,0) would be appropriate.</p>
-                <p><strong>3. Deep Learning:</strong> <strong>No, deep learning is not necessary.</strong> Traditional AR/ARIMA models are sufficient because the process has short memory and simple ACF pattern.</p>
-                <p><strong>4. Python Code:</strong> (See markdown file for complete code)</p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Memory length:</strong> <strong>Short memory</strong>—ACF decays to near zero by lag 5, so the process “forgets” after about 5 steps.</p>
+                <p><strong>2. Model order:</strong> AR(1) or ARIMA(1, 0, 0) is appropriate (exponential decay with no sharp cutoff ⇒ AR(1)).</p>
+                <p><strong>3. Deep learning:</strong> <strong>No.</strong> The ACF is simple (exponential decay, short memory), so classical AR/ARIMA is sufficient. Deep learning is more useful when the dependence is long, nonlinear, or high-dimensional.</p>
+                <p><strong>4. Illustration:</strong> Simulate an AR(1) with φ ≈ 0.8 to get ρ(1) ≈ 0.8 and rapid decay; plot the series and ACF to match the described pattern.</p>
             </div>
 
             <div class="problem">
@@ -676,10 +670,13 @@ ar1_series = arma_process.generate_sample(nsample=200)
 
             <div class="solution">
                 <h4>Solution 4.2</h4>
-                <p><strong>1. Process Indication:</strong> This indicates a <strong>non-stationary process</strong>, likely a random walk or unit root process.</p>
-                <p><strong>2. Preprocessing:</strong> <strong>First-order differencing</strong> is necessary to make the series stationary.</p>
-                <p><strong>3. Model:</strong> After differencing, ARIMA(1,1,0) would be appropriate for the original series.</p>
-                <p><strong>4. Python Code:</strong> (See markdown file for complete code)</p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process:</strong> <strong>Non-stationary</strong>—likely a random walk or unit-root process. Very slow ACF decay with no cutoff is typical of integrated (I) series.</p>
+                <p><strong>2. Preprocessing:</strong> <strong>First-order differencing</strong> is needed. The differenced series should have a fast-decaying ACF (stationary).</p>
+                <p><strong>3. Model:</strong> For the original series, use ARIMA(1, 1, 0): d = 1 from differencing; the differenced series can be modeled as AR(1).</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> Blood pressure often drifts (e.g. baseline shift). Differencing removes the drift; then ACF/PACF of the differenced series guide (p, q). Simulate a random walk or trend+noise, difference it, and plot ACF to see the change.
+                </div>
             </div>
 
             <div class="problem">
@@ -701,10 +698,13 @@ ar1_series = arma_process.generate_sample(nsample=200)
 
             <div class="solution">
                 <h4>Solution 4.3</h4>
-                <p><strong>1. Signal Indication:</strong> The signal has a <strong>strong periodic/seasonal component</strong> with period 10.</p>
-                <p><strong>2. Seasonality Type:</strong> <strong>Deterministic seasonality</strong> with period 10.</p>
-                <p><strong>3. Seasonal ARIMA:</strong> Yes, a <strong>SARIMA model</strong> would be appropriate, e.g., SARIMA(1,0,1)(1,0,1)₁₀.</p>
-                <p><strong>4. Python Code:</strong> (See markdown file for complete code)</p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Signal:</strong> <strong>Strong periodic component</strong> with period about 10 (e.g. alpha rhythm in EEG). ACF peaks at 10, 20, 30 confirm the period.</p>
+                <p><strong>2. Seasonality:</strong> <strong>Deterministic or stochastic seasonality</strong> with period 10. The decaying amplitude of ACF oscillations is common when there is both seasonal and non-seasonal dynamics.</p>
+                <p><strong>3. SARIMA:</strong> Yes. A <strong>SARIMA</strong> model is appropriate, e.g. SARIMA(1, 0, 1)(1, 0, 1)₁₀, where the seasonal order (1, 0, 1)₁₀ captures the period-10 component.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> EEG rhythms (e.g. alpha ~10 Hz sampled at 1 Hz) produce ACF peaks at the period. Use a seasonal model to capture this; simulate with a sinusoid of period 10 plus noise and plot ACF to see the peaks.
+                </div>
             </div>
 
             <div class="problem">
@@ -726,10 +726,13 @@ ar1_series = arma_process.generate_sample(nsample=200)
 
             <div class="solution">
                 <h4>Solution 4.4</h4>
-                <p><strong>1. Process Type:</strong> This indicates a <strong>Moving Average (MA) process of order 2</strong>, specifically <strong>MA(2)</strong>.</p>
-                <p><strong>2. Memory Length:</strong> The memory extends only <strong>2 time steps</strong>.</p>
-                <p><strong>3. Model Order:</strong> <strong>MA(2) or ARIMA(0,0,2)</strong> would be appropriate.</p>
-                <p><strong>4. Python Code:</strong> (See markdown file for complete code)</p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process:</strong> <strong>MA(2)</strong>—ACF cuts off after lag 2, so a moving average of order 2 fits.</p>
+                <p><strong>2. Memory length:</strong> <strong>2 time steps</strong>; correlation is only with the last two lags.</p>
+                <p><strong>3. Model order:</strong> <strong>MA(2)</strong> or ARIMA(0, 0, 2).</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> Respiratory rate can show short, burst-like dependence (recent values matter; then dependence drops). That matches an MA structure. Simulate MA(2) with coefficients chosen so ρ(1) ≈ 0.6 and ρ(2) ≈ 0.3 (e.g. via ArmaProcess), then plot series and ACF.
+                </div>
             </div>
 
             <div class="problem">
@@ -751,10 +754,13 @@ ar1_series = arma_process.generate_sample(nsample=200)
 
             <div class="solution">
                 <h4>Solution 4.5</h4>
-                <p><strong>1. Process Type:</strong> This indicates an <strong>Autoregressive (AR) process</strong>, likely <strong>AR(1)</strong> with a high coefficient.</p>
-                <p><strong>2. Memory Length:</strong> The "effective memory" might be around <strong>10-15 time steps</strong>.</p>
-                <p><strong>3. Deep Learning:</strong> <strong>Probably not necessary</strong> for simple AR(1) processes, but might help if there are nonlinear relationships.</p>
-                <p><strong>4. Python Code:</strong> (See markdown file for complete code)</p>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process:</strong> <strong>AR(1)</strong> with a high coefficient (φ close to 1). Exponential decay with ρ(1) ≈ 0.9 and all ρ(k) positive is classic AR(1).</p>
+                <p><strong>2. Memory length:</strong> <strong>Effective memory ~10–15 steps</strong>—the lag where ρ(k) drops below about 0.2. For AR(1), ρ(k) = φ^k, so φ = 0.9 gives ρ(10) ≈ 0.35 and ρ(15) ≈ 0.21.</p>
+                <p><strong>3. Deep learning:</strong> <strong>Usually not necessary.</strong> A linear AR(1) model fits this pattern well. Consider deep learning only if you have evidence of nonlinearity or very long-range dependence.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> Body temperature is often highly persistent (today’s value strongly predicts tomorrow’s). Simulate AR(1) with φ = 0.9, plot the series and ACF; you should see ρ(1) ≈ 0.9 and gradual decay with no sharp cutoff.
+                </div>
             </div>
         </div>
 
@@ -767,7 +773,7 @@ ar1_series = arma_process.generate_sample(nsample=200)
                 <li><strong>ACF Pattern Interpretation:</strong> Identifying process types (white noise, trend, seasonality, AR, MA) from ACF plots with Python visualizations.</li>
                 <li><strong>Physiological Time-Series:</strong> Applying ACF analysis to real-world biomedical signals, determining appropriate models, and assessing when advanced methods are needed.</li>
             </ul>
-            <p style="margin-top: 20px;"><strong>All problems include complete solutions with mathematical derivations, Python code for illustrations, and pedagogical explanations suitable for undergraduate students.</strong></p>
+            <p style="margin-top: 20px;"><strong>Each solution includes a Key (short answer or numerical result) and an Explanation (formulas used, step-by-step derivation where helpful, and interpretation). Python code is provided where useful for illustration. Suitable for undergraduate students.</strong></p>
         </div>
     </div>
 </body>
