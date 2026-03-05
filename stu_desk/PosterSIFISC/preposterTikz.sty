@@ -1,0 +1,145 @@
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[centertags]{amsmath}
+\usepackage{multirow,multicol}
+%\usepackage{colortbl}
+\usepackage{lipsum} %sugest\~ao de texto
+\usepackage{geometry}
+\usepackage{standalone}
+\usepackage{tikz,pgfplots,tikz-3dplot}
+\usepackage{graphicx,wrapfig}
+\usepackage{physics}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{url} % For \url command
+% Note: sciposter class provides \subfigure command, so subcaption package is not needed
+% \usepackage{subcaption} % Commented out - conflicts with sciposter's built-in subfigure
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+\pagestyle{plain}
+
+% Making section numbers white (hidden)
+\renewcommand{\thesection}{\textcolor{white}{\arabic{section}}}
+\renewcommand{\thesubsection}{\textcolor{white}{\arabic{section}.\arabic{subsection}}}
+
+% Defining colors
+\definecolor{BoxCol}{RGB}{0,60,100} % Blue
+% Color palette: Citrus Fruits
+% http://www.colourlovers.com/palette/1653416/Citrus_Fruits
+\definecolor{marrom}{RGB}{200,77,0}
+\definecolor{mandarin}{RGB}{246,116,20}
+\definecolor{laranja}{RGB}{244,107,2}
+\definecolor{amarelolimao}{RGB}{252,223,69}
+\definecolor{verde}{RGB}{0,192,0}
+% Color palette: Me BEDRUME
+% http://www.colourlovers.com/palette/1653495/Me_BEDRUME
+\definecolor{twoblue}{RGB}{16,126,160} % Blue
+\definecolor{greenish}{RGB}{57,202,131} % Green
+\definecolor{rosa}{RGB}{249,177,197} % Pink
+\definecolor{PeachKeen}{RGB}{249,171,104} % Orange
+\definecolor{MandarinSorbet}{RGB}{249,247,119} % Yellow
+% Color palette: Teal to Yellow
+% http://www.colourlovers.com/palette/1653453/Teal_to_Yellow
+\definecolor{GreenTedious}{RGB}{0,222,155} % Green
+\definecolor{GreenSublime}{RGB}{97,255,48} % Green
+\definecolor{GreenTeal}{RGB}{148,255,48} % Green
+\definecolor{YellowFishEggs}{RGB}{255,252,48} % Yellow
+\definecolor{OrangeLampLight}{RGB}{255,193,48} % Orange
+\definecolor{white}{RGB}{255,255,255}
+
+% Define the path for figures (valid only for \includegraphics command)
+\graphicspath{{Figures}}
+%********************************************************************
+% Theorems
+\usepackage{theorem}
+\theorembodyfont{\normalfont\upshape}
+\newtheorem{ex}{Example}
+\newenvironment{defn}[1][Definition]{\textbf{#1:}\
+}%
+%********************************************************************
+% Defining new commands
+
+% Springer LNCS style commands for authors
+\newcommand{\inst}[1]{\textsuperscript{#1}}
+% For students, use Student ID instead of ORCID
+% Using text version since orcid.png is not available
+\newcommand{\orcidID}[1]{\textsuperscript{ID: #1}}
+% Email command - check if already defined
+\providecommand{\email}[1]{\texttt{#1}}
+
+\newcommand{\tituloA}[1]{\emph{\large \textbf{\color{white}{#1}}}}
+\newcommand{\tituloB}[1]{\emph{\large \textbf{\color{laranja}{#1}}}}
+\newcommand{\R}{\mathbb{R}}
+
+% Background image
+\newcommand{\imgfundo}[1]{
+\begin{tikzpicture}[remember picture,overlay]
+  \tikzset{inner sep=0pt,outer sep=0pt}
+    % Centered on the page
+    \node at (current page.center) {
+      \includegraphics[height=\paperheight]{#1} % Figure with paper height
+    };
+\end{tikzpicture}
+}
+
+% Simple plain header with logo
+\newcommand{\titulo}[3]{
+\noindent
+\begin{minipage}{\textwidth}
+\colorbox{#3}{%
+  \parbox{\textwidth}{%
+    % Logo in upper left corner
+    \vspace{0.3cm}
+    \noindent
+    \includegraphics[height=2.0cm]{FDA logo.png}\hspace{0.5cm}
+    \vspace{0.2cm}
+    \centering
+    {\Large\textbf{\textcolor{white}{\tituloposter}}}\\[0.5cm]
+    {\Large\textbf{\textcolor{white}{\titulogrande}}}\\[0.8cm]
+    % Handle multiple authors with \and separator
+    {\large\textcolor{white}{\renewcommand{\and}{, }\nome}}\\[0.5cm]
+    {\small\textcolor{white}{\instituicao}}
+    \vspace{1.5cm}
+  }%
+}
+\end{minipage}
+}
+
+% Conference name created with TikZ
+\newcommand{\congresso}[1]{
+\begin{tikzpicture}[remember picture,overlay]
+\node at (current page.north){
+  \begin{tikzpicture}[remember picture,overlay]
+     \draw[fill=#1] (-.5*\textwidth-2cm,-13.25) rectangle (.5*\textwidth-2cm,-14.75);
+     \node[white] at (-2cm,-14) {\Large{
+	\nomecongresso \qquad --- \qquad \textbf{\abrev}
+      }};
+  \end{tikzpicture}
+};
+\end{tikzpicture}
+}
+
+% Footer created with TikZ
+\newcommand{\rodape}[3]{
+\begin{tikzpicture}[remember picture,overlay]
+\node at (current page.south west){
+  \begin{tikzpicture}[remember picture,overlay,inner sep=0,outer sep=0]
+      \draw[fill=#3] (0,0) rectangle (\paperwidth,5);
+      \node[above right] at (4cm,1) {
+	\includegraphics[height=3cm]{#1} % Third logo (bottom left)
+      };
+  \end{tikzpicture}
+};
+\node[yshift=2cm,yellow] at (current page.south){\texttt{http://example.com}};
+\node at (current page.south east){
+  \begin{tikzpicture}[remember picture,overlay,inner sep=0,outer sep=0]
+      \node[above left] at (-4cm,1) {
+	\includegraphics[height=3cm]{#2} % Fourth logo (bottom right)
+      };
+  \end{tikzpicture}
+};
+\end{tikzpicture}
+}

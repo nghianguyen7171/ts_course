@@ -1,0 +1,21 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{ref_proc1}
+Author, A.B.: Contribution title. In: 9th International Proceedings on Proceedings. pp.~1--2. Publisher Name, Location (2010)
+
+\bibitem{ref_article1}
+Author, F.: Article title. Journal Name  \textbf{2}(5),  99--110 (2016)
+
+\bibitem{ref_lncs1}
+Author, F., Author, S.: Title of a proceedings paper. In: Editor, F., Editor, S. (eds.) CONFERENCE 2016. Lecture Notes in Computer Science, vol.~9999, pp. 1--13. Springer, Heidelberg (2016). \doi{10.10007/1234567890}
+
+\bibitem{ref_book1}
+Author, F., Author, S., Author, T.: Book title. Publisher Name, Location, 2nd edn. (1999)
+
+\bibitem{ref_url1}
+{LNCS Homepage}: Lncs homepage. \url{http://www.springer.com/lncs}, last accessed: 2023/10/25
+
+\end{thebibliography}

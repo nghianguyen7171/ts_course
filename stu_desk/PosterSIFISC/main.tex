@@ -1,0 +1,64 @@
+% Poster Template with TikZ figures
+% IMPORTANT: This template requires the sciposter class.
+% For Overleaf: sciposter is available in TeX Live 2020+.
+% Set compiler to pdflatex and main document to main.tex
+% For local compilation: Install sciposter package or use Overleaf.
+% Installation: tlmgr install sciposter (for TeX Live) or use package manager.
+% !TeX program = pdflatex
+% !TeX TXS-program:compile = txs:///pdflatex
+\documentclass[36pt]{sciposter}
+\usepackage{preposterTikz} % Style package with preamble
+\geometry{paperwidth=90cm,paperheight=100cm,centering,
+    textwidth=85cm,textheight=94cm,left=0cm,top=2cm}
+\pgfplotsset{compat=1.18}
+%********************************************************************
+%********************************************************************
+\begin{document}
+
+\onehalfspacing
+
+% Fill in the commands below with your information
+% Format follows Springer LNCS style
+\newcommand{\tituloposter}{Research Paper Title Research Paper Title Research Paper Title} % Main title (first line)
+\newcommand{\titulogrande}{Research Paper Title} % Title continuation (second line, optional)
+% NOTE: If you don't need a second line, leave the braces empty: \newcommand{\titulogrande}{}
+
+% Author information - Springer LNCS format
+% Format: First Author\inst{1}\orcidID{StudentID} \and Second Author\inst{1}\orcidID{StudentID}
+% NOTE: For students, use Student ID instead of ORCID ID
+\newcommand{\nome}{First Author\inst{1}\orcidID{20201234} \and Second Author\inst{1}\orcidID{20205678} \and Third Author\inst{1}\orcidID{20209012}}
+\newcommand{\instituicao}{Faculty of Data Science and Artificial Intelligence,\\College of Technology, National Economics University\\\email{your.email@neu.edu.vn}}
+
+
+
+
+% Simple plain header
+\titulo{}{}{BoxCol} % Blue header background
+% Note: Logo parameters are not used in the simple header format
+
+\vspace{1cm} % Spacing
+
+\input{Sections/Abstract.tex}
+
+% Two-column layout
+\begin{multicols}{2}
+
+% Paragraph indentation
+\setlength{\parindent}{3em}
+
+\input{Sections/Objectives.tex}
+
+
+\input{Sections/Methodology.tex}
+
+
+\input{Sections/Results.tex}
+
+
+\input{Sections/Conclusions.tex}
+
+\input{Sections/References.tex}
+
+\end{multicols}
+
+\end{document}
