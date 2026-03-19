@@ -265,7 +265,13 @@ main {
 }
 
 .schedule-table tbody tr.midterm {
-  background: linear-gradient(90deg, rgba(255, 153, 0, 0.24), transparent 45%);
+  background: linear-gradient(90deg, rgba(255, 122, 0, 0.42), rgba(255, 182, 77, 0.18) 58%, transparent 100%);
+  box-shadow: inset 5px 0 0 rgba(255, 102, 0, 0.95);
+}
+
+.schedule-table tbody tr.midterm td {
+  font-weight: 600;
+  color: #ffd7ad;
 }
 
 :root[data-theme="dark"] .schedule-table tbody tr.lecture {
@@ -277,7 +283,18 @@ main {
 }
 
 :root[data-theme="dark"] .schedule-table tbody tr.midterm {
-  background: linear-gradient(90deg, rgba(255, 176, 59, 0.32), transparent 45%);
+  background: linear-gradient(90deg, rgba(255, 132, 0, 0.52), rgba(255, 193, 92, 0.22) 60%, transparent 100%);
+  box-shadow: inset 6px 0 0 rgba(255, 149, 0, 1);
+}
+
+:root[data-theme="dark"] .schedule-table tbody tr.midterm td {
+  font-weight: 600;
+  color: #ffe2bf;
+}
+
+:root[data-theme="light"] .schedule-table tbody tr.midterm td {
+  color: #6a2f00;
+  font-weight: 700;
 }
 
 ul {
