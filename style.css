@@ -274,6 +274,16 @@ main {
   color: #ffd7ad;
 }
 
+.schedule-table tbody tr.final {
+  background: linear-gradient(90deg, rgba(133, 76, 255, 0.40), rgba(183, 140, 255, 0.18) 58%, transparent 100%);
+  box-shadow: inset 5px 0 0 rgba(118, 55, 255, 0.95);
+}
+
+.schedule-table tbody tr.final td {
+  font-weight: 600;
+  color: #e8dcff;
+}
+
 :root[data-theme="dark"] .schedule-table tbody tr.lecture {
   background: linear-gradient(90deg, rgba(0, 194, 255, 0.28), transparent 45%);
 }
@@ -292,8 +302,23 @@ main {
   color: #ffe2bf;
 }
 
+:root[data-theme="dark"] .schedule-table tbody tr.final {
+  background: linear-gradient(90deg, rgba(147, 94, 255, 0.52), rgba(196, 159, 255, 0.22) 60%, transparent 100%);
+  box-shadow: inset 6px 0 0 rgba(149, 103, 255, 1);
+}
+
+:root[data-theme="dark"] .schedule-table tbody tr.final td {
+  font-weight: 600;
+  color: #eee4ff;
+}
+
 :root[data-theme="light"] .schedule-table tbody tr.midterm td {
   color: #6a2f00;
+  font-weight: 700;
+}
+
+:root[data-theme="light"] .schedule-table tbody tr.final td {
+  color: #361766;
   font-weight: 700;
 }
 
