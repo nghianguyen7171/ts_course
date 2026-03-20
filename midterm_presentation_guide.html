@@ -57,8 +57,33 @@
       <h3>1) Problem Definition</h3>
       <ul>
         <li><strong>Background:</strong> Introduce domain context, why this time-series problem matters, and practical relevance.</li>
+        <li><strong>Macro / societal / practical framing (required):</strong> Do not define the problem only in theoretical terms. Explain impact at three levels:
+          <ul>
+            <li><strong>Macro level:</strong> Economic/system-level importance (cost, productivity, planning, risk management).</li>
+            <li><strong>Societal level:</strong> Effects on people and communities (health outcomes, fairness, safety, service quality).</li>
+            <li><strong>Practical level:</strong> Operational decision impact (how your forecast/classification changes actions in real workflows).</li>
+          </ul>
+        </li>
         <li><strong>Limitation / Challenge:</strong> Describe core difficulties (noise, non-stationarity, seasonality, missing data, class imbalance, etc.).</li>
         <li><strong>Leading to motivation:</strong> Explain why these limitations motivate your proposed approach.</li>
+      </ul>
+
+      <p><strong>Example problem framing (recommended slide pattern):</strong></p>
+      <ul>
+        <li><strong>Healthcare calls forecasting:</strong>
+          <ul>
+            <li><strong>Macro:</strong> Better staffing reduces overtime and emergency overload.</li>
+            <li><strong>Societal:</strong> Faster response improves patient safety and trust in public health services.</li>
+            <li><strong>Practical:</strong> Daily call-volume forecasts guide shift allocation and escalation planning.</li>
+          </ul>
+        </li>
+        <li><strong>Electricity load forecasting:</strong>
+          <ul>
+            <li><strong>Macro:</strong> Accurate load planning reduces balancing costs and supports grid stability.</li>
+            <li><strong>Societal:</strong> Fewer outages and more reliable power for households and hospitals.</li>
+            <li><strong>Practical:</strong> Hour-ahead forecasts optimize dispatch and peak-load mitigation.</li>
+          </ul>
+        </li>
       </ul>
 
       <h3>2) Method</h3>
