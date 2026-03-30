@@ -75,3 +75,7 @@ If you are running this notebook on Kaggle:
 - A complete, well-commented Jupyter Notebook following the steps above.
 - Clear markdown cells interpreting the ACF/PACF plots and justifying your chosen SARIMA orders.
 - A comparison of your SARIMA vs. SARIMAX models, analyzing whether the external weather variables improved the forecasting power.
+- A concise interpretation that connects model output to practical energy operations (staffing, dispatch, demand planning), not only theory.
+
+## Submission Note
+- If you present this lab in slides, add your source code link on the final slide (GitHub repository URL or any accessible versioned code link).
