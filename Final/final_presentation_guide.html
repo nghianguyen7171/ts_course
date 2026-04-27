@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Week 15 Final Presentation Guide - Time Series Analysis</title>
+  <title>Week 15 Final Project Report Guide - Time Series Analysis</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
     .rubric-table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.92em; }
@@ -42,13 +42,13 @@
     <section class="hero topic-hero">
       <div class="hero-content">
         <p class="eyebrow">Week 15 · 50% of Final Grade</p>
-        <h1>Final Presentation Guide</h1>
+        <h1>Final Project Report Guide</h1>
         <p class="tagline">
-          Evaluation rubric and instructions for the final project presentation and report.
+          Scientific-paper-oriented instructions and rubric for the final project report.
         </p>
       </div>
       <div class="hero-image">
-        <img src="../img/bg2.jpeg" alt="Final presentation guide" />
+        <img src="../img/bg2.jpeg" alt="Final report guide" />
       </div>
     </section>
 
@@ -70,65 +70,58 @@
     <!-- REPORT ORGANIZATION -->
     <section class="card">
       <h2>Recommended Report Organization</h2>
+      <p>
+        Adapt this structure from the scientific-paper style used in the
+        <a href="https://nghianguyen7171.github.io/excel_course/final-presentation-guide.html" target="_blank" rel="noopener">Excel course final guide</a>,
+        but make it specific to time-series forecasting, classification, anomaly detection, or other temporal-analysis tasks.
+      </p>
 
-      <h3>1) Problem Definition &amp; Motivation</h3>
+      <h3>1) Introduction: Background → Challenges → Motivation</h3>
       <ul>
-        <li><strong>Background:</strong> Domain context and why this time-series problem matters.</li>
-        <li><strong>Macro / societal / practical framing:</strong>
-          <ul>
-            <li><strong>Macro:</strong> Economic/system-level importance.</li>
-            <li><strong>Societal:</strong> Impact on people and communities.</li>
-            <li><strong>Practical:</strong> How the forecast changes real operational decisions.</li>
-          </ul>
-        </li>
-        <li><strong>Challenge &amp; motivation:</strong> What makes this problem hard, and why your approach is needed.</li>
+        <li><strong>Background:</strong> State the problem clearly and explain why this project/research is needed in this field.</li>
+        <li><strong>Challenges:</strong> Explain why related or comparison methods are not fully sufficient, or what limitations they have in this specific problem context.</li>
+        <li><strong>Motivation for proposed methodology:</strong> Show how those gaps motivate your analytical workflow or model design.</li>
+        <li><strong>Research questions:</strong> End the section with 3–5 research questions aligned with your proposed approach.</li>
+      </ul>
+      <div class="pub-check"><strong>Contribution check:</strong> The introduction should not only say "we forecast X"; it should explain what gap your method addresses and why the result matters.</div>
+
+      <h3>2) Related Work (with Citations)</h3>
+      <ul>
+        <li>Introduce key related/comparison methods used in the same or similar problem domain.</li>
+        <li>Cite sources properly and summarize their strengths and limitations in your context.</li>
+        <li>Explain which baseline/comparison methods you will use in your report and why.</li>
+        <li>If you do not include a standalone <strong>Related Work</strong> section, integrate related/comparison methods with citations into the Introduction.</li>
       </ul>
 
-      <h3>2) Data &amp; Exploratory Analysis</h3>
+      <h3>3) Methodology: Dataset/Cohort + Proposed Method</h3>
       <ul>
-        <li>Dataset source, size, sampling frequency, target variable, and chronological train/test split.</li>
-        <li>Key EDA plots: time plot, ACF/PACF, decomposition, distribution.</li>
-        <li>Notable patterns: trend, seasonality, outliers, missing data handling.</li>
+        <li><strong>Dataset / cohort / entity description:</strong> data source, sample size, time range, sampling frequency, unit of analysis, target variable, and key covariates.</li>
+        <li><strong>Data preparation protocol:</strong> missing data handling, resampling, stationarity transformation, scaling, windowing, feature engineering, and leakage prevention.</li>
+        <li><strong>Proposed method:</strong> clearly describe your main method or pipeline. Do not only list models; identify which method is your proposed approach.</li>
+        <li><strong>Comparison design:</strong> specify baselines (e.g., naive, ARIMA/SARIMA, Random Forest/XGBoost, LSTM/GRU/TCN) and explain why they are appropriate.</li>
+        <li><strong>Reproducibility:</strong> report train/test split, validation strategy, hyperparameters, random seeds, software libraries, and source code link.</li>
       </ul>
 
-      <h3>3) Methodology</h3>
+      <h3>4) Results and Evidence</h3>
       <ul>
-        <li><strong>Classical baseline:</strong> ARIMA/SARIMA — order selection rationale (AIC/BIC), stationarity checks.</li>
-        <li><strong>ML models:</strong> Feature engineering (lags, rolling stats, calendar), model choice (RF, XGBoost), temporal validation (TimeSeriesSplit).</li>
-        <li><strong>DL models (encouraged):</strong> Preprocessing pipeline (scale, window, 3D tensors), architecture (LSTM/GRU/CNN), training strategy (EarlyStopping, batch size).</li>
-        <li>Explain <em>why</em> each model was chosen — not just <em>what</em> you ran.</li>
+        <li>Present numbered tables/figures with captions and clear axis labels.</li>
+        <li>Report relevant metrics such as MAE, RMSE, MAPE, accuracy, F1-score, AUC, or domain-specific metrics.</li>
+        <li>Compare proposed method against baselines and explain why differences occur.</li>
+        <li>Include error analysis: where does the model fail, and what temporal patterns are missed?</li>
       </ul>
 
-      <h3>4) Results &amp; Comparison</h3>
+      <h3>5) Discussion, Limitations, and Conclusion</h3>
       <ul>
-        <li><strong>Comparison table:</strong> MAE/RMSE (or other relevant metrics) for all models side-by-side.</li>
-        <li><strong>Forecast plots:</strong> Actual vs. predicted on the same test window for at least 2–3 models.</li>
-        <li><strong>Analysis:</strong> Why does one model outperform another? What patterns does each capture or miss?</li>
-      </ul>
-
-      <h3>5) Discussion &amp; Conclusion</h3>
-      <ul>
-        <li>Strengths and limitations of each approach on your specific dataset.</li>
-        <li>Practical recommendation: which model would you deploy and why?</li>
-        <li>Future work: what would improve results (more data, better features, advanced models)?</li>
+        <li>Interpret findings in the context of stakeholder decisions.</li>
+        <li>Translate results into practical recommendations.</li>
+        <li>State limitations honestly: dataset bias, short history, missing variables, unstable seasonality, overfitting, or deployment constraints.</li>
+        <li>Conclude with the main contribution and concrete future improvements.</li>
       </ul>
     </section>
 
-    <!-- REPORT STRUCTURE + TITLE GUIDANCE -->
+    <!-- TITLE GUIDANCE -->
     <section class="card">
-      <h2>Report Structure &amp; Title Writing Guide</h2>
-
-      <h3>Recommended Report Structure (PDF)</h3>
-      <ul>
-        <li><strong>1) Introduction:</strong> Problem context, motivation, and who benefits from the forecasting/classification output.</li>
-        <li><strong>2) Data:</strong> Dataset source, entity description, time range, features, target variable, and train/validation/test strategy.</li>
-        <li><strong>3) Proposed Method:</strong> Clearly state the <strong>main method</strong> (not only a list of tried models). Explain why it fits this task.</li>
-        <li><strong>4) Experimental Setup:</strong> Baselines, metrics, hyperparameters, and reproducibility details.</li>
-        <li><strong>5) Results &amp; Discussion:</strong> Comparison table + plots + interpretation of errors and practical meaning.</li>
-        <li><strong>6) Conclusion:</strong> Key takeaway, deployment recommendation, limitations, and future work.</li>
-      </ul>
-
-      <h3>How to Write a Strong Title</h3>
+      <h2>Title Writing Guide</h2>
       <p>
         Use this pattern:
         <br />
@@ -149,11 +142,97 @@
       </p>
     </section>
 
+    <!-- CONTRIBUTION WRITING -->
+    <section class="card">
+      <h2>Contribution-Driven Writing (Most Important)</h2>
+      <p>
+        Your report should be built around a clear contribution. The contribution appears first in the Introduction,
+        is justified in Related Work, implemented in Methodology, supported in Results, and restated in the Conclusion.
+      </p>
+
+      <h3>Contribution Logic</h3>
+      <p>
+        <strong>Limitation in related/comparison methods → Gap → Your contribution → Evidence</strong>
+      </p>
+      <ul>
+        <li><strong>Limitation:</strong> What do existing or baseline methods fail to handle well in your context?</li>
+        <li><strong>Gap:</strong> What specific forecasting/classification need remains unmet?</li>
+        <li><strong>Contribution:</strong> What do you introduce (model, feature pipeline, hybrid workflow, evaluation design, interpretability analysis)?</li>
+        <li><strong>Evidence:</strong> What result proves the contribution (better metric, clearer error behavior, stronger interpretability, more useful decision support)?</li>
+      </ul>
+
+      <h3>Contribution Statement Template</h3>
+      <p>
+        “Existing approaches <em>[limitation]</em>. To address this gap, we propose <em>[your method/workflow]</em>,
+        which enables <em>[practical objective]</em>. Compared with <em>[baseline]</em>, our approach achieves
+        <em>[evidence: metric/insight/actionability]</em>.”
+      </p>
+
+      <h3>How to Repeat the Contribution</h3>
+      <ul>
+        <li><strong>Introduction:</strong> state the contribution claim explicitly after motivation.</li>
+        <li><strong>Related Work:</strong> position the contribution against limitations of prior methods.</li>
+        <li><strong>Methodology:</strong> show where the contribution appears in the pipeline/design.</li>
+        <li><strong>Results:</strong> provide quantitative or visual evidence for the contribution claim.</li>
+        <li><strong>Discussion:</strong> explain why the contribution matters for stakeholders and decisions.</li>
+        <li><strong>Conclusion:</strong> restate the contribution as the main takeaway.</li>
+      </ul>
+      <div class="pub-check"><strong>Quality check:</strong> If a reader cannot identify your contribution in 2–3 sentences, the report is still too descriptive.</div>
+    </section>
+
+    <!-- SAMPLE PAPERS -->
+    <section class="card">
+      <h2>Sample Papers to Read Before Writing</h2>
+      <p>
+        Use these papers as structural references. You do not need to copy their methods exactly; instead, study how they write the problem,
+        identify limitations/gaps, define baselines, present evidence, and discuss limitations.
+      </p>
+      <ul>
+        <li>
+          <strong>Deep Learning for Time Series Forecasting: A Survey</strong> —
+          useful for understanding forecasting tasks, model families, datasets, and challenges.
+          <a href="https://arxiv.org/html/2503.10198v1" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>A Comprehensive Survey of Deep Learning for Time Series Forecasting: Architectural Diversity and Open Challenges</strong> —
+          useful for writing related work around LSTM, CNN/TCN, Transformer, hybrid, and foundation-model approaches.
+          <a href="https://link.springer.com/article/10.1007/s10462-025-11223-9" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>A Comparison of ARIMA and LSTM in Forecasting Time Series</strong> —
+          useful as an example of classical-vs-deep-learning baseline comparison.
+          <a href="https://par.nsf.gov/biblio/10186768-comparison-arima-lstm-forecasting-time-series" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>Deep Learning for Time Series Classification and Extrinsic Regression: A Current Survey</strong> —
+          useful for classification projects, especially ECG/activity/sensor classification.
+          <a href="https://dl.acm.org/doi/10.1145/3649448" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>Deep Learning for Time Series Classification: A Review</strong> —
+          useful for seeing how benchmark datasets, compared methods, and contribution statements are organized.
+          <a href="https://hal.science/hal-02365025/file/dmkd2019.pdf" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>Comparing Statistical and Machine Learning Methods for Time Series Forecasting in Data-Driven Logistics</strong> —
+          useful for reports comparing ARIMA/SARIMA/TBATS with Random Forest or XGBoost.
+          <a href="https://export.arxiv.org/pdf/2303.07139v1.pdf" target="_blank" rel="noopener">Read paper</a>
+        </li>
+      </ul>
+      <div class="pub-check">
+        <strong>Reading task:</strong> For each paper you use, extract (1) contribution statement, (2) comparison baseline,
+        (3) evidence table/figure design, and (4) limitation discussion style.
+      </div>
+    </section>
+
     <!-- CHECKLIST -->
     <section class="card">
       <h2>Report Checklist</h2>
       <ul>
         <li>Start with a clear <strong>problem statement</strong> section.</li>
+        <li>Write the Introduction as <strong>Background → Challenges → Motivation → Research Questions</strong>.</li>
+        <li>Include related/comparison methods with citations and explain their limitations.</li>
+        <li>State the <strong>main contribution</strong> explicitly and repeat it in Results and Conclusion.</li>
         <li>Label all figures clearly: axis names, units, legends, metric definitions.</li>
         <li>Show a <strong>model comparison table</strong> (not just individual results).</li>
         <li>Include at least one <strong>ablation or insight</strong> (e.g., "removing lag features drops MAE by 30%").</li>
@@ -169,26 +248,26 @@
       <p>Your final project is graded on <strong>5 criteria, 2 points each</strong>. Each criterion is evaluated against both course standards and publication readiness.</p>
 
       <!-- C1 -->
-      <h3>Criterion 1: Problem Formulation &amp; Motivation</h3>
+      <h3>Criterion 1: Problem, Gap &amp; Contribution</h3>
       <table class="rubric-table">
         <thead><tr><th class="score">Score</th><th>Description</th></tr></thead>
         <tbody>
-          <tr><td class="score">2.0</td><td>Problem framed at macro/societal/practical levels with clear real-world relevance. Research gap or challenge explicitly stated. Reads like a paper introduction.</td></tr>
-          <tr><td class="score">1.5</td><td>Problem is well-motivated but missing one level of framing. Motivation present but not sharply articulated.</td></tr>
-          <tr><td class="score">1.0</td><td>Problem stated but purely descriptive ("we forecast X"). No connection to why it matters.</td></tr>
+          <tr><td class="score">2.0</td><td>Introduction clearly follows Background → Challenges → Motivation, identifies limitations of related/comparison methods, and states a specific contribution plus 3–5 aligned research questions.</td></tr>
+          <tr><td class="score">1.5</td><td>Problem is well-motivated and contribution is present, but related-method limitations or research questions are not sharply articulated.</td></tr>
+          <tr><td class="score">1.0</td><td>Problem stated but mostly descriptive ("we forecast X"). Gap/contribution is vague or not linked to related methods.</td></tr>
           <tr><td class="score">0.5</td><td>Vague or missing problem statement. Dataset introduced without context.</td></tr>
         </tbody>
       </table>
       <div class="pub-check"><strong>Publication check:</strong> Could a reviewer understand <em>why</em> this problem matters from the introduction alone?</div>
 
       <!-- C2 -->
-      <h3>Criterion 2: Methodology &amp; Technical Depth</h3>
+      <h3>Criterion 2: Related Work, Methodology &amp; Technical Depth</h3>
       <table class="rubric-table">
         <thead><tr><th class="score">Score</th><th>Description</th></tr></thead>
         <tbody>
-          <tr><td class="score">2.0</td><td>Complete pipeline: EDA → classical baseline (ARIMA/SARIMA with justified order) → at least one ML model (with feature engineering) → DL or advanced extension. Each step has clear rationale. Preprocessing justified, not just applied.</td></tr>
-          <tr><td class="score">1.5</td><td>Pipeline covers classical + ML but with gaps (e.g., order chosen without AIC/BIC, temporal split not explained). DL attempted but superficial.</td></tr>
-          <tr><td class="score">1.0</td><td>Only classical models, or ML/DL applied without proper preprocessing (random CV, no scaling). Limited justification.</td></tr>
+          <tr><td class="score">2.0</td><td>Related/comparison methods are cited and summarized. Methodology clearly describes dataset/cohort, preprocessing protocol, proposed method, baselines, validation, hyperparameters, and reproducibility details.</td></tr>
+          <tr><td class="score">1.5</td><td>Methodology is mostly complete but has gaps (e.g., related work too brief, baseline choice weakly justified, temporal split not fully explained).</td></tr>
+          <tr><td class="score">1.0</td><td>Methods are listed but the proposed method is unclear, citations are weak/missing, or preprocessing/validation has limited justification.</td></tr>
           <tr><td class="score">0.5</td><td>Single model with no pipeline structure. Significant methodological errors (data leakage, wrong evaluation).</td></tr>
         </tbody>
       </table>
@@ -221,7 +300,7 @@
       <div class="pub-check"><strong>Publication check:</strong> If you removed the code cells, would it read like a coherent draft paper?</div>
 
       <!-- C5 -->
-      <h3>Criterion 5: Presentation &amp; Communication</h3>
+      <h3>Criterion 5: Report Coherence &amp; Communication</h3>
       <table class="rubric-table">
         <thead><tr><th class="score">Score</th><th>Description</th></tr></thead>
         <tbody>
@@ -241,8 +320,8 @@
             <tr><th style="text-align:left">#</th><th style="text-align:left">Criterion</th><th>Max</th><th>Publication Parallel</th></tr>
           </thead>
           <tbody>
-            <tr><td style="text-align:left">1</td><td style="text-align:left">Problem Formulation &amp; Motivation</td><td>/2</td><td>Introduction</td></tr>
-            <tr><td style="text-align:left">2</td><td style="text-align:left">Methodology &amp; Technical Depth</td><td>/2</td><td>Data + Methodology</td></tr>
+            <tr><td style="text-align:left">1</td><td style="text-align:left">Problem, Gap &amp; Contribution</td><td>/2</td><td>Introduction</td></tr>
+            <tr><td style="text-align:left">2</td><td style="text-align:left">Related Work, Methodology &amp; Technical Depth</td><td>/2</td><td>Related Work + Methodology</td></tr>
             <tr><td style="text-align:left">3</td><td style="text-align:left">Results, Comparison &amp; Analysis</td><td>/2</td><td>Results + Discussion</td></tr>
             <tr><td style="text-align:left">4</td><td style="text-align:left">Report Quality &amp; Scientific Writing</td><td>/2</td><td>Overall paper quality</td></tr>
             <tr><td style="text-align:left">5</td><td style="text-align:left">Report Coherence &amp; Communication</td><td>/2</td><td>Scholarly communication</td></tr>
