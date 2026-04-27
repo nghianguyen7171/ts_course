@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 15 Final Presentation Guide - Time Series Analysis</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .rubric-table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.92em; }
+    .rubric-table th, .rubric-table td { border: 1px solid var(--border); padding: 0.6rem 0.8rem; text-align: left; vertical-align: top; }
+    .rubric-table thead th { background: var(--accent); color: #fff; font-weight: 600; }
+    .rubric-table tbody tr:nth-child(even) { background: var(--panel); }
+    .rubric-table .score { font-weight: 700; white-space: nowrap; text-align: center; width: 3.5rem; }
+    .pub-check { margin-top: 0.5rem; padding: 0.5rem 0.8rem; background: rgba(52,152,219,0.08); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.88em; }
+    .summary-box { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem 1.5rem; margin-top: 1rem; }
+    .summary-box table { width: 100%; border-collapse: collapse; }
+    .summary-box th, .summary-box td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border); text-align: center; }
+    .summary-box th { text-align: left; }
+    .highlight-row { font-weight: 700; background: rgba(52,152,219,0.1); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="../index.html"><img src="../img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="../index.html"><img src="../img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="../index.html"><img src="../img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#schedule">Schedule</a></li>
+        <li><a href="../topics.html">Topics</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Week 15 · 50% of Final Grade</p>
+        <h1>Final Presentation Guide</h1>
+        <p class="tagline">
+          Evaluation rubric and instructions for the final project presentation and report.
+        </p>
+      </div>
+      <div class="hero-image">
+        <img src="../img/bg2.jpeg" alt="Final presentation guide" />
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="card">
+      <h2>Overview</h2>
+      <p>
+        The final project is assessed primarily through a <strong>written report (PDF)</strong>.
+        The evaluation emphasizes <strong>publication readiness</strong> — your work should
+        meet approximately 70% of the requirements of a scientific paper (IMRAD structure, labeled figures, reproducible methods, honest discussion).
+      </p>
+      <h3>Deliverables (submit before or at class)</h3>
+      <ul>
+        <li>Final project report (PDF) — extended and improved from the midterm baseline</li>
+        <li>All notebooks / code (GitHub link or Kaggle notebook)</li>
+      </ul>
+    </section>
+
+    <!-- REPORT ORGANIZATION -->
+    <section class="card">
+      <h2>Recommended Report Organization</h2>
+
+      <h3>1) Problem Definition &amp; Motivation</h3>
+      <ul>
+        <li><strong>Background:</strong> Domain context and why this time-series problem matters.</li>
+        <li><strong>Macro / societal / practical framing:</strong>
+          <ul>
+            <li><strong>Macro:</strong> Economic/system-level importance.</li>
+            <li><strong>Societal:</strong> Impact on people and communities.</li>
+            <li><strong>Practical:</strong> How the forecast changes real operational decisions.</li>
+          </ul>
+        </li>
+        <li><strong>Challenge &amp; motivation:</strong> What makes this problem hard, and why your approach is needed.</li>
+      </ul>
+
+      <h3>2) Data &amp; Exploratory Analysis</h3>
+      <ul>
+        <li>Dataset source, size, sampling frequency, target variable, and chronological train/test split.</li>
+        <li>Key EDA plots: time plot, ACF/PACF, decomposition, distribution.</li>
+        <li>Notable patterns: trend, seasonality, outliers, missing data handling.</li>
+      </ul>
+
+      <h3>3) Methodology</h3>
+      <ul>
+        <li><strong>Classical baseline:</strong> ARIMA/SARIMA — order selection rationale (AIC/BIC), stationarity checks.</li>
+        <li><strong>ML models:</strong> Feature engineering (lags, rolling stats, calendar), model choice (RF, XGBoost), temporal validation (TimeSeriesSplit).</li>
+        <li><strong>DL models (encouraged):</strong> Preprocessing pipeline (scale, window, 3D tensors), architecture (LSTM/GRU/CNN), training strategy (EarlyStopping, batch size).</li>
+        <li>Explain <em>why</em> each model was chosen — not just <em>what</em> you ran.</li>
+      </ul>
+
+      <h3>4) Results &amp; Comparison</h3>
+      <ul>
+        <li><strong>Comparison table:</strong> MAE/RMSE (or other relevant metrics) for all models side-by-side.</li>
+        <li><strong>Forecast plots:</strong> Actual vs. predicted on the same test window for at least 2–3 models.</li>
+        <li><strong>Analysis:</strong> Why does one model outperform another? What patterns does each capture or miss?</li>
+      </ul>
+
+      <h3>5) Discussion &amp; Conclusion</h3>
+      <ul>
+        <li>Strengths and limitations of each approach on your specific dataset.</li>
+        <li>Practical recommendation: which model would you deploy and why?</li>
+        <li>Future work: what would improve results (more data, better features, advanced models)?</li>
+      </ul>
+    </section>
+
+    <!-- REPORT STRUCTURE + TITLE GUIDANCE -->
+    <section class="card">
+      <h2>Report Structure &amp; Title Writing Guide</h2>
+
+      <h3>Recommended Report Structure (PDF)</h3>
+      <ul>
+        <li><strong>1) Introduction:</strong> Problem context, motivation, and who benefits from the forecasting/classification output.</li>
+        <li><strong>2) Data:</strong> Dataset source, entity description, time range, features, target variable, and train/validation/test strategy.</li>
+        <li><strong>3) Proposed Method:</strong> Clearly state the <strong>main method</strong> (not only a list of tried models). Explain why it fits this task.</li>
+        <li><strong>4) Experimental Setup:</strong> Baselines, metrics, hyperparameters, and reproducibility details.</li>
+        <li><strong>5) Results &amp; Discussion:</strong> Comparison table + plots + interpretation of errors and practical meaning.</li>
+        <li><strong>6) Conclusion:</strong> Key takeaway, deployment recommendation, limitations, and future work.</li>
+      </ul>
+
+      <h3>How to Write a Strong Title</h3>
+      <p>
+        Use this pattern:
+        <br />
+        <strong>&lt;Method&gt; + &lt;Task&gt; + &lt;Objective or Dataset/Target Entity&gt;</strong>
+      </p>
+      <ul>
+        <li><strong>Question 1:</strong> What is the main method?</li>
+        <li><strong>Question 2:</strong> What task does it serve (forecasting, classification, anomaly detection, etc.)?</li>
+        <li><strong>Question 3:</strong> Who is the target entity or audience receiving value from the data (e.g., lung cancer patient, hospital, grid operator, call center manager)?</li>
+      </ul>
+
+      <h3>Example Title</h3>
+      <p>
+        <strong>LSTM-based Time Series Forecasting for Emergency Healthcare Call Volume Prediction in Public Hospital Systems</strong>
+      </p>
+      <p>
+        (Method = LSTM, Task = forecasting, Objective/Target Entity = emergency healthcare calls in public hospital systems)
+      </p>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section class="card">
+      <h2>Report Checklist</h2>
+      <ul>
+        <li>Start with a clear <strong>problem statement</strong> section.</li>
+        <li>Label all figures clearly: axis names, units, legends, metric definitions.</li>
+        <li>Show a <strong>model comparison table</strong> (not just individual results).</li>
+        <li>Include at least one <strong>ablation or insight</strong> (e.g., "removing lag features drops MAE by 30%").</li>
+        <li>Methods must be <strong>reproducible</strong>: mention hyperparameters, validation setup, random seeds.</li>
+        <li><strong>Mandatory:</strong> Include a <strong>source code link</strong> in the report (GitHub / Kaggle).</li>
+        <li>End with takeaway bullets: <strong>what works, what fails, what is next</strong>.</li>
+      </ul>
+    </section>
+
+    <!-- RUBRIC -->
+    <section class="card">
+      <h2>Evaluation Rubric (10-Point Scale)</h2>
+      <p>Your final project is graded on <strong>5 criteria, 2 points each</strong>. Each criterion is evaluated against both course standards and publication readiness.</p>
+
+      <!-- C1 -->
+      <h3>Criterion 1: Problem Formulation &amp; Motivation</h3>
+      <table class="rubric-table">
+        <thead><tr><th class="score">Score</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="score">2.0</td><td>Problem framed at macro/societal/practical levels with clear real-world relevance. Research gap or challenge explicitly stated. Reads like a paper introduction.</td></tr>
+          <tr><td class="score">1.5</td><td>Problem is well-motivated but missing one level of framing. Motivation present but not sharply articulated.</td></tr>
+          <tr><td class="score">1.0</td><td>Problem stated but purely descriptive ("we forecast X"). No connection to why it matters.</td></tr>
+          <tr><td class="score">0.5</td><td>Vague or missing problem statement. Dataset introduced without context.</td></tr>
+        </tbody>
+      </table>
+      <div class="pub-check"><strong>Publication check:</strong> Could a reviewer understand <em>why</em> this problem matters from the introduction alone?</div>
+
+      <!-- C2 -->
+      <h3>Criterion 2: Methodology &amp; Technical Depth</h3>
+      <table class="rubric-table">
+        <thead><tr><th class="score">Score</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="score">2.0</td><td>Complete pipeline: EDA → classical baseline (ARIMA/SARIMA with justified order) → at least one ML model (with feature engineering) → DL or advanced extension. Each step has clear rationale. Preprocessing justified, not just applied.</td></tr>
+          <tr><td class="score">1.5</td><td>Pipeline covers classical + ML but with gaps (e.g., order chosen without AIC/BIC, temporal split not explained). DL attempted but superficial.</td></tr>
+          <tr><td class="score">1.0</td><td>Only classical models, or ML/DL applied without proper preprocessing (random CV, no scaling). Limited justification.</td></tr>
+          <tr><td class="score">0.5</td><td>Single model with no pipeline structure. Significant methodological errors (data leakage, wrong evaluation).</td></tr>
+        </tbody>
+      </table>
+      <div class="pub-check"><strong>Publication check:</strong> Is the methodology reproducible? Could someone replicate this from the description?</div>
+
+      <!-- C3 -->
+      <h3>Criterion 3: Results, Comparison &amp; Analysis</h3>
+      <table class="rubric-table">
+        <thead><tr><th class="score">Score</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="score">2.0</td><td>Clear comparison table (MAE/RMSE across all models). Forecast overlay plots. Honest discussion of <em>why</em> one model outperforms another. At least one ablation or insight. Limitations and future work explicitly stated.</td></tr>
+          <tr><td class="score">1.5</td><td>Comparison table present but analysis is shallow ("XGBoost is best" without explaining why). Plots present but not well-discussed. Limitations mentioned briefly.</td></tr>
+          <tr><td class="score">1.0</td><td>Results reported for individual models but no structured comparison. Missing metrics or forecast plots. No discussion section.</td></tr>
+          <tr><td class="score">0.5</td><td>Minimal or incorrect results. No comparison across methods.</td></tr>
+        </tbody>
+      </table>
+      <div class="pub-check"><strong>Publication check:</strong> Does the results section tell a story, or just list numbers?</div>
+
+      <!-- C4 -->
+      <h3>Criterion 4: Report Quality &amp; Scientific Writing</h3>
+      <table class="rubric-table">
+        <thead><tr><th class="score">Score</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="score">2.0</td><td>Report follows clear IMRAD structure (Introduction → Data → Method → Results → Discussion → Conclusion). Figures labeled with captions, axes, legends. Tables formatted consistently. Writing is concise. Code submitted and organized. References cited where appropriate.</td></tr>
+          <tr><td class="score">1.5</td><td>Structure present but some sections weak (e.g., missing conclusion, unlabeled figures, inconsistent formatting). Code submitted but not well-organized.</td></tr>
+          <tr><td class="score">1.0</td><td>Report reads like a notebook dump — code outputs pasted without narrative. No clear section structure. Figures without labels.</td></tr>
+          <tr><td class="score">0.5</td><td>Report missing or extremely incomplete. No code submitted.</td></tr>
+        </tbody>
+      </table>
+      <div class="pub-check"><strong>Publication check:</strong> If you removed the code cells, would it read like a coherent draft paper?</div>
+
+      <!-- C5 -->
+      <h3>Criterion 5: Presentation &amp; Communication</h3>
+      <table class="rubric-table">
+        <thead><tr><th class="score">Score</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="score">2.0</td><td>Clear report narrative with logical flow from problem to conclusion. Writing is concise and evidence-based. Key decisions are justified. Source code link included.</td></tr>
+          <tr><td class="score">1.5</td><td>Most sections are present, but flow is choppy or explanations are too descriptive. Some claims are not fully supported by evidence.</td></tr>
+          <tr><td class="score">1.0</td><td>Report is disorganized or incomplete in key parts. Technical choices are listed but weakly justified.</td></tr>
+          <tr><td class="score">0.5</td><td>Missing critical sections, or report does not clearly explain methodology and findings.</td></tr>
+        </tbody>
+      </table>
+      <div class="pub-check"><strong>Publication check:</strong> Could this report draft be submitted to a student workshop with minor revisions?</div>
+
+      <!-- Summary -->
+      <div class="summary-box">
+        <h3 style="margin-top:0;">Score Summary</h3>
+        <table>
+          <thead>
+            <tr><th style="text-align:left">#</th><th style="text-align:left">Criterion</th><th>Max</th><th>Publication Parallel</th></tr>
+          </thead>
+          <tbody>
+            <tr><td style="text-align:left">1</td><td style="text-align:left">Problem Formulation &amp; Motivation</td><td>/2</td><td>Introduction</td></tr>
+            <tr><td style="text-align:left">2</td><td style="text-align:left">Methodology &amp; Technical Depth</td><td>/2</td><td>Data + Methodology</td></tr>
+            <tr><td style="text-align:left">3</td><td style="text-align:left">Results, Comparison &amp; Analysis</td><td>/2</td><td>Results + Discussion</td></tr>
+            <tr><td style="text-align:left">4</td><td style="text-align:left">Report Quality &amp; Scientific Writing</td><td>/2</td><td>Overall paper quality</td></tr>
+            <tr><td style="text-align:left">5</td><td style="text-align:left">Report Coherence &amp; Communication</td><td>/2</td><td>Scholarly communication</td></tr>
+            <tr class="highlight-row"><td style="text-align:left"></td><td style="text-align:left"><strong>Total</strong></td><td><strong>/10</strong></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- HOW IT DIFFERS FROM MIDTERM -->
+    <section class="card">
+      <h2>How the Final Differs from Midterm</h2>
+      <table class="rubric-table">
+        <thead>
+          <tr><th></th><th>Midterm (30%)</th><th>Final (50%)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Models</strong></td><td>ARIMA/SARIMA baseline only</td><td>Classical + ML + DL (DL encouraged)</td></tr>
+          <tr><td><strong>Report</strong></td><td>Baseline report</td><td>Full IMRAD-style report with explicit proposed method</td></tr>
+          <tr><td><strong>CLOs</strong></td><td>1.2–4.1</td><td>1.1–5.2 (all CLOs)</td></tr>
+          <tr><td><strong>Focus</strong></td><td>EDA + classical baseline quality</td><td>Integration, comparison, depth, publication readiness</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <a href="../index.html#schedule" class="btn" style="margin-right:1rem;">← Back to Schedule</a>
+      <a href="grading_form.html" class="btn">View Grading Form</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="../index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>
