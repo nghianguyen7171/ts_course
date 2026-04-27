@@ -70,11 +70,6 @@
     <!-- REPORT ORGANIZATION -->
     <section class="card">
       <h2>Recommended Report Organization</h2>
-      <p>
-        Adapt this structure from the scientific-paper style used in the
-        <a href="https://nghianguyen7171.github.io/excel_course/final-presentation-guide.html" target="_blank" rel="noopener">Excel course final guide</a>,
-        but make it specific to time-series forecasting, classification, anomaly detection, or other temporal-analysis tasks.
-      </p>
 
       <h3>1) Introduction: Background → Challenges → Motivation</h3>
       <ul>
@@ -184,39 +179,44 @@
     <section class="card">
       <h2>Sample Papers to Read Before Writing</h2>
       <p>
-        Use these papers as structural references. You do not need to copy their methods exactly; instead, study how they write the problem,
-        identify limitations/gaps, define baselines, present evidence, and discuss limitations.
+        Prioritize <strong>method papers</strong> (not surveys) so you can learn how authors present a concrete model,
+        experimental design, and evidence. You do not need to copy the methods exactly; use them as writing and structure references.
       </p>
       <ul>
         <li>
-          <strong>Deep Learning for Time Series Forecasting: A Survey</strong> —
-          useful for understanding forecasting tasks, model families, datasets, and challenges.
-          <a href="https://arxiv.org/html/2503.10198v1" target="_blank" rel="noopener">Read paper</a>
+          <strong>N-BEATS: Neural Basis Expansion Analysis for Interpretable Time Series Forecasting</strong> —
+          useful for writing model motivation, architecture design, and benchmark comparison sections.
+          <a href="https://openreview.net/forum?id=r1ecqn4YwB" target="_blank" rel="noopener">Read paper</a>
         </li>
         <li>
-          <strong>A Comprehensive Survey of Deep Learning for Time Series Forecasting: Architectural Diversity and Open Challenges</strong> —
-          useful for writing related work around LSTM, CNN/TCN, Transformer, hybrid, and foundation-model approaches.
-          <a href="https://link.springer.com/article/10.1007/s10462-025-11223-9" target="_blank" rel="noopener">Read paper</a>
+          <strong>DeepAR: Probabilistic Forecasting with Autoregressive Recurrent Networks</strong> —
+          useful for probabilistic forecasting setup, likelihood-based training, and uncertainty reporting.
+          <a href="https://arxiv.org/abs/1704.04110" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>Temporal Fusion Transformers for Interpretable Multi-horizon Time Series Forecasting</strong> —
+          useful for multi-horizon design, feature importance interpretation, and ablation reporting.
+          <a href="https://arxiv.org/abs/1912.09363" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>InceptionTime: Finding AlexNet for Time Series Classification</strong> —
+          useful for classification projects and strong baseline-comparison methodology.
+          <a href="https://arxiv.org/abs/1909.04939" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>Informer: Beyond Efficient Transformer for Long Sequence Time-Series Forecasting</strong> —
+          useful for long-horizon forecasting papers and efficient architecture justification.
+          <a href="https://arxiv.org/abs/2012.07436" target="_blank" rel="noopener">Read paper</a>
+        </li>
+        <li>
+          <strong>Forecasting at Scale (Prophet)</strong> —
+          useful for classical + practical forecasting structure, trend/seasonality decomposition, and business-oriented discussion.
+          <a href="https://peerj.com/preprints/3190/" target="_blank" rel="noopener">Read paper</a>
         </li>
         <li>
           <strong>A Comparison of ARIMA and LSTM in Forecasting Time Series</strong> —
-          useful as an example of classical-vs-deep-learning baseline comparison.
+          useful as a direct example of classical-vs-deep-learning experimental comparison.
           <a href="https://par.nsf.gov/biblio/10186768-comparison-arima-lstm-forecasting-time-series" target="_blank" rel="noopener">Read paper</a>
-        </li>
-        <li>
-          <strong>Deep Learning for Time Series Classification and Extrinsic Regression: A Current Survey</strong> —
-          useful for classification projects, especially ECG/activity/sensor classification.
-          <a href="https://dl.acm.org/doi/10.1145/3649448" target="_blank" rel="noopener">Read paper</a>
-        </li>
-        <li>
-          <strong>Deep Learning for Time Series Classification: A Review</strong> —
-          useful for seeing how benchmark datasets, compared methods, and contribution statements are organized.
-          <a href="https://hal.science/hal-02365025/file/dmkd2019.pdf" target="_blank" rel="noopener">Read paper</a>
-        </li>
-        <li>
-          <strong>Comparing Statistical and Machine Learning Methods for Time Series Forecasting in Data-Driven Logistics</strong> —
-          useful for reports comparing ARIMA/SARIMA/TBATS with Random Forest or XGBoost.
-          <a href="https://export.arxiv.org/pdf/2303.07139v1.pdf" target="_blank" rel="noopener">Read paper</a>
         </li>
       </ul>
       <div class="pub-check">
