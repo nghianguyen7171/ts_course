@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 14: Electricity Load Diagrams · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 14</p>
+      <h1 class="hero-title">Electricity Load Diagrams</h1>
+      <div class="topic-badges">
+        <span class="pill pill-hard">Hard</span>
+        <span class="bonus-badge">+1.5 Bonus Points</span>
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/14.Electricity_Load/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/14.Electricity_Load/14.Elec.jpeg" alt="Electricity Load Diagrams">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Hard<br><strong>Goal:</strong> Model and forecast electricity demand (multiple time series, rich seasonality).</p>
+<h2>Dataset (Example Source)</h2>
+<ul>
+<li><strong>Source:</strong> Electricity load diagrams dataset (via libraries like GluonTS/HuggingFace, etc.)</li>
+<li><strong>Example Link:</strong> <a href="https://huggingface.co/datasets/tulipa762/electricity_load_diagrams">https://huggingface.co/datasets/tulipa762/electricity_load_diagrams</a></li>
+</ul>
+<h2>Download (Simple Manual Approach)</h2>
+<ol>
+<li>Open the link above.</li>
+<li>Download the CSV file containing the load data (if provided).</li>
+<li>Save to <code>data/electricity/</code>.</li>
+</ol>
+<h2>Data Loading (If CSV is Available)</h2>
+<pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv(&quot;data/electricity/electricity.csv&quot;)  # adjust filename
+print(df.head())
+
+# Example: parse datetime column like &quot;timestamp&quot;
+df[&quot;timestamp&quot;] = pd.to_datetime(df[&quot;timestamp&quot;])
+df = df.set_index(&quot;timestamp&quot;).sort_index()
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Loading and Exploration</h3>
+<ul>
+<li>Load electricity load data</li>
+<li>Understand data structure (multiple consumers, time series)</li>
+<li>Inspect data frequency (hourly, daily)</li>
+<li>Examine data quality and missing values</li>
+<li>Identify available variables</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot load time series (overall and by consumer if multiple)</li>
+<li>Identify strong seasonality patterns:<ul>
+<li>Daily patterns (hourly data)</li>
+<li>Weekly patterns (weekday vs weekend)</li>
+<li>Yearly patterns (seasonal variations)</li>
+</ul>
+</li>
+<li>Analyze load distributions</li>
+<li>Calculate basic statistics</li>
+<li>Perform time series decomposition</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li>Handle missing values</li>
+<li>Handle outliers (may be real events)</li>
+<li>Create time-based features (hour, day of week, month, season)</li>
+<li>Normalize or scale if needed</li>
+<li>Prepare data for modeling</li>
+</ul>
+<h3>4. Feature Engineering</h3>
+<ul>
+<li><strong>Time Features:</strong><ul>
+<li>Hour of day, day of week, month, season</li>
+<li>Holiday indicators</li>
+<li>Weekend indicators</li>
+</ul>
+</li>
+<li><strong>Lag Features:</strong><ul>
+<li>Previous hour, day, week loads</li>
+<li>Same hour previous day, week</li>
+</ul>
+</li>
+<li><strong>Rolling Statistics:</strong><ul>
+<li>Rolling mean, std (daily, weekly windows)</li>
+</ul>
+</li>
+<li><strong>External Features (if available):</strong><ul>
+<li>Temperature, weather data</li>
+<li>Economic indicators</li>
+</ul>
+</li>
+</ul>
+<h3>5. Model Building</h3>
+<ul>
+<li><strong>Univariate Models (per consumer):</strong><ul>
+<li>ARIMA/SARIMA (strong seasonality - multiple seasonal patterns)</li>
+<li>Exponential smoothing (Holt-Winters with multiple seasonality)</li>
+</ul>
+</li>
+<li><strong>Multivariate Models:</strong><ul>
+<li>VAR models for multiple consumers</li>
+<li>Hierarchical models</li>
+</ul>
+</li>
+<li><strong>Machine Learning:</strong><ul>
+<li>Feature-based models (XGBoost, LightGBM)</li>
+<li>Handle multiple seasonality with features</li>
+</ul>
+</li>
+<li><strong>Advanced (if using libraries):</strong><ul>
+<li>GluonTS, darts, or similar time series libraries</li>
+<li>Deep learning models (LSTM, Transformer)</li>
+</ul>
+</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Use time series cross-validation</li>
+<li>Split data temporally</li>
+<li>Calculate metrics (MAE, RMSE, MAPE)</li>
+<li>Evaluate at different time horizons (1-hour, 1-day, 1-week ahead)</li>
+<li>Compare multiple approaches</li>
+</ul>
+<h3>7. Forecasting</h3>
+<ul>
+<li>Generate forecasts for different horizons</li>
+<li>Include prediction intervals</li>
+<li>Aggregate forecasts if multiple consumers</li>
+<li>Visualize forecasts with actual values</li>
+<li>Analyze forecast accuracy by time of day/day of week</li>
+</ul>
+<h3>8. Advanced Analysis (Optional)</h3>
+<ul>
+<li>Analyze load patterns by consumer type</li>
+<li>Identify peak demand periods</li>
+<li>Analyze seasonal variations</li>
+<li>Compare different modeling approaches</li>
+<li>Analyze feature importance</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>Load time series plots</li>
+<li>Seasonality analysis (daily, weekly, yearly)</li>
+<li>Pattern identification</li>
+<li>Statistical summaries</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>Selected model(s) with parameters</li>
+<li>Performance metrics (by horizon)</li>
+<li>Forecast plots</li>
+<li>Comparison of approaches</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Complete Python notebook</li>
+<li>Data processing functions</li>
+<li>Feature engineering utilities</li>
+<li>Modeling pipeline</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>Electricity load has very strong and complex seasonality (multiple patterns)</li>
+<li>Daily patterns are crucial (peak hours, off-peak hours)</li>
+<li>Weekly patterns (weekday vs weekend) are important</li>
+<li>Yearly patterns (summer vs winter) affect demand</li>
+<li>Multiple seasonality requires SARIMA with multiple seasonal components or feature engineering</li>
+<li>Consider using specialized time series libraries (GluonTS, darts) for complex seasonality</li>
+<li>Feature engineering is essential (time features, lags, rolling stats)</li>
+<li>External features (temperature) can significantly improve forecasts</li>
+<li>Handle multiple consumers appropriately (panel data structure)</li>
+<li>Use appropriate evaluation metrics and cross-validation</li>
+<li>Document all preprocessing and feature engineering steps</li>
+<li>Compare simple models (ARIMA) with complex models (XGBoost, LSTM)</li>
+<li>Consider ensemble methods for better performance</li>
+<li>This is a challenging problem - expect to try multiple approaches</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/14.Electricity_Load/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/14.Electricity_Load/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

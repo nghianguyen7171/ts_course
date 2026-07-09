@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 2: Monthly Business Sales Time Series · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 2</p>
+      <h1 class="hero-title">Monthly Business Sales Time Series</h1>
+      <div class="topic-badges">
+        <span class="pill pill-easy">Easy</span>
+        
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/2.Business_Sales/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/2.Business_Sales/2.BS_sales.jpeg" alt="Monthly Business Sales Time Series">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Easy<br><strong>Goal:</strong> Analyze and forecast monthly / periodic sales or revenue.</p>
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> Business Sales Time Series Starter – OpenDataBay</li>
+<li><strong>Link:</strong> <a href="https://www.opendatabay.com/data/ai-ml/f86d74d9-4656-4313-94d7-0cbd12bb7ffd">https://www.opendatabay.com/data/ai-ml/f86d74d9-4656-4313-94d7-0cbd12bb7ffd</a></li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the link above.</li>
+<li>Click &quot;Download CSV&quot; (e.g. <code>Month_Value_1.csv</code>).</li>
+<li>Save as <code>data/business_sales.csv</code>.</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv(&quot;data/business_sales.csv&quot;)
+df[&quot;Month&quot;] = pd.to_datetime(df[&quot;Month&quot;])
+df = df.set_index(&quot;Month&quot;).sort_index()
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load and inspect the dataset structure</li>
+<li>Identify the target variable (sales/revenue column)</li>
+<li>Check data range and frequency (monthly)</li>
+<li>Examine basic statistics and data quality</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot monthly sales over time</li>
+<li>Identify trends (increasing, decreasing, stable)</li>
+<li>Detect seasonality patterns (monthly, quarterly, yearly)</li>
+<li>Perform time series decomposition (additive or multiplicative)</li>
+<li>Calculate ACF/PACF to understand autocorrelation</li>
+</ul>
+<h3>3. Stationarity Analysis</h3>
+<ul>
+<li>Visual inspection (rolling mean and variance)</li>
+<li>Perform Augmented Dickey-Fuller (ADF) test</li>
+<li>Apply differencing if non-stationary</li>
+<li>Consider seasonal differencing if strong seasonality exists</li>
+</ul>
+<h3>4. Model Building</h3>
+<ul>
+<li><strong>Classical Methods:</strong><ul>
+<li>ARIMA models (identify p, d, q from ACF/PACF)</li>
+<li>SARIMA models (for seasonal patterns)</li>
+<li>Exponential Smoothing (Holt-Winters)</li>
+</ul>
+</li>
+<li><strong>Model Selection:</strong><ul>
+<li>Use AIC/BIC for comparison</li>
+<li>Cross-validation on validation set</li>
+</ul>
+</li>
+</ul>
+<h3>5. Model Evaluation</h3>
+<ul>
+<li>Split data: training (70%), validation (15%), test (15%)</li>
+<li>Generate forecasts and compare with actual values</li>
+<li>Calculate error metrics: MAE, RMSE, MAPE</li>
+<li>Visualize forecasts vs actuals</li>
+<li>Check residual diagnostics</li>
+</ul>
+<h3>6. Forecasting</h3>
+<ul>
+<li>Generate future monthly forecasts</li>
+<li>Include prediction intervals</li>
+<li>Visualize with historical data</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>Time series plots with trend/seasonality</li>
+<li>Decomposition plots</li>
+<li>ACF/PACF analysis</li>
+<li>Stationarity test results</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>Selected model with parameters</li>
+<li>Model diagnostics (residual plots, ACF of residuals)</li>
+<li>Performance metrics table</li>
+<li>Forecast plots</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Complete Python notebook with all steps</li>
+<li>Reusable functions for preprocessing and modeling</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>Monthly data often shows strong seasonality (yearly patterns)</li>
+<li>Consider multiplicative models if variance increases with level</li>
+<li>Use SARIMA for seasonal patterns (e.g., SARIMA(1,1,1)(1,1,1)12)</li>
+<li>Compare multiple models (ARIMA, SARIMA, Exponential Smoothing)</li>
+<li>Business sales may have external factors (holidays, promotions) - note these in analysis</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/2.Business_Sales/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/2.Business_Sales/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

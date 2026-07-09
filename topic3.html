@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 3: GDP Time Series for Multiple Countries · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 3</p>
+      <h1 class="hero-title">GDP Time Series for Multiple Countries</h1>
+      <div class="topic-badges">
+        <span class="pill pill-easy">Easy</span>
+        
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/3.GDP/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/3.GDP/3.GDP.jpeg" alt="GDP Time Series for Multiple Countries">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Easy<br><strong>Goal:</strong> Forecast annual GDP for 1–3 countries, compare trends and growth.</p>
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> GDP Timeseries Data for various Countries – Kaggle</li>
+<li><strong>Link:</strong> <a href="https://www.kaggle.com/datasets/iamtushara/gdp-timeseries-data-for-various-countries">https://www.kaggle.com/datasets/iamtushara/gdp-timeseries-data-for-various-countries</a></li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset link above.</li>
+<li>Click &quot;Download&quot;.</li>
+<li>Extract to <code>data/</code>.</li>
+<li>Use the main GDP CSV (e.g. <code>gdp_timeseries.csv</code>).</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv(&quot;data/gdp_timeseries.csv&quot;)  # adjust filename
+country = df[df[&quot;Country&quot;] == &quot;Vietnam&quot;].copy()  # example filter
+country[&quot;Year&quot;] = pd.to_datetime(country[&quot;Year&quot;], format=&quot;%Y&quot;)
+country = country.set_index(&quot;Year&quot;).sort_index()
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load dataset and explore structure</li>
+<li>Select 1-3 countries for analysis (e.g., Vietnam, USA, China)</li>
+<li>Inspect GDP values and time range</li>
+<li>Check for missing values and data quality</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot GDP time series for each country</li>
+<li>Compare trends across countries (side-by-side plots)</li>
+<li>Calculate growth rates (year-over-year, CAGR)</li>
+<li>Identify structural breaks or regime changes</li>
+<li>Perform time series decomposition</li>
+</ul>
+<h3>3. Stationarity Analysis</h3>
+<ul>
+<li>Test each country&#39;s GDP series for stationarity (ADF test)</li>
+<li>Apply differencing if needed (GDP is typically non-stationary)</li>
+<li>Consider log transformation for variance stabilization</li>
+<li>Check for unit roots</li>
+</ul>
+<h3>4. Model Building</h3>
+<ul>
+<li><strong>Univariate Models (per country):</strong><ul>
+<li>ARIMA models</li>
+<li>Consider trend models if strong deterministic trend</li>
+</ul>
+</li>
+<li><strong>Comparative Analysis:</strong><ul>
+<li>Compare model performance across countries</li>
+<li>Identify common patterns or differences</li>
+</ul>
+</li>
+<li><strong>Advanced (optional):</strong><ul>
+<li>VAR models for multivariate analysis</li>
+<li>Cointegration tests if analyzing multiple countries together</li>
+</ul>
+</li>
+</ul>
+<h3>5. Model Evaluation</h3>
+<ul>
+<li>Split data temporally (e.g., last 5-10 years as test set)</li>
+<li>Generate forecasts for each country</li>
+<li>Calculate metrics: MAE, RMSE, MAPE</li>
+<li>Compare forecast accuracy across countries</li>
+<li>Visualize forecasts with confidence intervals</li>
+</ul>
+<h3>6. Comparative Analysis</h3>
+<ul>
+<li>Compare GDP growth trends</li>
+<li>Analyze forecast accuracy differences</li>
+<li>Discuss economic factors affecting each country</li>
+<li>Generate comparative forecast plots</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>GDP plots for each country</li>
+<li>Growth rate analysis</li>
+<li>Comparative visualizations</li>
+<li>Stationarity test results</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>Model parameters for each country</li>
+<li>Performance metrics comparison table</li>
+<li>Forecast plots (individual and comparative)</li>
+<li>Discussion of differences</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Python notebook with all analyses</li>
+<li>Functions for country comparison</li>
+<li>Visualization utilities</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>GDP data is typically annual, so fewer data points - be careful with model complexity</li>
+<li>GDP usually has strong upward trend (non-stationary)</li>
+<li>Consider log transformation to model growth rates</li>
+<li>Compare countries with similar economic characteristics for meaningful insights</li>
+<li>Use growth rates (first difference of log GDP) for stationary analysis</li>
+<li>External factors (recessions, policy changes) may cause structural breaks</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/3.GDP/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/3.GDP/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

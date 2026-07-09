@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 7: Human Vital Signs · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 7</p>
+      <h1 class="hero-title">Human Vital Signs</h1>
+      <div class="topic-badges">
+        <span class="pill pill-medium">Medium</span>
+        <span class="bonus-badge">+1 Bonus Point</span>
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/7.Human_Vital_Signs/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/7.Human_Vital_Signs/7.Vital_sign.jpeg" alt="Human Vital Signs">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Medium<br><strong>Goal:</strong> Analyze and forecast physiological signals (HR, BP, SpO2, etc.).</p>
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> Human Vital Sign Dataset – Kaggle</li>
+<li><strong>Link:</strong> <a href="https://www.kaggle.com/datasets/nasirayub2/human-vital-sign-dataset">https://www.kaggle.com/datasets/nasirayub2/human-vital-sign-dataset</a></li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset link above.</li>
+<li>Click &quot;Download&quot;.</li>
+<li>Extract to <code>data/vital_signs/</code>.</li>
+<li>Use the main CSV, e.g. <code>HumanVitalSigns.csv</code>.</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv(&quot;data/vital_signs/HumanVitalSigns.csv&quot;)  # adjust
+df[&quot;Time&quot;] = pd.to_datetime(df[&quot;Time&quot;])  # adapt time column name
+df = df.set_index(&quot;Time&quot;).sort_index()
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load vital signs dataset</li>
+<li>Identify available signals (Heart Rate, Blood Pressure, SpO2, etc.)</li>
+<li>Inspect data frequency and time range</li>
+<li>Check for missing values and data quality</li>
+<li>Understand measurement units and normal ranges</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot each vital sign over time</li>
+<li>Identify patterns (resting vs active periods, circadian rhythms)</li>
+<li>Calculate basic statistics (mean, std, min, max)</li>
+<li>Analyze relationships between different vital signs</li>
+<li>Perform time series decomposition</li>
+</ul>
+<h3>3. Signal Preprocessing</h3>
+<ul>
+<li>Handle missing values (interpolation, forward fill)</li>
+<li>Detect and handle outliers (physiological limits)</li>
+<li>Smooth noisy signals if needed (moving average, median filter)</li>
+<li>Resample to consistent frequency if needed</li>
+</ul>
+<h3>4. Stationarity Analysis</h3>
+<ul>
+<li>Test each signal for stationarity</li>
+<li>Vital signs may have trends (e.g., HR during exercise)</li>
+<li>Apply differencing or detrending if needed</li>
+<li>Consider segmenting by activity state</li>
+</ul>
+<h3>5. Model Building</h3>
+<ul>
+<li><strong>Univariate Models:</strong><ul>
+<li>ARIMA/SARIMA for each vital sign</li>
+<li>Consider seasonality (circadian rhythms)</li>
+</ul>
+</li>
+<li><strong>Multivariate Models (optional):</strong><ul>
+<li>VAR models to capture relationships between vital signs</li>
+<li>Analyze how one sign affects another</li>
+</ul>
+</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Split data temporally</li>
+<li>Generate forecasts for each vital sign</li>
+<li>Calculate accuracy metrics</li>
+<li>Visualize forecasts with actual values</li>
+<li>Analyze forecast errors</li>
+</ul>
+<h3>7. Clinical Interpretation</h3>
+<ul>
+<li>Interpret results in clinical context</li>
+<li>Identify normal vs abnormal patterns</li>
+<li>Discuss implications for monitoring</li>
+<li>Compare with clinical knowledge</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>Time series plots for each vital sign</li>
+<li>Statistical summaries</li>
+<li>Relationship analysis between signs</li>
+<li>Decomposition plots</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>Model parameters for each signal</li>
+<li>Forecast accuracy metrics</li>
+<li>Forecast plots</li>
+<li>Clinical interpretation</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Complete Python notebook</li>
+<li>Preprocessing functions</li>
+<li>Visualization utilities</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>Vital signs have physiological limits - use domain knowledge for validation</li>
+<li>Consider activity states (rest, exercise, sleep) in analysis</li>
+<li>Circadian rhythms may create daily seasonality</li>
+<li>Handle outliers carefully - they may be real events (e.g., spikes during activity)</li>
+<li>Use appropriate sampling frequency (too high may be noisy, too low loses information)</li>
+<li>Multivariate models can capture physiological relationships (e.g., HR and BP)</li>
+<li>Consider patient-specific models vs population models</li>
+<li>Document any preprocessing decisions and their rationale</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/7.Human_Vital_Signs/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/7.Human_Vital_Signs/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

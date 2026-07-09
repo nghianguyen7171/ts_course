@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 13: Retail Store Sales Time Series · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 13</p>
+      <h1 class="hero-title">Retail Store Sales Time Series</h1>
+      <div class="topic-badges">
+        <span class="pill pill-medium">Medium → Hard</span>
+        <span class="bonus-badge">+1 Bonus Point</span>
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/13.Store_Sales/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/13.Store_Sales/13.Store_sales.jpeg" alt="Retail Store Sales Time Series">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Medium → Hard<br><strong>Goal:</strong> Daily sales forecasting for multiple stores/items (panel + time series).</p>
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> Store Sales – Time Series Forecasting (Favorita) – Kaggle</li>
+<li><strong>Link:</strong> <a href="https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data">https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data</a></li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the competition link above.</li>
+<li>Go to &quot;Data&quot; tab.</li>
+<li>Accept competition rules (if needed).</li>
+<li>Download <code>train.csv</code> and save to <code>data/store_sales/</code>.</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv(&quot;data/store_sales/train.csv&quot;)
+df[&quot;date&quot;] = pd.to_datetime(df[&quot;date&quot;])
+df = df.set_index(&quot;date&quot;).sort_index()
+
+print(df.head())
+# Columns usually include: date, store_nbr, family, sales, onpromotion, oil_price, etc.
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load training data</li>
+<li>Understand data structure:<ul>
+<li>Multiple stores</li>
+<li>Multiple product families</li>
+<li>Time series panel data</li>
+</ul>
+</li>
+<li>Inspect available features (promotions, oil prices, holidays, etc.)</li>
+<li>Examine data quality and missing values</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Aggregate sales by store, family, and time</li>
+<li>Plot overall sales trends</li>
+<li>Analyze seasonality patterns (daily, weekly, monthly, yearly)</li>
+<li>Identify holiday effects</li>
+<li>Analyze promotion effects</li>
+<li>Examine relationships between features</li>
+<li>Calculate sales statistics by store/family</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li>Handle missing values</li>
+<li>Create time-based features (day of week, month, year, holidays)</li>
+<li>Encode categorical variables (store, family)</li>
+<li>Handle promotions and external variables</li>
+<li>Prepare panel data structure</li>
+</ul>
+<h3>4. Feature Engineering</h3>
+<ul>
+<li><strong>Time Features:</strong><ul>
+<li>Day of week, month, year</li>
+<li>Holiday indicators</li>
+<li>Lag features (previous day, week, month sales)</li>
+</ul>
+</li>
+<li><strong>Rolling Statistics:</strong><ul>
+<li>Rolling mean, std (7-day, 30-day windows)</li>
+<li>Rolling max, min</li>
+</ul>
+</li>
+<li><strong>External Features:</strong><ul>
+<li>Oil prices</li>
+<li>Promotion indicators</li>
+<li>Store/family characteristics</li>
+</ul>
+</li>
+</ul>
+<h3>5. Model Building</h3>
+<ul>
+<li><strong>Univariate Approaches (per store-family):</strong><ul>
+<li>ARIMA/SARIMA for individual series</li>
+<li>Exponential smoothing</li>
+</ul>
+</li>
+<li><strong>Panel Data Approaches:</strong><ul>
+<li>Hierarchical models</li>
+<li>Store/family-specific models</li>
+</ul>
+</li>
+<li><strong>Machine Learning:</strong><ul>
+<li>Feature-based models (Random Forest, XGBoost, LightGBM)</li>
+<li>Handle panel structure appropriately</li>
+</ul>
+</li>
+<li><strong>Hybrid Approaches:</strong><ul>
+<li>Combine classical and ML methods</li>
+<li>Ensemble forecasts</li>
+</ul>
+</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Use time series cross-validation (walk-forward)</li>
+<li>Split data temporally (respect time ordering)</li>
+<li>Calculate metrics (MAE, RMSE, MAPE)</li>
+<li>Evaluate at different aggregation levels (store, family, overall)</li>
+<li>Compare multiple approaches</li>
+</ul>
+<h3>7. Forecasting</h3>
+<ul>
+<li>Generate forecasts for test period</li>
+<li>Aggregate forecasts appropriately</li>
+<li>Handle multiple stores/families</li>
+<li>Include uncertainty estimates</li>
+<li>Visualize forecasts</li>
+</ul>
+<h3>8. Advanced Analysis (Optional)</h3>
+<ul>
+<li>Analyze store/family-specific patterns</li>
+<li>Identify important features</li>
+<li>Analyze promotion effectiveness</li>
+<li>Compare store performance</li>
+<li>Seasonal pattern analysis</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>Sales trends and patterns</li>
+<li>Seasonality analysis</li>
+<li>Feature analysis</li>
+<li>Store/family comparisons</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>Selected model(s) with parameters</li>
+<li>Performance metrics (by store/family and overall)</li>
+<li>Feature importance (if using ML)</li>
+<li>Forecast plots</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for data processing</li>
+<li>Feature engineering utilities</li>
+<li>Modeling pipeline</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>This is panel data - handle multiple stores/families appropriately</li>
+<li>Strong seasonality expected (weekly, monthly, yearly patterns)</li>
+<li>Holidays and promotions have significant effects</li>
+<li>Use appropriate aggregation levels for analysis</li>
+<li>Feature engineering is crucial for good performance</li>
+<li>Consider hierarchical models (store → family → item)</li>
+<li>Use time series cross-validation (don&#39;t shuffle time series data)</li>
+<li>Handle missing values carefully (forward fill, interpolation)</li>
+<li>External features (oil prices, promotions) can improve forecasts</li>
+<li>Consider store/family-specific models vs global models</li>
+<li>This is competition data - aim for good performance</li>
+<li>Document all feature engineering decisions</li>
+<li>Compare simple models (ARIMA) with complex models (XGBoost)</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/13.Store_Sales/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/13.Store_Sales/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

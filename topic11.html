@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 11: ECG Analysis with MIT-BIH · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 11</p>
+      <h1 class="hero-title">ECG Analysis with MIT-BIH</h1>
+      <div class="topic-badges">
+        <span class="pill pill-hard">Hard</span>
+        <span class="bonus-badge">+1.5 Bonus Points</span>
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/11.ECG_MIT_BIH/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/11.ECG_MIT_BIH/11.ECG.jpeg" alt="ECG Analysis with MIT-BIH">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Hard<br><strong>Goal:</strong> Work with ECG waveforms (e.g., MIT-BIH Arrhythmia).</p>
+<h2>Library &amp; Data</h2>
+<ul>
+<li><strong>WFDB Python:</strong> <a href="https://wfdb.io/software/python.html">https://wfdb.io/software/python.html</a></li>
+<li><strong>MIT-BIH Database:</strong> Available via WFDB</li>
+</ul>
+<h2>Installation</h2>
+<pre><code class="language-bash">pip install wfdb
+</code></pre>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import wfdb
+import pandas as pd
+import numpy as np
+
+record = wfdb.rdrecord(&quot;100&quot;, pn_dir=&quot;mitdb&quot;)
+signal = record.p_signal[:, 0]  # first channel
+fs = record.fs
+
+times = pd.to_timedelta(np.arange(len(signal)) / fs, unit=&quot;s&quot;)
+ecg_series = pd.Series(signal, index=times)
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Library Setup and Data Access</h3>
+<ul>
+<li>Install WFDB library</li>
+<li>Access MIT-BIH Arrhythmia database</li>
+<li>Explore available records</li>
+<li>Select record(s) for analysis</li>
+<li>Understand WFDB data structure</li>
+</ul>
+<h3>2. Data Exploration</h3>
+<ul>
+<li>Load ECG signals from selected records</li>
+<li>Inspect sampling rate (typically 360 Hz for MIT-BIH)</li>
+<li>Plot raw ECG waveforms</li>
+<li>Identify QRS complexes and other features</li>
+<li>Examine signal quality</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li><strong>Filtering:</strong><ul>
+<li>Apply band-pass filter (e.g., 0.5-40 Hz)</li>
+<li>Remove baseline wander</li>
+<li>Remove power line interference (50/60 Hz)</li>
+</ul>
+</li>
+<li><strong>Artifact Removal:</strong><ul>
+<li>Identify and handle artifacts</li>
+<li>Use appropriate filtering techniques</li>
+</ul>
+</li>
+<li><strong>Normalization:</strong><ul>
+<li>Normalize amplitude if needed</li>
+</ul>
+</li>
+</ul>
+<h3>4. Feature Extraction</h3>
+<ul>
+<li><strong>QRS Detection:</strong><ul>
+<li>Detect R-peaks (heartbeats)</li>
+<li>Calculate heart rate (HR) time series</li>
+<li>Extract RR intervals</li>
+</ul>
+</li>
+<li><strong>Waveform Features:</strong><ul>
+<li>Extract P, Q, R, S, T wave features</li>
+<li>Calculate morphological features</li>
+</ul>
+</li>
+<li><strong>Create Time Series:</strong><ul>
+<li>Heart rate over time</li>
+<li>RR interval series</li>
+<li>Other derived features</li>
+</ul>
+</li>
+</ul>
+<h3>5. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot ECG waveforms</li>
+<li>Visualize heart rate over time</li>
+<li>Analyze RR interval distributions</li>
+<li>Identify arrhythmias or abnormal patterns</li>
+<li>Perform time series decomposition of HR</li>
+</ul>
+<h3>6. Stationarity Analysis</h3>
+<ul>
+<li>Test extracted features (e.g., HR) for stationarity</li>
+<li>Apply transformations if needed</li>
+<li>Consider segmenting by rhythm type</li>
+</ul>
+<h3>7. Model Building</h3>
+<ul>
+<li><strong>Heart Rate Time Series:</strong><ul>
+<li>Apply ARIMA/SARIMA to HR series</li>
+<li>Model RR intervals</li>
+</ul>
+</li>
+<li><strong>Event Detection (advanced):</strong><ul>
+<li>Detect arrhythmias</li>
+<li>Model event occurrences</li>
+</ul>
+</li>
+<li><strong>Morphological Analysis (advanced):</strong><ul>
+<li>Analyze waveform changes over time</li>
+</ul>
+</li>
+</ul>
+<h3>8. Model Evaluation</h3>
+<ul>
+<li>Split data temporally</li>
+<li>Generate forecasts (e.g., future HR)</li>
+<li>Calculate accuracy metrics</li>
+<li>Visualize results</li>
+<li>Compare with clinical expectations</li>
+</ul>
+<h3>9. Clinical Interpretation</h3>
+<ul>
+<li>Interpret results in cardiology context</li>
+<li>Identify normal vs abnormal patterns</li>
+<li>Discuss implications for monitoring</li>
+<li>Compare with ECG literature</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>ECG waveform plots</li>
+<li>Heart rate analysis</li>
+<li>RR interval analysis</li>
+<li>Pattern identification</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>Selected models for HR/features</li>
+<li>Forecast accuracy</li>
+<li>Visualization of results</li>
+<li>Clinical interpretation</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Complete Python notebook</li>
+<li>WFDB data loading functions</li>
+<li>QRS detection and feature extraction</li>
+<li>Visualization utilities</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>ECG data requires specialized preprocessing and analysis</li>
+<li>QRS detection is crucial for extracting meaningful features</li>
+<li>Heart rate time series is more suitable for standard time series methods than raw ECG</li>
+<li>Use appropriate filtering (band-pass, notch) for clean signals</li>
+<li>Understand ECG morphology (P, Q, R, S, T waves) for proper analysis</li>
+<li>Consider different rhythm types (normal sinus, arrhythmias) in analysis</li>
+<li>RR intervals can be modeled as time series</li>
+<li>Document all preprocessing steps clearly</li>
+<li>Use WFDB&#39;s built-in functions for reading and processing</li>
+<li>Consult cardiology literature for appropriate analysis methods</li>
+<li>Consider event-based analysis (arrhythmia detection) in addition to continuous forecasting</li>
+<li>High-frequency raw ECG may need downsampling or feature extraction for standard methods</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/11.ECG_MIT_BIH/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/11.ECG_MIT_BIH/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

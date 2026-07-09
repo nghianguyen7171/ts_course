@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 10 Midterm Presentation Guide - Time Series Analysis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-row">
+      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
+      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
+      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#schedule">Schedule</a></li>
+        <li><a href="topics.html">Topics</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Week 10</p>
+        <h1>Midterm Presentation Guide</h1>
+        <p class="tagline">
+          Detailed instructions for organizing your slides to scientific conference standards.
+        </p>
+      </div>
+      <div class="hero-image">
+        <img src="img/bg2.jpeg" alt="Midterm presentation guide" />
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Goal and Expected Quality</h2>
+      <p>
+        This guide helps your team present the Midterm Project Baseline with the structure and clarity expected in a scientific conference talk.
+      </p>
+      <ul>
+        <li>Keep a clear storyline: <strong>problem → method → results → limitation/next steps</strong>.</li>
+        <li>Use clean visualizations and concise slide text (avoid long paragraphs).</li>
+        <li>Every claim should be supported by data, plots, or metric tables.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Recommended Slide Organization</h2>
+
+      <h3>1) Problem Definition</h3>
+      <ul>
+        <li><strong>Background:</strong> Introduce domain context, why this time-series problem matters, and practical relevance.</li>
+        <li><strong>Macro / societal / practical framing (required):</strong> Do not define the problem only in theoretical terms. Explain impact at three levels:
+          <ul>
+            <li><strong>Macro level:</strong> Economic/system-level importance (cost, productivity, planning, risk management).</li>
+            <li><strong>Societal level:</strong> Effects on people and communities (health outcomes, fairness, safety, service quality).</li>
+            <li><strong>Practical level:</strong> Operational decision impact (how your forecast/classification changes actions in real workflows).</li>
+          </ul>
+        </li>
+        <li><strong>Limitation / Challenge:</strong> Describe core difficulties (noise, non-stationarity, seasonality, missing data, class imbalance, etc.).</li>
+        <li><strong>Leading to motivation:</strong> Explain why these limitations motivate your proposed approach.</li>
+      </ul>
+
+      <p><strong>Example problem framing (recommended slide pattern):</strong></p>
+      <ul>
+        <li><strong>Healthcare calls forecasting:</strong>
+          <ul>
+            <li><strong>Macro:</strong> Better staffing reduces overtime and emergency overload.</li>
+            <li><strong>Societal:</strong> Faster response improves patient safety and trust in public health services.</li>
+            <li><strong>Practical:</strong> Daily call-volume forecasts guide shift allocation and escalation planning.</li>
+          </ul>
+        </li>
+        <li><strong>Electricity load forecasting:</strong>
+          <ul>
+            <li><strong>Macro:</strong> Accurate load planning reduces balancing costs and supports grid stability.</li>
+            <li><strong>Societal:</strong> Fewer outages and more reliable power for households and hospitals.</li>
+            <li><strong>Practical:</strong> Hour-ahead forecasts optimize dispatch and peak-load mitigation.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>2) Method</h3>
+      <ul>
+        <li><strong>Dataset:</strong> Source, size, sampling frequency, target variable, and train/validation/test split.</li>
+        <li><strong>Analysis of dataset:</strong> Key EDA findings (trend/seasonality/distribution/anomalies/correlation), with visuals.</li>
+        <li><strong>Proposed model:</strong> Pipeline overview, features/preprocessing, model architecture, and training strategy.</li>
+      </ul>
+
+      <h3>3) Results</h3>
+      <ul>
+        <li><strong>Experiment setting:</strong> Evaluation metrics and baseline/comparison methods.</li>
+        <li><strong>Experiment results and discussion:</strong> Tables/plots + interpretation (what improved and why).</li>
+        <li><strong>Limitation of current methods and next plan:</strong> Honest limitations, failure cases, and concrete next-phase plan.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Conference-Style Presentation Checklist</h2>
+      <ul>
+        <li>Start with a 1-slide <strong>problem statement</strong> and 1-slide <strong>contributions</strong>.</li>
+        <li>Use one visual message per slide (avoid overloaded charts).</li>
+        <li>Label all figures clearly (units, axis names, legend, metric definition).</li>
+        <li>Keep methods reproducible: mention important hyperparameters and validation setup.</li>
+        <li><strong>Mandatory:</strong> Include a <strong>source code link</strong> directly in the slides (GitHub repository, Kaggle notebook, or another accessible version) so reviewers can reproduce your pipeline.</li>
+        <li>Include at least one <strong>ablation/comparison insight</strong>, not only final numbers.</li>
+        <li>End with takeaway bullets: <strong>what works, what fails, what’s next</strong>.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Suggested Timing (5–7 minutes)</h2>
+      <ul>
+        <li><strong>1.0–1.5 min:</strong> Problem Definition + Motivation</li>
+        <li><strong>2.0–2.5 min:</strong> Method (Dataset, EDA, Proposed Model)</li>
+        <li><strong>1.5–2.0 min:</strong> Results + Discussion</li>
+        <li><strong>0.5–1.0 min:</strong> Limitation + Next Plan + Closing</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <a href="index.html#schedule" class="btn">← Back to Schedule</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Time Series Analysis and Forecasting · National Economics University</p>
+    <a href="index.html">Back to Home</a>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav ul');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const THEME_KEY = 'ts-course-theme';
+
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+      localStorage.setItem(THEME_KEY, theme);
+    };
+
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || 'light');
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  </script>
+</body>
+</html>

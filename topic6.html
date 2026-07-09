@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 6: Multivariate Financial Time Series Bundle · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 6</p>
+      <h1 class="hero-title">Multivariate Financial Time Series Bundle</h1>
+      <div class="topic-badges">
+        <span class="pill pill-medium">Medium</span>
+        <span class="bonus-badge">+1 Bonus Point</span>
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/6.Multivariate_Financial/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/6.Multivariate_Financial/6.Multi_finacial.jpeg" alt="Multivariate Financial Time Series Bundle">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Medium<br><strong>Goal:</strong> Model several assets jointly (correlations, VAR, multivariate forecasting).</p>
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> Financial Time Series Datasets – Kaggle</li>
+<li><strong>Link:</strong> <a href="https://www.kaggle.com/datasets/praxitelisk/financial-time-series-datasets">https://www.kaggle.com/datasets/praxitelisk/financial-time-series-datasets</a></li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset page above.</li>
+<li>Click &quot;Download&quot;.</li>
+<li>Extract to <code>data/financial/</code>.</li>
+<li>Choose some CSVs (indices, FX, commodities).</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+import os
+
+print(os.listdir(&quot;data/financial&quot;))
+
+sp500 = pd.read_csv(&quot;data/financial/sp500.csv&quot;)  # adjust
+oil   = pd.read_csv(&quot;data/financial/oil.csv&quot;)    # adjust
+
+for df_ in (sp500, oil):
+    df_[&quot;Date&quot;] = pd.to_datetime(df_[&quot;Date&quot;])
+    df_.set_index(&quot;Date&quot;, inplace=True)
+    df_.sort_index(inplace=True)
+
+merged = sp500[[&quot;Close&quot;]].rename(columns={&quot;Close&quot;: &quot;SP500&quot;}).join(
+    oil[[&quot;Close&quot;]].rename(columns={&quot;Close&quot;: &quot;OIL&quot;}), how=&quot;inner&quot;
+)
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load multiple financial time series (e.g., stock indices, commodities, FX)</li>
+<li>Select 3-5 series for multivariate analysis</li>
+<li>Align time indices (handle different frequencies)</li>
+<li>Inspect data quality and missing values</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot each series individually</li>
+<li>Calculate pairwise correlations</li>
+<li>Visualize correlation matrix (heatmap)</li>
+<li>Analyze co-movements and relationships</li>
+<li>Perform time series decomposition for each series</li>
+</ul>
+<h3>3. Data Preprocessing</h3>
+<ul>
+<li>Align series to common time index</li>
+<li>Handle missing values (forward fill, interpolation)</li>
+<li>Calculate returns for each asset</li>
+<li>Test each series for stationarity</li>
+<li>Apply transformations (differencing, log) as needed</li>
+</ul>
+<h3>4. Correlation Analysis</h3>
+<ul>
+<li>Calculate correlation matrix of returns</li>
+<li>Analyze time-varying correlations (rolling correlations)</li>
+<li>Identify periods of high/low correlation</li>
+<li>Visualize correlation dynamics over time</li>
+</ul>
+<h3>5. Model Building</h3>
+<ul>
+<li><strong>Univariate Models (baseline):</strong><ul>
+<li>ARIMA for each series individually</li>
+</ul>
+</li>
+<li><strong>Multivariate Models:</strong><ul>
+<li><strong>VAR (Vector Autoregression):</strong><ul>
+<li>Select optimal lag order (AIC/BIC)</li>
+<li>Estimate VAR model</li>
+<li>Granger causality tests</li>
+</ul>
+</li>
+<li><strong>VECM (Vector Error Correction Model):</strong><ul>
+<li>Test for cointegration (Johansen test)</li>
+<li>If cointegrated, estimate VECM</li>
+</ul>
+</li>
+<li><strong>Dynamic Correlation Models (advanced):</strong><ul>
+<li>DCC-GARCH for time-varying correlations</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Split data temporally</li>
+<li>Generate multivariate forecasts</li>
+<li>Calculate forecast accuracy for each series</li>
+<li>Compare univariate vs multivariate approaches</li>
+<li>Visualize joint forecasts</li>
+</ul>
+<h3>7. Portfolio Analysis (Optional)</h3>
+<ul>
+<li>Construct portfolio weights</li>
+<li>Analyze portfolio returns and volatility</li>
+<li>Compare with individual asset performance</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>Individual series plots</li>
+<li>Correlation analysis and heatmaps</li>
+<li>Time-varying correlation plots</li>
+<li>Stationarity test results</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>VAR model parameters</li>
+<li>Cointegration test results (if applicable)</li>
+<li>Forecast accuracy comparison</li>
+<li>Multivariate forecast plots</li>
+<li>Granger causality results</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for multivariate analysis</li>
+<li>Visualization utilities</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>Select related assets (e.g., stock indices, commodities) for meaningful relationships</li>
+<li>Align data frequencies (daily, weekly) before merging</li>
+<li>Returns are typically more stationary than prices</li>
+<li>VAR models require stationary series</li>
+<li>Test for cointegration if analyzing prices directly</li>
+<li>Use appropriate lag selection criteria (AIC, BIC, HQIC)</li>
+<li>Multivariate models can capture spillover effects between assets</li>
+<li>Consider economic/financial relationships when interpreting results</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/6.Multivariate_Financial/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/6.Multivariate_Financial/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

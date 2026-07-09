@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EEG &amp; EMG Practice: Stationarity, Unit Root, Differencing, AR/MA/ARMA</title>
+<style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+        .problem {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .problem h4 { color: #2c3e50; margin-bottom: 15px; font-size: 1.2em; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        pre code { background: transparent; color: #f8f8f2; padding: 0; }
+        ul, ol { margin-left: 25px; margin-top: 10px; }
+        li { margin: 8px 0; }
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .summary h2 { background: transparent; border: none; padding: 0; margin-bottom: 20px; }
+        .summary ul { list-style: none; margin-left: 0; }
+        .summary li {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+        .guide {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .guide h2 { margin-top: 0; }
+        .guide h4 { color: #1565c0; margin-top: 20px; margin-bottom: 8px; font-size: 1.1em; }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .note strong { color: #856404; }
+        a { color: #2196f3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        @media print { body { background: white; padding: 0; } .container { box-shadow: none; padding: 20px; } }
+        @media (max-width: 768px) { .container { padding: 20px; } h1 { font-size: 1.8em; } h2 { font-size: 1.4em; } }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>EEG &amp; EMG Practice: Stationarity, Unit Root, Differencing, AR/MA/ARMA</h1>
+<p class="subtitle">Practice Exercises (Kaggle Notebook) — No Solutions</p>
+
+<div class="guide">
+<h2>Kaggle Notebook Environment</h2>
+<p>Complete these exercises in a <strong>Kaggle notebook</strong>. Use the EEG/EMG dataset and path conventions below.</p>
+
+<h4>Dataset</h4>
+<ul>
+<li><strong>Kaggle:</strong> <a href="https://www.kaggle.com/datasets/trongnghia7171/eeg-emg-ts-practice" target="_blank" rel="noopener">EEG &amp; EMG TS Practice</a></li>
+<li><strong>File:</strong> <code>eeg_emg_ts.csv</code></li>
+<li><strong>Description:</strong> Two physiological time series over the same time index (1-minute epochs, 800 epochs).
+  <ul>
+  <li><strong>eeg_alpha_power:</strong> Simulated EEG alpha-band power (8–12 Hz band, microvolts² scale). Includes trend, weak periodic modulation (alpha rhythm), and AR-like dynamics.</li>
+  <li><strong>emg_rms:</strong> Simulated EMG RMS amplitude (arbitrary units). Includes trend and MA-like dynamics (burst-like behavior).</li>
+  </ul>
+</li>
+<li><strong>Length:</strong> 800 rows (~13.3 hours of 1-min epochs).</li>
+<li><strong>Columns:</strong> <code>date</code>, <code>eeg_alpha_power</code>, <code>emg_rms</code>.</li>
+</ul>
+
+<h4>Adding the dataset on Kaggle</h4>
+<ul>
+<li>Open the dataset link above (or go to your notebook and click <strong>Add Data</strong>).</li>
+<li>Search for <strong>eeg-emg-ts-practice</strong> by <code>trongnghia7171</code>, or use the link: <a href="https://www.kaggle.com/datasets/trongnghia7171/eeg-emg-ts-practice" target="_blank" rel="noopener">https://www.kaggle.com/datasets/trongnghia7171/eeg-emg-ts-practice</a>.</li>
+<li>Attach the dataset to your notebook. The file path will be <code>/kaggle/input/eeg-emg-ts-practice/eeg_emg_ts.csv</code>.</li>
+</ul>
+
+<h4>Loading the data in the notebook</h4>
+<pre><code>import pandas as pd
+path = "/kaggle/input/eeg-emg-ts-practice/eeg_emg_ts.csv"
+df = pd.read_csv(path)
+df["date"] = pd.to_datetime(df["date"])
+df = df.set_index("date").sort_index()
+eeg = df["eeg_alpha_power"]
+emg = df["emg_rms"]</code></pre>
+
+<h4>Required packages</h4>
+<p>Kaggle notebooks include <code>pandas</code>, <code>numpy</code>, <code>matplotlib</code>, and <code>statsmodels</code>. If needed, install in a cell:</p>
+<pre><code># !pip install statsmodels</code></pre>
+</div>
+
+<div class="note">
+<strong>Objective:</strong> Use <strong>EEG</strong> and <strong>EMG</strong> time series to practice the full pipeline (unit root tests, differencing, ACF/PACF model selection, AR/MA/ARMA fit, evaluation) with <strong>EEG- and EMG-specific</strong> interpretations (alpha rhythm, burst dynamics, physiological non-stationarity). Solutions are available separately.
+</div>
+
+<h2>Exercise 1: Load and explore</h2>
+<div class="problem">
+<h4>Task 1.1</h4>
+<p>Load the CSV from the Kaggle input path, parse <code>date</code>, and set it as the datetime index. Extract the <strong>EEG</strong> series (<code>eeg_alpha_power</code>) and the <strong>EMG</strong> series (<code>emg_rms</code>).</p>
+<h4>Task 1.2</h4>
+<p>Plot both series (EEG and EMG) and compute basic statistics (mean, std, min, max) for each.</p>
+<h4>Task 1.3</h4>
+<p>Comment on trend, variability, and <strong>physiological interpretation</strong>: e.g. alpha power changes over a recording session (drowsiness, arousal); EMG baseline drift and burst-like structure.</p>
+</div>
+
+<h2>Exercise 2: Unit root tests</h2>
+<div class="problem">
+<h4>Task 2.1</h4>
+<p>Run the <strong>Augmented Dickey–Fuller (ADF)</strong> test on the <strong>raw EEG</strong> series and on the <strong>raw EMG</strong> series. Report test statistic, p-value, and critical values for each.</p>
+<h4>Task 2.2</h4>
+<p>Conclude for each series whether it is stationary or has a unit root. State the null and alternative hypotheses and your decision.</p>
+<h4>Task 2.3 (optional)</h4>
+<p>Run the <strong>KPSS</strong> test for each series and compare conclusions (trend stationary vs difference stationary).</p>
+</div>
+
+<h2>Exercise 3: Differencing</h2>
+<div class="problem">
+<h4>Task 3.1</h4>
+<p>Compute the <strong>first difference</strong> of the EEG series and of the EMG series. Plot both differenced series.</p>
+<h4>Task 3.2</h4>
+<p>Run the ADF test (and optionally KPSS) on each <strong>differenced</strong> series. Conclude whether the differenced series are stationary and hence whether <span class="math">d = 1</span> is appropriate for both.</p>
+</div>
+
+<h2>Exercise 4: ACF and PACF for model selection</h2>
+<div class="problem">
+<h4>Task 4.1 — EEG</h4>
+<p>Plot the <strong>ACF</strong> and <strong>PACF</strong> of the <strong>differenced EEG</strong> series (use a reasonable number of lags, e.g. 40–50). Using the usual guidelines (PACF cutoff for AR order, ACF cutoff for MA order), suggest candidate orders <span class="math">(p, q)</span> for the differenced series, hence <span class="math">(p, d, q)</span> with <span class="math">d = 1</span> for the raw EEG (e.g. ARIMA(1,1,0), ARIMA(2,1,0)). Note any <strong>periodic peaks</strong> (e.g. alpha-rhythm modulation at a given lag).</p>
+<h4>Task 4.2 — EMG</h4>
+<p>Plot the ACF and PACF of the <strong>differenced EMG</strong> series. Suggest <strong>ARIMA(p, 1, q)</strong> for the raw EMG. Comment on <strong>EMG-specific</strong> behavior (e.g. short memory, MA-like cutoff typical of burst dynamics).</p>
+</div>
+
+<h2>Exercise 5: AR/MA/ARMA fit</h2>
+<div class="problem">
+<h4>Task 5.1 — EEG</h4>
+<p>Fit 2–3 candidate <strong>ARIMA(p, 1, q)</strong> models for the <strong>EEG</strong> series (e.g. (1,1,0), (2,1,0), (1,1,1)). Report estimated coefficients, AIC, and BIC. Choose a preferred model (e.g. by BIC).</p>
+<h4>Task 5.2 — EMG</h4>
+<p>Fit 2–3 candidate <strong>ARIMA(p, 1, q)</strong> models for the <strong>EMG</strong> series (e.g. (0,1,1), (1,1,1), (0,1,2)). Report coefficients, AIC, BIC. Choose a preferred model.</p>
+<h4>Task 5.3</h4>
+<p>Compare the <strong>EEG</strong> and <strong>EMG</strong> preferred orders (e.g. AR vs MA dominance) and interpret in terms of physiological dynamics.</p>
+</div>
+
+<h2>Exercise 6: Evaluation</h2>
+<div class="problem">
+<h4>Task 6.1 — Residual diagnostics</h4>
+<p>For both preferred models (EEG and EMG), plot the ACF of the residuals and run a <strong>Ljung–Box</strong> test (e.g. on the first 20 lags). Comment on whether the residuals behave like white noise for each.</p>
+<h4>Task 6.2 — Forecast evaluation</h4>
+<p>For both series, use a temporal train/test split (e.g. last 10–15%). Generate one-step or short-horizon forecasts for the test period. Compute <strong>RMSE</strong> and <strong>MAE</strong> for EEG and for EMG. Plot forecasts vs actual values for each. Briefly compare EEG vs EMG forecastability.</p>
+</div>
+
+<div class="summary">
+<h2>Summary</h2>
+<p>This practice set covers:</p>
+<ul>
+<li><strong>Load and explore:</strong> EEG alpha power and EMG RMS in Kaggle; physiological interpretation.</li>
+<li><strong>Unit root tests:</strong> ADF (and optionally KPSS) on raw EEG and EMG; conclude non-stationarity.</li>
+<li><strong>Differencing:</strong> First difference for both; confirm stationarity with ADF.</li>
+<li><strong>ACF/PACF:</strong> Model selection for EEG (AR-dominated, optional periodicity) and EMG (MA-dominated, burst-like).</li>
+<li><strong>AR/MA/ARMA fit:</strong> Fit ARIMA for EEG and EMG; compare orders and interpret.</li>
+<li><strong>Evaluation:</strong> Residual diagnostics and forecast evaluation (RMSE, MAE) for both; compare forecastability.</li>
+</ul>
+<p style="margin-top: 20px;"><strong>Complete the exercises in a Kaggle notebook. Solutions are available separately.</strong></p>
+</div>
+</div>
+</body>
+</html>

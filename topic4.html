@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 4: US Macroeconomic Indicators · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 4</p>
+      <h1 class="hero-title">US Macroeconomic Indicators</h1>
+      <div class="topic-badges">
+        <span class="pill pill-medium">Medium</span>
+        <span class="bonus-badge">+1 Bonus Point</span>
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/4.US_Macro/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/4.US_Macro/4.US_macro.jpeg" alt="US Macroeconomic Indicators">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Medium<br><strong>Goal:</strong> Model and forecast key US macro indicators (unemployment, inflation, etc.).</p>
+<h2>Dataset</h2>
+<ul>
+<li><strong>Source:</strong> U.S. Economic Time Series – Kaggle</li>
+<li><strong>Link:</strong> <a href="https://www.kaggle.com/datasets/utkarshx27/us-economic-time-series">https://www.kaggle.com/datasets/utkarshx27/us-economic-time-series</a></li>
+</ul>
+<h2>Download Instructions</h2>
+<ol>
+<li>Open the dataset link above.</li>
+<li>Click &quot;Download&quot;.</li>
+<li>Extract to <code>data/</code>.</li>
+<li>Use the main CSV, e.g. <code>USEconomicData.csv</code>.</li>
+</ol>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv(&quot;data/USEconomicData.csv&quot;)  # adjust filename
+df[&quot;DATE&quot;] = pd.to_datetime(df[&quot;DATE&quot;])
+df = df.set_index(&quot;DATE&quot;).sort_index()
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Exploration</h3>
+<ul>
+<li>Load dataset and explore available indicators</li>
+<li>Select key indicators to analyze (e.g., unemployment rate, inflation, GDP, interest rates)</li>
+<li>Inspect data frequency (monthly, quarterly, annual)</li>
+<li>Check for missing values and data quality issues</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot each selected indicator over time</li>
+<li>Identify trends, cycles, and structural breaks</li>
+<li>Calculate correlations between indicators</li>
+<li>Perform time series decomposition for each series</li>
+<li>Analyze ACF/PACF for each indicator</li>
+</ul>
+<h3>3. Stationarity Analysis</h3>
+<ul>
+<li>Test each indicator for stationarity (ADF test)</li>
+<li>Apply appropriate transformations (differencing, log transformation)</li>
+<li>Handle non-stationarity appropriately</li>
+<li>Document transformation decisions</li>
+</ul>
+<h3>4. Model Building</h3>
+<ul>
+<li><strong>Univariate Models:</strong><ul>
+<li>ARIMA/SARIMA for each indicator individually</li>
+<li>Model selection using AIC/BIC</li>
+</ul>
+</li>
+<li><strong>Multivariate Models (optional):</strong><ul>
+<li>VAR (Vector Autoregression) models</li>
+<li>Analyze relationships between indicators</li>
+<li>Granger causality tests</li>
+</ul>
+</li>
+</ul>
+<h3>5. Model Evaluation</h3>
+<ul>
+<li>Split data temporally (keep recent data for testing)</li>
+<li>Generate forecasts for each indicator</li>
+<li>Calculate forecast accuracy metrics (MAE, RMSE, MAPE)</li>
+<li>Compare univariate vs multivariate approaches</li>
+<li>Visualize forecasts with actual values</li>
+</ul>
+<h3>6. Economic Interpretation</h3>
+<ul>
+<li>Interpret model results in economic context</li>
+<li>Discuss relationships between indicators</li>
+<li>Analyze forecast implications</li>
+<li>Compare with economic theory</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>Time series plots for each indicator</li>
+<li>Correlation analysis</li>
+<li>Decomposition plots</li>
+<li>Stationarity test results</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>Model parameters for each indicator</li>
+<li>Performance metrics table</li>
+<li>Forecast plots</li>
+<li>Economic interpretation</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for indicator analysis</li>
+<li>Visualization utilities</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>Macroeconomic indicators often have strong trends and cycles</li>
+<li>Consider external factors (recessions, policy changes) in analysis</li>
+<li>VAR models can capture relationships between indicators</li>
+<li>Use appropriate frequency (monthly vs quarterly) based on data availability</li>
+<li>Economic indicators may have different units - normalize for comparison</li>
+<li>Consider leading/lagging relationships between indicators</li>
+<li>Document economic context and policy implications</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/4.US_Macro/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/4.US_Macro/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

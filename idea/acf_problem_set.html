@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Series Problem Set: Autocorrelation Function (ACF)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+
+        .problem {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .solution {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .problem h4, .solution h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .illustration-badge {
+            display: inline-block;
+            background: #ff9800;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        pre code {
+            background: transparent;
+            color: #f8f8f2;
+            padding: 0;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .summary h2 {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .summary ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .summary li {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        .exercise-type {
+            background: #fff;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .note strong {
+            color: #856404;
+        }
+
+        .solution-key {
+            font-weight: bold;
+            color: #2e7d32;
+            margin-top: 12px;
+            margin-bottom: 6px;
+        }
+        .explanation {
+            background: #f1f8e9;
+            border-left: 3px solid #7cb342;
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 0.98em;
+        }
+        .explanation strong { color: #558b2f; }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Time Series Problem Set: Autocorrelation Function (ACF)</h1>
+        <p class="subtitle">Complete Problem Set with Solutions - Undergraduate Level</p>
+
+        <div class="note" style="margin-bottom: 30px;">
+            <strong>How to use this key:</strong> Each solution has a <strong>Key</strong> (short answer or numerical result) and an <strong>Explanation</strong> (why the answer is correct, which formula was used, or how to interpret the result). Work the problem first, then check the key and read the explanation to reinforce your understanding.
+        </div>
+
+        <div class="exercise-type">
+            <h2>Exercise Type 1: Numerical ACF Calculation</h2>
+            
+            <div class="problem">
+                <h4>Problem 1.1</h4>
+                <p>Given the time series: <span class="math">x = [2, 4, 6, 8, 10]</span></p>
+                <img src="figures/problem1_1_timeseries.png" alt="Time Series Plot for Problem 1.1">
+                <p>Compute:</p>
+                <ol>
+                    <li>The sample mean <span class="math">x̄</span></li>
+                    <li>The sample variance <span class="math">s²</span></li>
+                    <li>The autocovariance <span class="math">γ(k)</span> for lags <span class="math">k = 0, 1, 2</span></li>
+                    <li>The autocorrelation <span class="math">ρ(k)</span> for lags <span class="math">k = 0, 1, 2</span></li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 1.1</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Sample mean:</strong> x̄ = 6</p>
+                <p><strong>2. Sample variance:</strong> s² = 10</p>
+                <p><strong>3. Autocovariance:</strong> γ(0) = 8, γ(1) = 3.2, γ(2) = -0.8</p>
+                <p><strong>4. Autocorrelation:</strong> ρ(0) = 1.0, ρ(1) = 0.4, ρ(2) = -0.1</p>
+
+                <p class="solution-key">Explanation (how we get these numbers)</p>
+                <p><strong>Mean:</strong> x̄ = (2 + 4 + 6 + 8 + 10) / 5 = 30 / 5 = 6.</p>
+                <p><strong>Variance:</strong> Use s² = (1/(n−1)) Σ (xᵢ − x̄)². Deviations from mean: (2−6, 4−6, 6−6, 8−6, 10−6) = (−4, −2, 0, 2, 4). So s² = [(−4)² + (−2)² + 0² + 2² + 4²] / 4 = 40 / 4 = 10.</p>
+                <p><strong>Autocovariance:</strong> Use γ(k) = (1/(n−k)) Σ (xᵢ − x̄)(xᵢ₊ₖ − x̄) with demeaned series. For <em>k = 0</em>: γ(0) = (1/5)[(−4)² + (−2)² + 0² + 2² + 4²] = 40/5 = 8 (same as variance up to divisor). For <em>k = 1</em>: pairs (x₁−x̄)(x₂−x̄), (x₂−x̄)(x₃−x̄), … → (−4)(−2)+(−2)(0)+(0)(2)+(2)(4) = 8+0+0+8 = 16, and n−k = 4, so γ(1) = 16/4 = 3.2. For <em>k = 2</em>: three pairs; sum = (−4)(0)+(−2)(2)+(0)(4) = −4, γ(2) = −4/3 ≈ −0.8.</p>
+                <p><strong>Autocorrelation:</strong> ρ(k) = γ(k) / γ(0). So ρ(0) = 1, ρ(1) = 3.2/8 = 0.4, ρ(2) = −0.8/8 = −0.1.</p>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 1.2</h4>
+                <p>Given the time series: <span class="math">x = [5, 5, 5, 5, 5]</span></p>
+                <p>Compute the autocovariance and autocorrelation. What happens when all values are identical?</p>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 1.2</h4>
+                <p class="solution-key">Key</p>
+                <p>Sample mean x̄ = 5. Sample variance s² = 0. Autocovariance γ(0) = 0, γ(k) = 0 for k &gt; 0. <strong>Autocorrelation is undefined</strong> (we cannot divide by γ(0) = 0).</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> When all values are identical, every deviation (xᵢ − x̄) is zero, so s² = 0 and γ(0) = 0. The formula ρ(k) = γ(k)/γ(0) requires dividing by γ(0); when γ(0) = 0, autocorrelation is not defined. In practice, a constant series has no variability to correlate, so ACF analysis is not meaningful.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 1.3</h4>
+                <p>Given the time series: <span class="math">x = [10, 8, 6, 4, 2]</span></p>
+                <img src="figures/problem1_3_timeseries.png" alt="Time Series Plot for Problem 1.3">
+                <p>Compute the autocovariance <span class="math">γ(k)</span> and autocorrelation <span class="math">ρ(k)</span> for lags <span class="math">k = 0, 1, 2</span>.</p>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 1.3</h4>
+                <p class="solution-key">Key</p>
+                <p>Sample mean x̄ = 6. Sample variance s² = 10. γ(0) = 8, γ(1) = 3.2, γ(2) = −0.8. ρ(0) = 1.0, ρ(1) = 0.4, ρ(2) = −0.1.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series [10, 8, 6, 4, 2] is a linear trend (same “shape” as [2, 4, 6, 8, 10] but reversed and shifted). Demeaned values have the same squared sum and the same cross-products at each lag, so the variance and ACF match Problem 1.1. Same variance structure ⇒ same γ(k) and ρ(k).
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 1.4</h4>
+                <p>Given the time series: <span class="math">x = [3, 7, 3, 7, 3]</span></p>
+                <img src="figures/problem1_4_timeseries.png" alt="Time Series Plot for Problem 1.4">
+                <p>Compute the autocovariance and autocorrelation for lags <span class="math">k = 0, 1, 2, 3</span>.</p>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 1.4</h4>
+                <p class="solution-key">Key</p>
+                <p>Sample mean x̄ = 4.6. Sample variance s² = 4.8. γ(0) = 3.84, γ(1) = −3.072, γ(2) = 2.176, γ(3) = −1.536. ρ(0) = 1.0, ρ(1) = −0.8, ρ(2) ≈ 0.567, ρ(3) = −0.4.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series alternates between 3 and 7. After demeaning, values at the same “phase” (e.g. both 3 or both 7) are positively correlated; values one step apart are out of phase, giving negative correlation. So we get negative ρ at odd lags and positive ρ at even lags.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 1.5</h4>
+                <p>Given the time series: <span class="math">x = [12, 15, 18, 12, 15, 18, 12]</span></p>
+                <img src="figures/problem1_5_timeseries.png" alt="Time Series Plot for Problem 1.5">
+                <p>Compute the autocovariance and autocorrelation for lags <span class="math">k = 0, 1, 2, 3</span>.</p>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 1.5</h4>
+                <p class="solution-key">Key</p>
+                <p>Sample mean x̄ ≈ 14.571. Sample variance s² ≈ 7.286. γ(0) ≈ 6.245, γ(1) ≈ −2.554, γ(2) ≈ −2.554, γ(3) ≈ 5.298. ρ(0) = 1.0, ρ(1) ≈ −0.409, ρ(2) ≈ −0.409, ρ(3) ≈ 0.848.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series repeats every 3 time steps (12, 15, 18, 12, 15, 18, 12). At lag 3, we compare values that are in the same position in the cycle (e.g. 12 with 12, 15 with 15), so correlation is high (ρ(3) ≈ 0.85). At lags 1 and 2 we compare different phases, so ρ is smaller and can be negative.
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-type">
+            <h2>Exercise Type 2: Effect of Mean Removal</h2>
+            
+            <div class="problem">
+                <h4>Problem 2.1</h4>
+                <p>Given the time series: <span class="math">x = [5, 7, 9, 11, 13]</span></p>
+                <img src="figures/problem2_1_timeseries.png" alt="Time Series Plot for Problem 2.1">
+                <ol>
+                    <li>Compute the autocovariance <strong>without</strong> removing the mean.</li>
+                    <li>Compute the autocovariance <strong>with</strong> mean removal.</li>
+                    <li>Compare the results and explain why mean removal is necessary.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 2.1</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>Without mean removal:</strong> γ(0) = 89, γ(1) = 68, ρ(1) = 68/89 ≈ 0.764.</p>
+                <p><strong>With mean removal:</strong> γ(0) = 8, γ(1) = 3.2, ρ(1) = 3.2/8 = 0.4.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> Without demeaning, we use products xᵢ·xᵢ₊ₖ; the non-zero mean (x̄ = 9) makes these products large and similar across lags, so autocorrelation is inflated (0.76). With mean removal we use (xᵢ − x̄)(xᵢ₊ₖ − x̄), which measures only how deviations from the mean co-vary. That gives the true correlation (0.4). Mean removal is necessary so that ACF reflects the actual dependence structure, not the level of the series.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 2.2</h4>
+                <p>Given the time series: <span class="math">x = [100, 102, 104, 106, 108]</span></p>
+                <ol>
+                    <li>Compute autocorrelation at lag 1 <strong>without</strong> mean removal.</li>
+                    <li>Compute autocorrelation at lag 1 <strong>with</strong> mean removal.</li>
+                    <li>Explain the difference.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 2.2</h4>
+                <p class="solution-key">Key</p>
+                <p>Without mean removal: ρ(1) ≈ 0.799. With mean removal: ρ(1) = 0.4.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series [100, 102, 104, 106, 108] has the same “shape” as [5, 7, 9, 11, 13] (linear trend), so the <em>demeaned</em> correlation is the same (0.4). Without mean removal, the large values (around 104) dominate the products, so ρ(1) is artificially high (0.80). Demeaning removes this level effect and gives the correct ACF.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 2.3</h4>
+                <p>Given the time series: <span class="math">x = [20, 20, 20, 25, 25, 25]</span></p>
+                <img src="figures/problem2_3_timeseries.png" alt="Time Series Plot for Problem 2.3">
+                <p>Compare the autocorrelation at lag 1 computed with and without mean removal. What does this tell you about the series?</p>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 2.3</h4>
+                <p class="solution-key">Key</p>
+                <p>Without mean removal: ρ(1) ≈ 0.829. With mean removal: ρ(1) = 0.5.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series has a step (20, 20, 20, then 25, 25, 25). Without demeaning, the high level and the step both contribute to large, similar products, so ρ(1) is inflated (0.83). With mean removal, we only see how deviations from the overall mean co-vary; the step structure yields ρ(1) = 0.5. So mean removal again gives the correct interpretation of the dependence.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 2.4</h4>
+                <p>Given the time series: <span class="math">x = [1, 3, 5, 1, 3, 5]</span></p>
+                <p>Compute autocorrelation at lag 2 with and without mean removal. Explain why the results differ.</p>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 2.4</h4>
+                <p class="solution-key">Key</p>
+                <p>Without mean removal: ρ(2) ≈ 0.4 (positive). With mean removal: ρ(2) = −0.5 (negative).</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series [1, 3, 5, 1, 3, 5] has period 3. At lag 2 we compare positions that are out of phase (e.g. 1 with 5, 3 with 1, 5 with 3), so the true correlation is negative (−0.5). Without mean removal, the positive mean makes the products mostly positive, so ρ(2) appears positive (0.4) and the true pattern is masked. Mean removal reveals the correct sign and magnitude.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 2.5</h4>
+                <p>Given the time series: <span class="math">x = [10, 12, 14, 10, 12, 14, 10]</span></p>
+                <img src="figures/problem2_5_timeseries.png" alt="Time Series Plot for Problem 2.5">
+                <ol>
+                    <li>Compute autocorrelation at lag 3 with and without mean removal.</li>
+                    <li>Explain which method gives the correct interpretation of the series' periodic structure.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 2.5</h4>
+                <p class="solution-key">Key</p>
+                <p>Without mean removal: ρ(3) ≈ 0.551. With mean removal: ρ(3) ≈ 0.729.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> The series has period 3 (10, 12, 14, 10, 12, 14, 10). At lag 3 we compare values in the same phase (10 with 10, 12 with 12, 14 with 14), so we expect strong positive correlation. With mean removal, ρ(3) ≈ 0.73 correctly reflects this. Without mean removal, the level effect dilutes the correlation (0.55). So mean removal gives the correct interpretation of the periodic structure.
+                </div>
+            </div>
+        </div>
+
+        <div class="exercise-type">
+            <h2>Exercise Type 3: Interpreting ACF Patterns</h2>
+            
+            <div class="problem">
+                <h4>Problem 3.1</h4>
+                <p>A time series has an ACF plot where <span class="math">ρ(0) = 1</span> and <span class="math">ρ(k) ≈ 0</span> for all <span class="math">k > 0</span>, with values randomly scattered around zero within the confidence bands.</p>
+                <img src="figures/problem3_1_timeseries.png" alt="Time Series Plot for Problem 3.1">
+                <ol>
+                    <li>What type of process does this indicate?</li>
+                    <li>What are the characteristics of such a process?</li>
+                    <li>Generate a synthetic time series with this ACF pattern and plot both the series and its ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 3.1</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process type:</strong> <strong>White noise</strong>.</p>
+                <p><strong>2. Characteristics:</strong> No serial correlation (ρ(k) ≈ 0 for k &gt; 0); constant mean and variance (stationary); no predictable pattern; observations uncorrelated across time; used as a baseline for model diagnostics (e.g. residuals should look like white noise).</p>
+                <p><strong>3. Illustration:</strong> The code below generates white noise and plots the series and its ACF. You should see ρ(0) = 1 and ρ(k) near zero within the confidence bands.</p>
+                <p class="solution-key">Python code (runnable)</p>
+                <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import acf
+from statsmodels.graphics.tsaplots import plot_acf
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate white noise time series
+n = 200
+white_noise = np.random.normal(loc=0, scale=1, size=n)
+
+# Create time index
+time = np.arange(n)
+
+# Plot the time series
+plt.figure(figsize=(14, 5))
+
+plt.subplot(1, 2, 1)
+plt.plot(time, white_noise, linewidth=0.8, color='steelblue')
+plt.title('White Noise Time Series', fontsize=14, fontweight='bold')
+plt.xlabel('Time', fontsize=12)
+plt.ylabel('Value', fontsize=12)
+plt.grid(True, alpha=0.3)
+
+# Compute and plot ACF
+plt.subplot(1, 2, 2)
+plot_acf(white_noise, lags=40, alpha=0.05, ax=plt.gca())
+plt.title('ACF Plot: White Noise', fontsize=14, fontweight='bold')
+plt.xlabel('Lag', fontsize=12)
+plt.ylabel('Autocorrelation', fontsize=12)
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()</code></pre>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 3.2</h4>
+                <p>A time series has an ACF plot showing <span class="math">ρ(k)</span> that decays very slowly, remaining positive and significant even at large lags (e.g., <span class="math">ρ(20) > 0.5</span>).</p>
+                <img src="figures/problem3_2_timeseries.png" alt="Time Series Plot for Problem 3.2">
+                <ol>
+                    <li>What does this pattern indicate?</li>
+                    <li>What type of non-stationarity is likely present?</li>
+                    <li>Generate a synthetic time series with this ACF pattern and plot both the series and its ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 3.2</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Pattern:</strong> <strong>Trend</strong> or <strong>non-stationary</strong> process. Slow decay of ρ(k) with no cutoff suggests long memory, usually from a deterministic or stochastic trend.</p>
+                <p><strong>2. Non-stationarity:</strong> Likely a deterministic trend (e.g. linear), a random walk, or a unit-root process. First differencing is often needed to obtain a stationary series.</p>
+                <p><strong>3. Illustration:</strong> The code below shows two examples: (i) linear trend + noise and (ii) random walk. Both produce ACFs that decay slowly and stay positive at large lags.</p>
+                <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
+
+n = 200
+np.random.seed(42)
+# Option 1: Linear trend + noise
+trend_series = 0.05 * np.arange(n) + np.random.normal(0, 1, n)
+# Option 2: Random walk
+random_walk = np.cumsum(np.random.normal(0, 1, n))
+
+fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+axes[0,0].plot(trend_series); axes[0,0].set_title('Trend + noise')
+plot_acf(trend_series, lags=40, ax=axes[0,1]); axes[0,1].set_title('ACF')
+axes[1,0].plot(random_walk); axes[1,0].set_title('Random walk')
+plot_acf(random_walk, lags=40, ax=axes[1,1]); axes[1,1].set_title('ACF')
+plt.tight_layout(); plt.show()</code></pre>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 3.3</h4>
+                <p>A time series has an ACF plot showing oscillatory (sinusoidal) behavior, with autocorrelations alternating between positive and negative values in a periodic pattern.</p>
+                <img src="figures/problem3_3_timeseries.png" alt="Time Series Plot for Problem 3.3">
+                <ol>
+                    <li>What does this pattern indicate?</li>
+                    <li>What type of seasonality or cyclical behavior is present?</li>
+                    <li>Generate a synthetic time series with this ACF pattern and plot both the series and its ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 3.3</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Pattern:</strong> <strong>Seasonality</strong> or <strong>cyclical behavior</strong>. Oscillating ACF (positive/negative by lag) indicates a periodic component in the series.</p>
+                <p><strong>2. Type:</strong> Deterministic seasonality, a cyclical (e.g. sinusoidal) component, or a seasonal AR/MA structure. The period of the oscillation in the ACF matches the seasonal period.</p>
+                <p><strong>3. Illustration:</strong> The code below builds a series with a sinusoidal component (period 12) plus trend and noise. The ACF will show oscillatory (sinusoidal) decay.</p>
+                <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
+
+n = 200
+np.random.seed(42)
+t = np.arange(n)
+seasonal = 5 * np.sin(2 * np.pi * t / 12)
+series = 0.02 * t + seasonal + np.random.normal(0, 0.5, n)
+fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+ax[0].plot(series); ax[0].set_title('Seasonal series')
+plot_acf(series, lags=50, ax=ax[1]); ax[1].set_title('ACF')
+plt.tight_layout(); plt.show()</code></pre>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 3.4</h4>
+                <p>A time series has an ACF plot where <span class="math">ρ(k)</span> shows a sharp cutoff after lag <span class="math">q = 2</span>, with <span class="math">ρ(1)</span> and <span class="math">ρ(2)</span> being significant, but <span class="math">ρ(k) ≈ 0</span> for all <span class="math">k > 2</span>.</p>
+                <img src="figures/problem3_4_timeseries.png" alt="Time Series Plot for Problem 3.4">
+                <ol>
+                    <li>What type of process does this suggest?</li>
+                    <li>What is the likely model order?</li>
+                    <li>Generate a synthetic time series with this ACF pattern and plot both the series and its ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 3.4</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process type:</strong> <strong>Moving Average of order 2</strong>, MA(2). ACF that is significant at lags 1 and 2 and then cuts off to (approximately) zero is the hallmark of an MA(q) process with q = 2.</p>
+                <p><strong>2. Model order:</strong> MA(2) or ARIMA(0, 0, 2).</p>
+                <p><strong>3. Illustration:</strong> The code below simulates an MA(2) process and plots the series and ACF. You should see ρ(1) and ρ(2) significant and ρ(k) ≈ 0 for k &gt; 2.</p>
+                <pre><code>from statsmodels.tsa.arima_process import ArmaProcess
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
+
+ar_coeffs, ma_coeffs = np.array([1]), np.array([1, 0.5, 0.3])  # MA(2)
+ma2_series = ArmaProcess(ar_coeffs, ma_coeffs).generate_sample(nsample=200)
+fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+ax[0].plot(ma2_series); ax[0].set_title('MA(2) series')
+plot_acf(ma2_series, lags=20, ax=ax[1]); ax[1].set_title('ACF')
+plt.tight_layout(); plt.show()</code></pre>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 3.5</h4>
+                <p>A time series has an ACF plot showing exponential decay: <span class="math">ρ(k)</span> starts high and decays gradually, remaining positive but decreasing, with no sharp cutoff.</p>
+                <img src="figures/problem3_5_timeseries.png" alt="Time Series Plot for Problem 3.5">
+                <ol>
+                    <li>What type of process does this indicate?</li>
+                    <li>How does this differ from the MA process pattern?</li>
+                    <li>Generate a synthetic time series with this ACF pattern and plot both the series and its ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 3.5</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process type:</strong> <strong>Autoregressive (AR) process</strong>. Gradual (exponential) decay of ρ(k) with no sharp cutoff is typical of AR processes.</p>
+                <p><strong>2. Difference from MA:</strong> AR: ACF decays gradually (exponential or damped sinusoid). MA: ACF cuts off sharply after lag q (ρ(k) ≈ 0 for k &gt; q). So “exponential decay, no cutoff” ⇒ AR; “significant for a few lags then zero” ⇒ MA.</p>
+                <p><strong>3. Illustration:</strong> The code below simulates an AR(1) process (φ = 0.7). The ACF should decay roughly as ρ(k) ∝ 0.7^k.</p>
+                <pre><code>from statsmodels.tsa.arima_process import ArmaProcess
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
+
+ar_coeffs, ma_coeffs = np.array([1, -0.7]), np.array([1])  # AR(1)
+ar1_series = ArmaProcess(ar_coeffs, ma_coeffs).generate_sample(nsample=200)
+fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+ax[0].plot(ar1_series); ax[0].set_title('AR(1) series')
+plot_acf(ar1_series, lags=20, ax=ax[1]); ax[1].set_title('ACF (exponential decay)')
+plt.tight_layout(); plt.show()</code></pre>
+            </div>
+        </div>
+
+        <div class="exercise-type">
+            <h2>Exercise Type 4: Physiological Time-Series Interpretation</h2>
+            
+            <div class="problem">
+                <h4>Problem 4.1</h4>
+                <p>Consider a heart rate time series where the ACF shows:</p>
+                <ul>
+                    <li>Strong positive autocorrelation at lag 1 (<span class="math">ρ(1) ≈ 0.8</span>)</li>
+                    <li>Rapid decay to near zero by lag 5</li>
+                    <li>No significant periodic patterns</li>
+                </ul>
+                <img src="figures/problem4_1_timeseries.png" alt="Time Series Plot for Problem 4.1">
+                <ol>
+                    <li>What does this tell you about the memory length of the process?</li>
+                    <li>What AR/MA/ARIMA model order would be appropriate?</li>
+                    <li>Would deep learning be necessary for forecasting?</li>
+                    <li>Generate a synthetic heart rate time series with these characteristics and plot the series and ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 4.1</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Memory length:</strong> <strong>Short memory</strong>—ACF decays to near zero by lag 5, so the process “forgets” after about 5 steps.</p>
+                <p><strong>2. Model order:</strong> AR(1) or ARIMA(1, 0, 0) is appropriate (exponential decay with no sharp cutoff ⇒ AR(1)).</p>
+                <p><strong>3. Deep learning:</strong> <strong>No.</strong> The ACF is simple (exponential decay, short memory), so classical AR/ARIMA is sufficient. Deep learning is more useful when the dependence is long, nonlinear, or high-dimensional.</p>
+                <p><strong>4. Illustration:</strong> Simulate an AR(1) with φ ≈ 0.8 to get ρ(1) ≈ 0.8 and rapid decay; plot the series and ACF to match the described pattern.</p>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 4.2</h4>
+                <p>Consider a blood pressure time series where the ACF shows:</p>
+                <ul>
+                    <li>Very slow decay, remaining above 0.5 even at lag 20</li>
+                    <li>No clear periodic pattern</li>
+                    <li>Gradual decrease rather than sharp cutoff</li>
+                </ul>
+                <img src="figures/problem4_2_timeseries.png" alt="Time Series Plot for Problem 4.2">
+                <ol>
+                    <li>What does this indicate about the process?</li>
+                    <li>What preprocessing step might be necessary?</li>
+                    <li>What model would be appropriate after preprocessing?</li>
+                    <li>Generate a synthetic blood pressure time series and plot the series and ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 4.2</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process:</strong> <strong>Non-stationary</strong>—likely a random walk or unit-root process. Very slow ACF decay with no cutoff is typical of integrated (I) series.</p>
+                <p><strong>2. Preprocessing:</strong> <strong>First-order differencing</strong> is needed. The differenced series should have a fast-decaying ACF (stationary).</p>
+                <p><strong>3. Model:</strong> For the original series, use ARIMA(1, 1, 0): d = 1 from differencing; the differenced series can be modeled as AR(1).</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> Blood pressure often drifts (e.g. baseline shift). Differencing removes the drift; then ACF/PACF of the differenced series guide (p, q). Simulate a random walk or trend+noise, difference it, and plot ACF to see the change.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 4.3</h4>
+                <p>Consider an EEG-like signal where the ACF shows:</p>
+                <ul>
+                    <li>Oscillatory pattern with period approximately 10 time steps</li>
+                    <li>Significant autocorrelation at lags 10, 20, 30</li>
+                    <li>Decay in amplitude of oscillations over time</li>
+                </ul>
+                <img src="figures/problem4_3_timeseries.png" alt="Time Series Plot for Problem 4.3">
+                <ol>
+                    <li>What does this indicate about the signal?</li>
+                    <li>What type of seasonality is present?</li>
+                    <li>Would a seasonal ARIMA model be appropriate?</li>
+                    <li>Generate a synthetic EEG-like signal and plot the series and ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 4.3</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Signal:</strong> <strong>Strong periodic component</strong> with period about 10 (e.g. alpha rhythm in EEG). ACF peaks at 10, 20, 30 confirm the period.</p>
+                <p><strong>2. Seasonality:</strong> <strong>Deterministic or stochastic seasonality</strong> with period 10. The decaying amplitude of ACF oscillations is common when there is both seasonal and non-seasonal dynamics.</p>
+                <p><strong>3. SARIMA:</strong> Yes. A <strong>SARIMA</strong> model is appropriate, e.g. SARIMA(1, 0, 1)(1, 0, 1)₁₀, where the seasonal order (1, 0, 1)₁₀ captures the period-10 component.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> EEG rhythms (e.g. alpha ~10 Hz sampled at 1 Hz) produce ACF peaks at the period. Use a seasonal model to capture this; simulate with a sinusoid of period 10 plus noise and plot ACF to see the peaks.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 4.4</h4>
+                <p>Consider a respiratory rate time series where the ACF shows:</p>
+                <ul>
+                    <li>Sharp cutoff after lag 2</li>
+                    <li><span class="math">ρ(1) ≈ 0.6</span>, <span class="math">ρ(2) ≈ 0.3</span></li>
+                    <li><span class="math">ρ(k) ≈ 0</span> for <span class="math">k > 2</span></li>
+                </ul>
+                <img src="figures/problem4_4_timeseries.png" alt="Time Series Plot for Problem 4.4">
+                <ol>
+                    <li>What type of process does this indicate?</li>
+                    <li>What is the memory length?</li>
+                    <li>What model order would be appropriate?</li>
+                    <li>Generate a synthetic respiratory rate time series and plot the series and ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 4.4</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process:</strong> <strong>MA(2)</strong>—ACF cuts off after lag 2, so a moving average of order 2 fits.</p>
+                <p><strong>2. Memory length:</strong> <strong>2 time steps</strong>; correlation is only with the last two lags.</p>
+                <p><strong>3. Model order:</strong> <strong>MA(2)</strong> or ARIMA(0, 0, 2).</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> Respiratory rate can show short, burst-like dependence (recent values matter; then dependence drops). That matches an MA structure. Simulate MA(2) with coefficients chosen so ρ(1) ≈ 0.6 and ρ(2) ≈ 0.3 (e.g. via ArmaProcess), then plot series and ACF.
+                </div>
+            </div>
+
+            <div class="problem">
+                <h4>Problem 4.5</h4>
+                <p>Consider a body temperature time series where the ACF shows:</p>
+                <ul>
+                    <li>Exponential decay starting at <span class="math">ρ(1) ≈ 0.9</span></li>
+                    <li>Gradual decrease: <span class="math">ρ(5) ≈ 0.5</span>, <span class="math">ρ(10) ≈ 0.2</span></li>
+                    <li>All values positive, no oscillations</li>
+                </ul>
+                <img src="figures/problem4_5_timeseries.png" alt="Time Series Plot for Problem 4.5">
+                <ol>
+                    <li>What type of process does this indicate?</li>
+                    <li>What is the approximate memory length?</li>
+                    <li>Would deep learning provide significant advantages over traditional methods?</li>
+                    <li>Generate a synthetic body temperature time series and plot the series and ACF.</li>
+                </ol>
+            </div>
+
+            <div class="solution">
+                <h4>Solution 4.5</h4>
+                <p class="solution-key">Key</p>
+                <p><strong>1. Process:</strong> <strong>AR(1)</strong> with a high coefficient (φ close to 1). Exponential decay with ρ(1) ≈ 0.9 and all ρ(k) positive is classic AR(1).</p>
+                <p><strong>2. Memory length:</strong> <strong>Effective memory ~10–15 steps</strong>—the lag where ρ(k) drops below about 0.2. For AR(1), ρ(k) = φ^k, so φ = 0.9 gives ρ(10) ≈ 0.35 and ρ(15) ≈ 0.21.</p>
+                <p><strong>3. Deep learning:</strong> <strong>Usually not necessary.</strong> A linear AR(1) model fits this pattern well. Consider deep learning only if you have evidence of nonlinearity or very long-range dependence.</p>
+                <div class="explanation">
+                    <strong>Explanation:</strong> Body temperature is often highly persistent (today’s value strongly predicts tomorrow’s). Simulate AR(1) with φ = 0.9, plot the series and ACF; you should see ρ(1) ≈ 0.9 and gradual decay with no sharp cutoff.
+                </div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h2>Summary</h2>
+            <p>This problem set covers:</p>
+            <ul>
+                <li><strong>Numerical ACF Calculation:</strong> Manual computation of autocovariance and autocorrelation, including edge cases (constant series, zero variance).</li>
+                <li><strong>Mean Removal Effect:</strong> Understanding why mean removal is essential for correct autocorrelation computation and avoiding spurious correlations.</li>
+                <li><strong>ACF Pattern Interpretation:</strong> Identifying process types (white noise, trend, seasonality, AR, MA) from ACF plots with Python visualizations.</li>
+                <li><strong>Physiological Time-Series:</strong> Applying ACF analysis to real-world biomedical signals, determining appropriate models, and assessing when advanced methods are needed.</li>
+            </ul>
+            <p style="margin-top: 20px;"><strong>Each solution includes a Key (short answer or numerical result) and an Explanation (formulas used, step-by-step derivation where helpful, and interpretation). Python code is provided where useful for illustration. Suitable for undergraduate students.</strong></p>
+        </div>
+    </div>
+</body>
+</html>

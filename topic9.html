@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 9: Airline Passenger Time Series · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 9</p>
+      <h1 class="hero-title">Airline Passenger Time Series</h1>
+      <div class="topic-badges">
+        <span class="pill pill-easy">Easy</span>
+        
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/9.Airline_Passengers/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/9.Airline_Passengers/9.Airline.jpeg" alt="Airline Passenger Time Series">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Easy<br><strong>Goal:</strong> Classic monthly airline passenger series (trend + seasonality) using a library dataset.</p>
+<h2>Dataset &amp; Library</h2>
+<ul>
+<li><strong>Dataset:</strong> AirPassengers dataset via <code>statsmodels.datasets.get_rdataset</code></li>
+<li><strong>Library:</strong> statsmodels</li>
+</ul>
+<h2>Installation</h2>
+<pre><code class="language-bash">pip install statsmodels
+</code></pre>
+<h2>Data Loading</h2>
+<pre><code class="language-python">import pandas as pd
+from statsmodels.datasets import get_rdataset
+
+data = get_rdataset(&quot;AirPassengers&quot;, &quot;datasets&quot;).data
+# Original data typically has a &#39;time&#39; or &#39;Month&#39; column and &#39;value&#39; column
+print(data.head())
+
+# If there is only an index and a passenger column:
+# Example conversion (adapt depending on structure)
+data[&quot;Month&quot;] = pd.date_range(start=&quot;1949-01-01&quot;, periods=len(data), freq=&quot;M&quot;)
+data = data.set_index(&quot;Month&quot;).sort_index()
+data.rename(columns={data.columns[0]: &quot;Passengers&quot;}, inplace=True)
+
+print(data.head())
+</code></pre>
+<h2>Implementation Steps</h2>
+<h3>1. Data Loading and Exploration</h3>
+<ul>
+<li>Load AirPassengers dataset using statsmodels</li>
+<li>Inspect data structure and format</li>
+<li>Convert to proper time series format (datetime index)</li>
+<li>Examine basic statistics and data range</li>
+</ul>
+<h3>2. Exploratory Data Analysis (EDA)</h3>
+<ul>
+<li>Plot the time series (should show clear trend and seasonality)</li>
+<li>Identify trend (increasing over time)</li>
+<li>Identify seasonality (yearly pattern, peak in summer)</li>
+<li>Perform time series decomposition (additive or multiplicative)</li>
+<li>Calculate and visualize ACF/PACF plots</li>
+</ul>
+<h3>3. Stationarity Analysis</h3>
+<ul>
+<li>Test for stationarity (ADF test) - will be non-stationary</li>
+<li>Apply first differencing</li>
+<li>Apply seasonal differencing if needed</li>
+<li>Test transformed series for stationarity</li>
+</ul>
+<h3>4. Model Building</h3>
+<ul>
+<li><strong>ARIMA Models:</strong><ul>
+<li>Use ACF/PACF to identify (p, d, q)</li>
+<li>Try multiple ARIMA configurations</li>
+</ul>
+</li>
+<li><strong>SARIMA Models (recommended):</strong><ul>
+<li>Identify seasonal pattern (12 months)</li>
+<li>Fit SARIMA models: SARIMA(p, d, q)(P, D, Q)12</li>
+<li>Try different seasonal configurations</li>
+</ul>
+</li>
+<li><strong>Exponential Smoothing:</strong><ul>
+<li>Holt-Winters method (additive or multiplicative)</li>
+<li>Compare with ARIMA/SARIMA</li>
+</ul>
+</li>
+</ul>
+<h3>5. Model Selection</h3>
+<ul>
+<li>Compare models using AIC/BIC</li>
+<li>Use cross-validation or hold-out validation</li>
+<li>Select best model based on validation performance</li>
+<li>Check residual diagnostics</li>
+</ul>
+<h3>6. Model Evaluation</h3>
+<ul>
+<li>Split data (e.g., last 2 years as test set)</li>
+<li>Generate forecasts</li>
+<li>Calculate accuracy metrics (MAE, RMSE, MAPE)</li>
+<li>Visualize forecasts with actual values</li>
+<li>Analyze forecast errors</li>
+</ul>
+<h3>7. Forecasting</h3>
+<ul>
+<li>Generate future forecasts (e.g., next 12-24 months)</li>
+<li>Include prediction intervals</li>
+<li>Visualize with historical data</li>
+<li>Interpret results</li>
+</ul>
+<h2>Expected Deliverables</h2>
+<ol>
+<li><p><strong>EDA Report:</strong></p>
+<ul>
+<li>Time series plot showing trend and seasonality</li>
+<li>Decomposition plots (trend, seasonal, residual)</li>
+<li>ACF/PACF plots</li>
+<li>Stationarity test results</li>
+</ul>
+</li>
+<li><p><strong>Model Results:</strong></p>
+<ul>
+<li>Best model with parameters (e.g., SARIMA(1,1,1)(1,1,1)12)</li>
+<li>Model diagnostics (residual plots, ACF of residuals)</li>
+<li>Forecast accuracy metrics</li>
+<li>Forecast plots with confidence intervals</li>
+</ul>
+</li>
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Complete Python notebook</li>
+<li>Functions for model fitting and evaluation</li>
+<li>Visualization utilities</li>
+</ul>
+</li>
+</ol>
+<h2>Tips</h2>
+<ul>
+<li>This is a classic dataset perfect for learning ARIMA/SARIMA</li>
+<li>Strong seasonality (yearly pattern) - SARIMA is highly recommended</li>
+<li>Multiplicative seasonality is common (variance increases with level)</li>
+<li>Use seasonal differencing for SARIMA models</li>
+<li>Compare additive vs multiplicative models</li>
+<li>This dataset is well-studied - results should align with literature</li>
+<li>Good for demonstrating Box-Jenkins methodology</li>
+<li>Perfect for understanding trend + seasonality decomposition</li>
+</ul>
+
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/9.Airline_Passengers/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>Topic/9.Airline_Passengers/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
