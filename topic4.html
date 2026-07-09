@@ -1,66 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Topic 4: US Macroeconomic Indicators - Time Series Analysis</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 4: US Macroeconomic Indicators · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="logo-row">
-      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
-      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
-      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
     </div>
-    <nav class="nav">
-      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="topics.html">Topics</a></li>
-        <li><a href="index.html#schedule">Schedule</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
-    </nav>
   </header>
 
   <main id="top">
     <section class="hero topic-hero">
-      <div class="hero-content">
-        <p class="eyebrow">Topic 4</p>
-        <h1>US Macroeconomic Indicators</h1>
-        <div class="topic-badges">
-          <span class="badge medium">Medium</span>
-          <span class="bonus-badge medium-bonus">+1 Bonus Point</span>
-        </div>
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 4</p>
+      <h1 class="hero-title">US Macroeconomic Indicators</h1>
+      <div class="topic-badges">
+        <span class="pill pill-medium">Medium</span>
+        <span class="bonus-badge">+1 Bonus Point</span>
       </div>
-      <div class="hero-image">
-        <img src="Topic/4.US_Macro/4.US_macro.jpeg" alt="US Macroeconomic Indicators" />
-      </div>
-    </section>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/4.US_Macro/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/4.US_Macro/4.US_macro.jpeg" alt="US Macroeconomic Indicators">
+  </div>
+</section>
 
-    <section class="card topic-content">
-      <h1>Topic 4 – US Macroeconomic Indicators (Kaggle)</h1>
-<strong>Level:</strong> Medium
-<strong>Goal:</strong> Model and forecast key US macro indicators (unemployment, inflation, etc.).
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Medium<br><strong>Goal:</strong> Model and forecast key US macro indicators (unemployment, inflation, etc.).</p>
 <h2>Dataset</h2>
 <ul>
 <li><strong>Source:</strong> U.S. Economic Time Series – Kaggle</li>
-<li><strong>Link:</strong> https://www.kaggle.com/datasets/utkarshx27/us-economic-time-series</li>
+<li><strong>Link:</strong> <a href="https://www.kaggle.com/datasets/utkarshx27/us-economic-time-series">https://www.kaggle.com/datasets/utkarshx27/us-economic-time-series</a></li>
 </ul>
 <h2>Download Instructions</h2>
 <ol>
 <li>Open the dataset link above.</li>
-<li>Click "Download".</li>
+<li>Click &quot;Download&quot;.</li>
 <li>Extract to <code>data/</code>.</li>
 <li>Use the main CSV, e.g. <code>USEconomicData.csv</code>.</li>
 </ol>
 <h2>Data Loading</h2>
 <pre><code class="language-python">import pandas as pd
-df = pd.read_csv("data/USEconomicData.csv")  # adjust filename
-df["DATE"] = pd.to_datetime(df["DATE"])
-df = df.set_index("DATE").sort_index()</code></pre>
+
+df = pd.read_csv(&quot;data/USEconomicData.csv&quot;)  # adjust filename
+df[&quot;DATE&quot;] = pd.to_datetime(df[&quot;DATE&quot;])
+df = df.set_index(&quot;DATE&quot;).sort_index()
+</code></pre>
 <h2>Implementation Steps</h2>
 <h3>1. Data Exploration</h3>
 <ul>
@@ -86,13 +101,17 @@ df = df.set_index("DATE").sort_index()</code></pre>
 </ul>
 <h3>4. Model Building</h3>
 <ul>
-<li><strong>Univariate Models:</strong></li>
+<li><strong>Univariate Models:</strong><ul>
 <li>ARIMA/SARIMA for each indicator individually</li>
 <li>Model selection using AIC/BIC</li>
-<li><strong>Multivariate Models (optional):</strong></li>
+</ul>
+</li>
+<li><strong>Multivariate Models (optional):</strong><ul>
 <li>VAR (Vector Autoregression) models</li>
 <li>Analyze relationships between indicators</li>
 <li>Granger causality tests</li>
+</ul>
+</li>
 </ul>
 <h3>5. Model Evaluation</h3>
 <ul>
@@ -111,31 +130,30 @@ df = df.set_index("DATE").sort_index()</code></pre>
 </ul>
 <h2>Expected Deliverables</h2>
 <ol>
-<li><strong>EDA Report:</strong></li>
-</ol>
+<li><p><strong>EDA Report:</strong></p>
 <ul>
 <li>Time series plots for each indicator</li>
 <li>Correlation analysis</li>
 <li>Decomposition plots</li>
 <li>Stationarity test results</li>
 </ul>
-<ol>
-<li><strong>Model Results:</strong></li>
-</ol>
+</li>
+<li><p><strong>Model Results:</strong></p>
 <ul>
 <li>Model parameters for each indicator</li>
 <li>Performance metrics table</li>
 <li>Forecast plots</li>
 <li>Economic interpretation</li>
 </ul>
-<ol>
-<li><strong>Code:</strong></li>
-</ol>
+</li>
+<li><p><strong>Code:</strong></p>
 <ul>
 <li>Complete Python notebook</li>
 <li>Functions for indicator analysis</li>
 <li>Visualization utilities</li>
 </ul>
+</li>
+</ol>
 <h2>Tips</h2>
 <ul>
 <li>Macroeconomic indicators often have strong trends and cycles</li>
@@ -146,62 +164,56 @@ df = df.set_index("DATE").sort_index()</code></pre>
 <li>Consider leading/lagging relationships between indicators</li>
 <li>Document economic context and policy implications</li>
 </ul>
-    </section>
 
-    <section class="card starter-notebook-section">
-      <h2>Starter Notebook</h2>
-      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
-      <div style="margin-top: 20px;">
-        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/4.US_Macro/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
-          📓 View Starter Notebook on GitHub
-        </a>
-      </div>
-      <p style="margin-top: 15px; color: var(--muted);">
-        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
       </p>
-    </section>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/4.US_Macro/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
 
-    <section class="card">
-      <h2>Getting Started</h2>
+      <h2>Getting started</h2>
       <p>This topic includes:</p>
       <ul>
-        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
-        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
-        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
       </ul>
       <p>Navigate to the <code>Topic/4.US_Macro/</code> directory to access all resources.</p>
-      <div style="margin-top: 20px;">
-        <a href="topics.html" class="btn">← Back to All Topics</a>
-      </div>
-    </section>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
   </main>
 
-  <footer class="footer">
-    <p>Time Series Analysis and Forecasting · National Economics University</p>
-    <a href="index.html">Back to Home</a>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
   </footer>
-
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navList = document.querySelector('.nav ul');
-    const themeToggle = document.querySelector('.theme-toggle');
-    const THEME_KEY = 'ts-course-theme';
-
-    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
-
-    const applyTheme = (theme) => {
-      document.documentElement.setAttribute('data-theme', theme);
-      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
-      localStorage.setItem(THEME_KEY, theme);
-    };
-
-    const savedTheme = localStorage.getItem(THEME_KEY);
-    applyTheme(savedTheme || 'light');
-
-    themeToggle.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      applyTheme(next);
-    });
-  </script>
 </body>
 </html>

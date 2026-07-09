@@ -1,0 +1,36 @@
+<section id="assessment" class="section">
+  <div class="wrap">
+    <h2 class="section-title">7. Course assessment</h2>
+    <div class="table-scroll">
+      <table class="schedule">
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Content</th>
+            <th scope="col" class="col-date">Week</th>
+            <th scope="col" class="col-clo">CLOs</th>
+            <th scope="col">Tools / Criteria</th>
+            <th scope="col" class="col-week">Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each course.assessment.items}}
+          <tr>
+            <td><span class="lec-title">{{this.name}}</span></td>
+            <td>{{this.content}}</td>
+            <td class="col-date">{{this.week}}</td>
+            <td class="col-clo">{{this.clos}}</td>
+            <td>{{this.criteria}}</td>
+            <td class="col-week"><strong>{{this.weight}}</strong></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{#if course.assessment.notes}}
+    <div class="prose prose-narrow">
+      <ul>{{#each course.assessment.notes}}<li>{{this}}</li>{{/each}}</ul>
+    </div>
+    {{/if}}
+  </div>
+</section>

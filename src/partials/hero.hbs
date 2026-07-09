@@ -1,0 +1,17 @@
+<section class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow">{{course.code}} · {{course.type}}</p>
+    <h1 class="hero-title">{{course.title}}</h1>
+    <dl class="hero-facts">
+      <div><dt>Credits</dt><dd>{{course.credits}}</dd></div>
+      <div><dt>Lecture</dt><dd>{{course.hours.lecture}} h</dd></div>
+      <div><dt>Lab</dt><dd>{{course.hours.lab}} h</dd></div>
+      <div><dt>Self-study</dt><dd>{{course.hours.self_study}} h</dd></div>
+    </dl>
+    <p class="cta-row">
+      <a class="btn" href="{{url 'topics.html'}}">Project topics</a>
+      <a class="btn btn-quiet" href="#schedule">Schedule</a>
+      <a class="btn btn-quiet" href="{{course.links.student_desk}}">Student Desk</a>
+    </p>
+  </div>
+</section>

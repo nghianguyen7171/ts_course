@@ -1,0 +1,13 @@
+instructors:
+  - name: "Dr. Trong-Nghia Nguyen"
+    role: "Instructor"
+    email: "nghiant@neu.edu.vn"
+    website: "http://nghianguyen7171.github.io/"
+    photo: "img/author.png"
+    office_hours: "To be determined"
+
+  - name: "MSc. Thai-Hoa Ngo"
+    role: "Tutor"
+    email: "hoatn@neu.edu.vn"
+    website: "https://fda.neu.edu.vn/fda-members/ths-ngo-thai-hoa/"
+    photo: "img/tutor.png"

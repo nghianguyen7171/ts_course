@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final Project Grading Form</title>
+  <style>
+    @page { size: A4; margin: 1.2cm; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 11pt;
+      color: #1a1a1a;
+      background: #fff;
+      line-height: 1.4;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Header */
+    .form-header {
+      text-align: center;
+      border-bottom: 2.5px solid #1a1a1a;
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.8rem;
+    }
+    .form-header h1 {
+      font-size: 16pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .form-header p {
+      font-size: 9.5pt;
+      color: #555;
+      margin-top: 0.2rem;
+    }
+
+    /* Group info */
+    .group-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.3rem 1.5rem;
+      margin-bottom: 0.8rem;
+      font-size: 10.5pt;
+    }
+    .group-info .field {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+    .group-info .field label {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .group-info .field .line {
+      flex: 1;
+      border-bottom: 1px solid #999;
+      min-width: 80px;
+      height: 1em;
+    }
+    .group-info .full-width { grid-column: 1 / -1; }
+
+    /* Criterion block */
+    .criterion {
+      border: 1.5px solid #333;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      page-break-inside: avoid;
+    }
+    .criterion-header {
+      background: #2c3e50;
+      color: #fff;
+      padding: 0.35rem 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 4px 4px 0 0;
+    }
+    .criterion-header h2 {
+      font-size: 10.5pt;
+      font-weight: 600;
+    }
+    .criterion-header .max-score {
+      font-size: 11pt;
+      font-weight: 700;
+    }
+    .criterion-body {
+      padding: 0.4rem 0.7rem 0.5rem;
+    }
+
+    /* Score boxes */
+    .score-row {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+    .score-row label {
+      font-size: 10pt;
+      font-weight: 600;
+    }
+    .score-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 10.5pt;
+    }
+    .score-box .box {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid #333;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    /* Checklist */
+    .checklist {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+    .checklist .check-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 9.5pt;
+    }
+    .checklist .check-item .box {
+      width: 13px;
+      height: 13px;
+      border: 1.2px solid #555;
+      border-radius: 2px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* Notes */
+    .notes-line {
+      border-bottom: 1px solid #bbb;
+      height: 1.1em;
+      margin-top: 0.15rem;
+    }
+    .notes-label {
+      font-size: 9pt;
+      color: #777;
+      font-style: italic;
+    }
+
+    /* Total */
+    .total-section {
+      border: 2.5px solid #2c3e50;
+      border-radius: 6px;
+      padding: 0.6rem 0.8rem;
+      margin-top: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .total-section .total-label {
+      font-size: 14pt;
+      font-weight: 700;
+    }
+    .total-section .total-box {
+      width: 80px;
+      height: 32px;
+      border: 2px solid #2c3e50;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 16pt;
+      font-weight: 700;
+    }
+
+    /* Comments */
+    .comments {
+      margin-top: 0.5rem;
+    }
+    .comments h3 {
+      font-size: 10pt;
+      margin-bottom: 0.3rem;
+    }
+    .comments .comment-line {
+      border-bottom: 1px solid #bbb;
+      height: 1.3em;
+      margin-bottom: 0.1rem;
+    }
+
+    /* Print optimization */
+    @media print {
+      body { font-size: 10.5pt; }
+      .form-container { padding: 0; max-width: 100%; }
+      .criterion { margin-bottom: 0.4rem; }
+      .no-print { display: none; }
+    }
+
+    /* Screen-only button */
+    .print-btn {
+      display: inline-block;
+      margin: 1rem auto;
+      padding: 0.6rem 1.5rem;
+      background: #2c3e50;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 11pt;
+      cursor: pointer;
+      text-align: center;
+    }
+    .print-btn:hover { background: #34495e; }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+
+    <!-- Header -->
+    <div class="form-header">
+      <h1>FINAL PROJECT EVALUATION</h1>
+      <p>Time Series Analysis and Forecasting &middot; EP16.TOKT11122 &middot; Spring 2026</p>
+    </div>
+
+    <!-- Group Info -->
+    <div class="group-info">
+      <div class="field"><label>Group:</label><span class="line"></span></div>
+      <div class="field"><label>Topic:</label><span class="line"></span></div>
+      <div class="field full-width"><label>Members:</label><span class="line"></span></div>
+      <div class="field"><label>Date:</label><span class="line"></span></div>
+      <div class="field"><label>Evaluator:</label><span class="line"></span></div>
+    </div>
+
+    <!-- C1 -->
+    <div class="criterion">
+      <div class="criterion-header">
+        <h2>1. Problem Formulation &amp; Motivation</h2>
+        <span class="max-score">/2.0</span>
+      </div>
+      <div class="criterion-body">
+        <div class="score-row">
+          <label>Score:</label>
+          <span class="score-box"><span class="box"></span> 2.0</span>
+          <span class="score-box"><span class="box"></span> 1.5</span>
+          <span class="score-box"><span class="box"></span> 1.0</span>
+          <span class="score-box"><span class="box"></span> 0.5</span>
+          <span class="score-box"><span class="box"></span> 0</span>
+        </div>
+        <div class="checklist">
+          <span class="check-item"><span class="box"></span> Macro framing</span>
+          <span class="check-item"><span class="box"></span> Societal framing</span>
+          <span class="check-item"><span class="box"></span> Practical framing</span>
+          <span class="check-item"><span class="box"></span> Challenge stated</span>
+        </div>
+        <span class="notes-label">Notes:</span>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="criterion">
+      <div class="criterion-header">
+        <h2>2. Methodology &amp; Technical Depth</h2>
+        <span class="max-score">/2.0</span>
+      </div>
+      <div class="criterion-body">
+        <div class="score-row">
+          <label>Score:</label>
+          <span class="score-box"><span class="box"></span> 2.0</span>
+          <span class="score-box"><span class="box"></span> 1.5</span>
+          <span class="score-box"><span class="box"></span> 1.0</span>
+          <span class="score-box"><span class="box"></span> 0.5</span>
+          <span class="score-box"><span class="box"></span> 0</span>
+        </div>
+        <div class="checklist">
+          <span class="check-item"><span class="box"></span> Classical baseline (ARIMA/SARIMA)</span>
+          <span class="check-item"><span class="box"></span> ML model (RF/XGBoost)</span>
+          <span class="check-item"><span class="box"></span> DL model (LSTM/CNN)</span>
+          <span class="check-item"><span class="box"></span> Temporal split (no leakage)</span>
+          <span class="check-item"><span class="box"></span> Order/hyperparams justified</span>
+        </div>
+        <span class="notes-label">Notes:</span>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+
+    <!-- C3 -->
+    <div class="criterion">
+      <div class="criterion-header">
+        <h2>3. Results, Comparison &amp; Analysis</h2>
+        <span class="max-score">/2.0</span>
+      </div>
+      <div class="criterion-body">
+        <div class="score-row">
+          <label>Score:</label>
+          <span class="score-box"><span class="box"></span> 2.0</span>
+          <span class="score-box"><span class="box"></span> 1.5</span>
+          <span class="score-box"><span class="box"></span> 1.0</span>
+          <span class="score-box"><span class="box"></span> 0.5</span>
+          <span class="score-box"><span class="box"></span> 0</span>
+        </div>
+        <div class="checklist">
+          <span class="check-item"><span class="box"></span> Comparison table (MAE/RMSE)</span>
+          <span class="check-item"><span class="box"></span> Forecast plots</span>
+          <span class="check-item"><span class="box"></span> Explains <em>why</em> model wins</span>
+          <span class="check-item"><span class="box"></span> Limitations stated</span>
+          <span class="check-item"><span class="box"></span> Future work mentioned</span>
+        </div>
+        <span class="notes-label">Notes:</span>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+
+    <!-- C4 -->
+    <div class="criterion">
+      <div class="criterion-header">
+        <h2>4. Report Quality &amp; Scientific Writing</h2>
+        <span class="max-score">/2.0</span>
+      </div>
+      <div class="criterion-body">
+        <div class="score-row">
+          <label>Score:</label>
+          <span class="score-box"><span class="box"></span> 2.0</span>
+          <span class="score-box"><span class="box"></span> 1.5</span>
+          <span class="score-box"><span class="box"></span> 1.0</span>
+          <span class="score-box"><span class="box"></span> 0.5</span>
+          <span class="score-box"><span class="box"></span> 0</span>
+        </div>
+        <div class="checklist">
+          <span class="check-item"><span class="box"></span> IMRAD structure</span>
+          <span class="check-item"><span class="box"></span> Labeled figures + captions</span>
+          <span class="check-item"><span class="box"></span> Code submitted &amp; organized</span>
+          <span class="check-item"><span class="box"></span> Concise writing</span>
+          <span class="check-item"><span class="box"></span> References cited</span>
+        </div>
+        <span class="notes-label">Notes:</span>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+
+    <!-- C5 -->
+    <div class="criterion">
+      <div class="criterion-header">
+        <h2>5. Presentation &amp; Communication</h2>
+        <span class="max-score">/2.0</span>
+      </div>
+      <div class="criterion-body">
+        <div class="score-row">
+          <label>Score:</label>
+          <span class="score-box"><span class="box"></span> 2.0</span>
+          <span class="score-box"><span class="box"></span> 1.5</span>
+          <span class="score-box"><span class="box"></span> 1.0</span>
+          <span class="score-box"><span class="box"></span> 0.5</span>
+          <span class="score-box"><span class="box"></span> 0</span>
+        </div>
+        <div class="checklist">
+          <span class="check-item"><span class="box"></span> Within time (10–15 min)</span>
+          <span class="check-item"><span class="box"></span> Source code link in slides</span>
+          <span class="check-item"><span class="box"></span> Clean slides (1 msg/slide)</span>
+          <span class="check-item"><span class="box"></span> Q&amp;A handled well</span>
+          <span class="check-item"><span class="box"></span> All members contribute</span>
+        </div>
+        <span class="notes-label">Notes:</span>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="total-section">
+      <span class="total-label">TOTAL SCORE</span>
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <div class="total-box"></div>
+        <span style="font-size:14pt; font-weight:700;">/ 10</span>
+      </div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div class="comments">
+      <h3>Overall Comments:</h3>
+      <div class="comment-line"></div>
+      <div class="comment-line"></div>
+      <div class="comment-line"></div>
+    </div>
+
+    <!-- Print button (screen only) -->
+    <div style="text-align:center;" class="no-print">
+      <button class="print-btn" onclick="window.print()">Print This Form</button>
+    </div>
+
+  </div>
+</body>
+</html>

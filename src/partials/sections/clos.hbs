@@ -1,0 +1,21 @@
+<section id="clos" class="section section-alt">
+  <div class="wrap">
+    <h2 class="section-title">6. Course learning outcomes</h2>
+    <div class="table-scroll">
+      <table class="schedule">
+        <thead>
+          <tr><th scope="col" class="col-clo">CLO</th><th scope="col" class="col-week">Obj.</th><th scope="col">Outcome</th></tr>
+        </thead>
+        <tbody>
+          {{#each course.learning_outcomes}}
+          <tr>
+            <td class="col-clo"><span class="lec-title">{{this.id}}</span></td>
+            <td class="col-week">{{this.objective}}</td>
+            <td>{{this.description}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

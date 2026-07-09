@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{#if page.title}}{{page.title}} · {{/if}}{{course.title}}</title>
+  <meta name="description" content="{{course.title}} — {{course.code}}, {{course.department}}, {{course.university}}.">
+  <link rel="canonical" href="{{course.canonical}}">
+  <link rel="stylesheet" href="{{url 'assets/css/main.css'}}">
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+  {{> navbar}}
+
+  <main id="top">
+    {{{content}}}
+  </main>
+
+  {{> footer}}
+</body>
+</html>

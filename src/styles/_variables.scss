@@ -1,0 +1,42 @@
+// Theme tokens. This is the ONE stylesheet a course is expected to edit.
+// Change the accent, and the whole site follows.
+
+// ---------------------------------------------------------------- palette
+
+// A muted institutional red, in the family of Stanford Cardinal and MIT's
+// #A31F34. Reads academic rather than corporate. 9.1:1 on white (AAA).
+$accent:        #8c1d1d;
+$accent-dark:   #6d1616;
+$accent-tint:   #fdf6f6;
+
+// Light
+$l-bg:          #ffffff;
+$l-bg-alt:      #f9fafb;
+$l-bg-tint:     #f3f4f6;
+$l-text:        #111827;   // 17.7:1 on white
+$l-text-soft:   #57606a;   // 6.4:1 on white, 5.8:1 on $l-bg-tint — AA everywhere
+$l-border:      #e2e5e9;
+
+// Dark
+$d-bg:          #14171c;
+$d-bg-alt:      #1b1f26;
+$d-bg-tint:     #232830;
+$d-text:        #e8eaed;
+$d-text-soft:   #a5adba;
+$d-border:      #333a45;
+$d-accent:      #e88a8a;   // the red must lighten to stay legible on dark
+$d-accent-tint: #2a1b1b;
+
+// ---------------------------------------------------------------- type
+
+// Georgia headings over a system sans. Confirmed to carry Vietnamese
+// diacritics (ế, ữ, ộ) at all weights used here.
+$font-head: Georgia, 'Times New Roman', serif;
+$font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+$font-mono: 'SF Mono', Monaco, 'Cascadia Code', Consolas, monospace;
+
+$measure:   72ch;   // reading line length
+$wrap:      1080px;
+$wrap-wide: 1200px;
+
+$radius: 3px;

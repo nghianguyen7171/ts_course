@@ -1,68 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Topic 10: EEG Analysis with MNE Sample Dataset - Time Series Analysis</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 10: EEG Analysis with MNE Sample Dataset · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="logo-row">
-      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
-      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
-      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
     </div>
-    <nav class="nav">
-      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="topics.html">Topics</a></li>
-        <li><a href="index.html#schedule">Schedule</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
-    </nav>
   </header>
 
   <main id="top">
     <section class="hero topic-hero">
-      <div class="hero-content">
-        <p class="eyebrow">Topic 10</p>
-        <h1>EEG Analysis with MNE Sample Dataset</h1>
-        <div class="topic-badges">
-          <span class="badge hard">Hard</span>
-          <span class="bonus-badge ">+1.5 Bonus Points</span>
-        </div>
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 10</p>
+      <h1 class="hero-title">EEG Analysis with MNE Sample Dataset</h1>
+      <div class="topic-badges">
+        <span class="pill pill-hard">Hard</span>
+        <span class="bonus-badge">+1.5 Bonus Points</span>
       </div>
-      <div class="hero-image">
-        <img src="Topic/10.EEG_MNE/10.EEG.jpeg" alt="EEG Analysis with MNE Sample Dataset" />
-      </div>
-    </section>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/10.EEG_MNE/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/10.EEG_MNE/10.EEG.jpeg" alt="EEG Analysis with MNE Sample Dataset">
+  </div>
+</section>
 
-    <section class="card topic-content">
-      <h1>Topic 10 – EEG Analysis with MNE Sample Dataset</h1>
-<strong>Level:</strong> Hard
-<strong>Goal:</strong> Use EEG time series (one or a few channels) for analysis and simple modeling.
-<h2>Library & Data</h2>
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Hard<br><strong>Goal:</strong> Use EEG time series (one or a few channels) for analysis and simple modeling.</p>
+<h2>Library &amp; Data</h2>
 <ul>
-<li><strong>MNE Python:</strong> https://mne.tools/stable/</li>
-<li><strong>MNE Datasets:</strong> https://mne.tools/stable/documentation/datasets.html</li>
+<li><strong>MNE Python:</strong> <a href="https://mne.tools/stable/">https://mne.tools/stable/</a></li>
+<li><strong>MNE Datasets:</strong> <a href="https://mne.tools/stable/documentation/datasets.html">https://mne.tools/stable/documentation/datasets.html</a></li>
 </ul>
 <h2>Installation</h2>
-<pre><code class="language-bash">pip install mne</code></pre>
+<pre><code class="language-bash">pip install mne
+</code></pre>
 <h2>Data Loading</h2>
 <pre><code class="language-python">import mne
 import pandas as pd
 import numpy as np
+
 data_path = mne.datasets.sample.data_path()
-raw_fname = data_path + "/MEG/sample/sample_audvis_raw.fif"
+raw_fname = data_path + &quot;/MEG/sample/sample_audvis_raw.fif&quot;
+
 raw = mne.io.read_raw_fif(raw_fname, preload=True)
 raw.pick_types(meg=False, eeg=True)
+
 data, times = raw[:1, :]  # first EEG channel
-sr = raw.info["sfreq"]
-index = pd.to_datetime(times, unit="s")
-eeg_series = pd.Series(np.ravel(data), index=index)</code></pre>
+sr = raw.info[&quot;sfreq&quot;]
+index = pd.to_datetime(times, unit=&quot;s&quot;)
+eeg_series = pd.Series(np.ravel(data), index=index)
+</code></pre>
 <h2>Implementation Steps</h2>
 <h3>1. Library Setup and Data Loading</h3>
 <ul>
@@ -81,28 +99,40 @@ eeg_series = pd.Series(np.ravel(data), index=index)</code></pre>
 </ul>
 <h3>3. Data Preprocessing</h3>
 <ul>
-<li><strong>Filtering:</strong></li>
+<li><strong>Filtering:</strong><ul>
 <li>Apply band-pass filter (e.g., 1-40 Hz for EEG)</li>
 <li>Remove line noise (50/60 Hz) if present</li>
-<li><strong>Artifact Removal:</strong></li>
+</ul>
+</li>
+<li><strong>Artifact Removal:</strong><ul>
 <li>Identify and remove artifacts (eye blinks, muscle activity)</li>
-<li>Use MNE's artifact detection methods</li>
-<li><strong>Downsampling (optional):</strong></li>
+<li>Use MNE&#39;s artifact detection methods</li>
+</ul>
+</li>
+<li><strong>Downsampling (optional):</strong><ul>
 <li>May need to downsample for time series analysis</li>
 <li>Preserve frequency content of interest</li>
 </ul>
+</li>
+</ul>
 <h3>4. Feature Extraction</h3>
 <ul>
-<li><strong>Frequency Domain:</strong></li>
+<li><strong>Frequency Domain:</strong><ul>
 <li>Calculate power spectral density (PSD)</li>
 <li>Analyze frequency bands (delta, theta, alpha, beta, gamma)</li>
 <li>Extract band power over time</li>
-<li><strong>Time Domain:</strong></li>
+</ul>
+</li>
+<li><strong>Time Domain:</strong><ul>
 <li>Extract amplitude features</li>
 <li>Calculate statistical features (mean, std, etc.)</li>
-<li><strong>Create Lower-Frequency Series:</strong></li>
+</ul>
+</li>
+<li><strong>Create Lower-Frequency Series:</strong><ul>
 <li>Extract features per time window (e.g., alpha power per second)</li>
 <li>Create time series of extracted features</li>
+</ul>
+</li>
 </ul>
 <h3>5. Exploratory Data Analysis (EDA)</h3>
 <ul>
@@ -113,12 +143,16 @@ eeg_series = pd.Series(np.ravel(data), index=index)</code></pre>
 </ul>
 <h3>6. Model Building</h3>
 <ul>
-<li><strong>Feature Time Series:</strong></li>
+<li><strong>Feature Time Series:</strong><ul>
 <li>Apply ARIMA/SARIMA to extracted features (e.g., alpha power)</li>
 <li>Model lower-frequency derived series</li>
-<li><strong>Raw Signal (advanced):</strong></li>
+</ul>
+</li>
+<li><strong>Raw Signal (advanced):</strong><ul>
 <li>May need specialized methods for high-frequency signals</li>
 <li>Consider state-space models or specialized EEG analysis</li>
+</ul>
+</li>
 </ul>
 <h3>7. Model Evaluation</h3>
 <ul>
@@ -137,101 +171,94 @@ eeg_series = pd.Series(np.ravel(data), index=index)</code></pre>
 </ul>
 <h2>Expected Deliverables</h2>
 <ol>
-<li><strong>EDA Report:</strong></li>
-</ol>
+<li><p><strong>EDA Report:</strong></p>
 <ul>
 <li>Raw and filtered EEG plots</li>
 <li>Frequency analysis (PSD, spectrograms)</li>
 <li>Feature extraction results</li>
 <li>Temporal pattern analysis</li>
 </ul>
-<ol>
-<li><strong>Model Results:</strong></li>
-</ol>
+</li>
+<li><p><strong>Model Results:</strong></p>
 <ul>
 <li>Selected models for feature time series</li>
 <li>Forecast accuracy</li>
 <li>Visualization of results</li>
 <li>Neurophysiological interpretation</li>
 </ul>
-<ol>
-<li><strong>Code:</strong></li>
-</ol>
+</li>
+<li><p><strong>Code:</strong></p>
 <ul>
 <li>Complete Python notebook</li>
 <li>MNE data loading and preprocessing functions</li>
 <li>Feature extraction utilities</li>
 <li>Visualization tools</li>
 </ul>
+</li>
+</ol>
 <h2>Tips</h2>
 <ul>
 <li>EEG data is high-frequency and requires specialized preprocessing</li>
 <li>Filtering is essential (remove artifacts, focus on frequency bands of interest)</li>
 <li>Consider extracting features rather than modeling raw signals directly</li>
 <li>Frequency domain analysis is often more informative than time domain</li>
-<li>Use MNE's built-in functions for preprocessing and analysis</li>
+<li>Use MNE&#39;s built-in functions for preprocessing and analysis</li>
 <li>Understand neurophysiological context (different frequency bands have different meanings)</li>
 <li>Downsampling may be necessary for standard time series methods</li>
 <li>Document all preprocessing steps (filtering, artifact removal)</li>
 <li>Consider event-related analysis in addition to continuous forecasting</li>
 <li>Consult neuroscience literature for appropriate analysis methods</li>
 </ul>
-    </section>
 
-    <section class="card starter-notebook-section">
-      <h2>Starter Notebook</h2>
-      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
-      <div style="margin-top: 20px;">
-        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/10.EEG_MNE/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
-          📓 View Starter Notebook on GitHub
-        </a>
-      </div>
-      <p style="margin-top: 15px; color: var(--muted);">
-        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
       </p>
-    </section>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/10.EEG_MNE/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
 
-    <section class="card">
-      <h2>Getting Started</h2>
+      <h2>Getting started</h2>
       <p>This topic includes:</p>
       <ul>
-        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
-        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
-        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
       </ul>
       <p>Navigate to the <code>Topic/10.EEG_MNE/</code> directory to access all resources.</p>
-      <div style="margin-top: 20px;">
-        <a href="topics.html" class="btn">← Back to All Topics</a>
-      </div>
-    </section>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
   </main>
 
-  <footer class="footer">
-    <p>Time Series Analysis and Forecasting · National Economics University</p>
-    <a href="index.html">Back to Home</a>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
   </footer>
-
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navList = document.querySelector('.nav ul');
-    const themeToggle = document.querySelector('.theme-toggle');
-    const THEME_KEY = 'ts-course-theme';
-
-    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
-
-    const applyTheme = (theme) => {
-      document.documentElement.setAttribute('data-theme', theme);
-      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
-      localStorage.setItem(THEME_KEY, theme);
-    };
-
-    const savedTheme = localStorage.getItem(THEME_KEY);
-    applyTheme(savedTheme || 'light');
-
-    themeToggle.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      applyTheme(next);
-    });
-  </script>
 </body>
 </html>

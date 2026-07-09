@@ -1,0 +1,28 @@
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{{url 'index.html'}}">
+      <img class="brand-logo" src="{{url 'img/NEU logo.png'}}" alt="National Economics University logo">
+      <img class="brand-logo" src="{{url 'img/FDA logo.png'}}" alt="Faculty of Data Science and Artificial Intelligence logo">
+      <img class="brand-logo" src="{{url 'img/bai.png'}}" alt="Business AI Lab logo">
+      <span class="brand-text">
+        <span class="brand-course">{{course.short_name}}</span>
+        <span class="brand-dept">{{course.university}}</span>
+      </span>
+    </a>
+
+    {{!-- page.prefix is "" on the home page and "index.html" on topic pages, so
+          the section fragments resolve from every page. --}}
+    <nav class="site-nav" aria-label="Primary">
+      <a href="{{page.prefix}}#general">General</a>
+      <a href="{{page.prefix}}#instructor">Instructor</a>
+      <a href="{{page.prefix}}#resources">Resources</a>
+      <a href="{{page.prefix}}#assessment">Assessment</a>
+      <a href="{{page.prefix}}#schedule">Schedule</a>
+      <a href="{{url 'topics.html'}}" {{#if (eq page.nav 'topics')}}class="is-active" aria-current="page"{{/if}}>Topics</a>
+      <a href="{{page.prefix}}#contact">Contact</a>
+    </nav>
+  </div>
+  {{#if withSolutions}}
+  <div class="keys-banner">Instructor build — contains solutions. Do not publish.</div>
+  {{/if}}
+</header>

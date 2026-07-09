@@ -1,0 +1,46 @@
+<section id="resources" class="section section-alt">
+  <div class="wrap">
+    <h2 class="section-title">4. Learning resources</h2>
+
+    <div class="subsection">
+      <h3>Main textbooks</h3>
+      <dl class="ref-list">
+        {{#each course.textbooks}}{{#if this.primary}}
+        <dt>{{this.authors}} ({{this.year}}). <cite>{{this.title}}</cite>.</dt>
+        <dd>{{this.publisher}}.</dd>
+        {{/if}}{{/each}}
+      </dl>
+    </div>
+
+    <div class="subsection">
+      <h3>Other references</h3>
+      <dl class="ref-list">
+        {{#each course.textbooks}}{{#unless this.primary}}
+        <dt>{{this.authors}} ({{this.year}}). <cite>{{this.title}}</cite>.</dt>
+        <dd>{{this.publisher}}.</dd>
+        {{/unless}}{{/each}}
+      </dl>
+      <p class="section-note">
+        Online notes: <a href="{{course.links.online_notes}}">{{course.links.online_notes}}</a>
+      </p>
+    </div>
+
+    <div class="book-covers">
+      {{#each course.textbooks}}{{#if this.cover}}
+      <img src="{{url this.cover}}" alt="{{this.title}} cover">
+      {{/if}}{{/each}}
+    </div>
+
+    <div class="subsection">
+      <h3>{{course.student_desk.title}}</h3>
+      <div class="prose prose-narrow">
+        <p><strong>{{course.student_desk.subtitle}}</strong></p>
+        <p>Access the Student Desk for additional resources including:</p>
+        <ul>{{#each course.student_desk.items}}<li>{{this}}</li>{{/each}}</ul>
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="{{course.links.student_desk}}">Open Student Desk (Google Drive)</a>
+      </p>
+    </div>
+  </div>
+</section>

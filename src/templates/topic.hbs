@@ -1,0 +1,59 @@
+<section class="hero topic-hero">
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic {{topic.id}}</p>
+      <h1 class="hero-title">{{topic.title}}</h1>
+      <div class="topic-badges">
+        <span class="pill pill-{{topic.level}}">{{topic.level_label}}</span>
+        {{#with (bonusFor topic)}}{{#if this}}<span class="bonus-badge">{{this}}</span>{{/if}}{{/with}}
+      </div>
+      <p class="cta-row">
+        <a class="btn" href="{{topic.starter}}">Starter notebook</a>
+        <a class="btn btn-quiet" href="{{url 'topics.html'}}">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="{{url topic.image}}" alt="{{topic.title}}">
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      {{{bodyHtml}}}
+    </article>
+  </div>
+</section>
+
+{{!-- These two sections were appended to every topic page by
+      add_starter_notebooks.py. They are boilerplate that varies only by
+      directory, so they live here rather than in each README. --}}
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
+      </p>
+      <p class="cta-row">
+        <a class="btn" href="{{topic.starter}}">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
+
+      <h2>Getting started</h2>
+      <p>This topic includes:</p>
+      <ul>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
+      </ul>
+      <p>Navigate to the <code>{{topic.dir}}/</code> directory to access all resources.</p>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="{{url 'topics.html'}}">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>

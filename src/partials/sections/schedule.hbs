@@ -1,0 +1,47 @@
+<section id="schedule" class="section">
+  <div class="wrap">
+    <h2 class="section-title">8. Teaching plan (15 weeks)</h2>
+    <p class="section-note">
+      Lecture and lab weeks alternate. All lab weeks are group progress
+      presentations. Weeks marked <span class="pill pill-tbd">TBD</span> are not
+      yet finalized and publish no materials.
+    </p>
+
+    <div class="table-scroll">
+      <table class="schedule">
+        <thead>
+          <tr>
+            <th scope="col" class="col-week">Week</th>
+            <th scope="col" class="col-type">Format</th>
+            <th scope="col">Content highlights</th>
+            <th scope="col" class="col-due">Activities / Assessment</th>
+            <th scope="col" class="col-clo">CLOs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each lectures.lectures}}
+          <tr class="{{#unless (isReleased this.status)}}row-unreleased{{/unless}}">
+            <td class="col-week">{{this.week}}</td>
+            <td class="col-type"><span class="pill pill-{{this.type}}">{{this.type}}</span></td>
+            <td>
+              <span class="lec-title">{{this.content}}</span>
+              {{#unless (isReleased this.status)}}
+                <span class="pill pill-{{this.status}}">{{statusLabel this.status}}</span>
+              {{/unless}}
+              {{#if (isReleased this.status)}}
+                {{#if this.links}}
+                <ul class="mat-list">
+                  {{#each this.links}}<li><a href="{{url this.href}}">{{this.label}}</a></li>{{/each}}
+                </ul>
+                {{/if}}
+              {{/if}}
+            </td>
+            <td class="col-due">{{this.activities}}</td>
+            <td class="col-clo">{{this.clos}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

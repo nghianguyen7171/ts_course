@@ -1,0 +1,46 @@
+<section class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow">Project topics</p>
+    <h1 class="hero-title">Time Series Analysis Topics</h1>
+    <p class="hero-lead">
+      Choose from {{topics.topics.length}} topics spanning finance, economics, and
+      healthcare. Harder topics carry bonus points.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">Topic selection guide</h2>
+    <ul class="legend">
+      <li><span class="pill pill-easy">Easy</span> Perfect for beginners. Focus on fundamental concepts. <strong>No bonus points.</strong></li>
+      <li><span class="pill pill-medium">Medium</span> Moderate complexity. Requires solid understanding. <strong>+1 bonus point</strong> for completion.</li>
+      <li><span class="pill pill-hard">Hard</span> Advanced topics. <strong>+1.5 bonus points</strong> for completion.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="topic-grid">
+      {{#each topics.topics}}
+      <article class="topic-card">
+        <a class="topic-card-link" href="{{url (concat 'topic' this.id '.html')}}">
+          <div class="topic-image">
+            <img src="{{url this.image}}" alt="{{this.title}}">
+            <span class="pill pill-{{this.level}} topic-level">{{this.level_label}}</span>
+          </div>
+          <div class="topic-body">
+            <h3 class="topic-title">Topic {{this.id}}: {{this.title}}</h3>
+            <p class="topic-desc">{{this.summary}}</p>
+            <div class="topic-meta">
+              {{#each this.meta}}<span class="meta-item">{{this}}</span>{{/each}}
+              {{#with (bonusFor this)}}{{#if this}}<span class="bonus-badge">{{this}}</span>{{/if}}{{/with}}
+            </div>
+          </div>
+        </a>
+      </article>
+      {{/each}}
+    </div>
+  </div>
+</section>

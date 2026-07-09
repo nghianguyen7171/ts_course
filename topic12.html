@@ -1,83 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Topic 12: Open Multidomain Time Series - Time Series Analysis</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topic 12: Open Multidomain Time Series · Time Series Analysis and Forecasting</title>
+  <meta name="description" content="Time Series Analysis and Forecasting — EP16.TOKT11122, Faculty of Data Science and Artificial Intelligence, National Economics University.">
+  <link rel="canonical" href="https://nghianguyen7171.github.io/ts_course/">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="logo-row">
-      <a href="index.html"><img src="img/NEU%20logo.png" alt="National Economics University logo" /></a>
-      <a href="index.html"><img src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo" /></a>
-      <a href="index.html"><img src="img/bai.png" alt="BAI Lab logo" /></a>
+  <a class="skip-link" href="#top">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="img/NEU%20logo.png" alt="National Economics University logo">
+        <img class="brand-logo" src="img/FDA%20logo.png" alt="Faculty of Data Science and Artificial Intelligence logo">
+        <img class="brand-logo" src="img/bai.png" alt="Business AI Lab logo">
+        <span class="brand-text">
+          <span class="brand-course">Time Series</span>
+          <span class="brand-dept">National Economics University</span>
+        </span>
+      </a>
+  
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#general">General</a>
+        <a href="index.html#instructor">Instructor</a>
+        <a href="index.html#resources">Resources</a>
+        <a href="index.html#assessment">Assessment</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="topics.html" class="is-active" aria-current="page">Topics</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
     </div>
-    <nav class="nav">
-      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="topics.html">Topics</a></li>
-        <li><a href="index.html#schedule">Schedule</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-      <button class="theme-toggle" aria-label="Toggle color theme">🌙</button>
-    </nav>
   </header>
 
   <main id="top">
     <section class="hero topic-hero">
-      <div class="hero-content">
-        <p class="eyebrow">Topic 12</p>
-        <h1>Open Multidomain Time Series</h1>
-        <div class="topic-badges">
-          <span class="badge hard">Hard</span>
-          <span class="bonus-badge ">+1.5 Bonus Points</span>
-        </div>
+  <div class="wrap topic-hero-inner">
+    <div>
+      <p class="hero-eyebrow">Topic 12</p>
+      <h1 class="hero-title">Open Multidomain Time Series</h1>
+      <div class="topic-badges">
+        <span class="pill pill-hard">Hard</span>
+        <span class="bonus-badge">+1.5 Bonus Points</span>
       </div>
-      <div class="hero-image">
-        <img src="Topic/12.Open_Time_Series/12.Open_ts.jpeg" alt="Open Multidomain Time Series" />
-      </div>
-    </section>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/12.Open_Time_Series/starter.ipynb">Starter notebook</a>
+        <a class="btn btn-quiet" href="topics.html">All topics</a>
+      </p>
+    </div>
+    <img class="topic-hero-img" src="Topic/12.Open_Time_Series/12.Open_ts.jpeg" alt="Open Multidomain Time Series">
+  </div>
+</section>
 
-    <section class="card topic-content">
-      <h1>Topic 12 – Open Multidomain Time Series (Custom Advanced Topic)</h1>
-<strong>Level:</strong> Hard
-<strong>Goal:</strong> Choose a series from a curated collection and design a custom forecasting/classification problem.
+<section class="section">
+  <div class="wrap">
+    <article class="prose prose-narrow">
+      <p><strong>Level:</strong> Hard<br><strong>Goal:</strong> Choose a series from a curated collection and design a custom forecasting/classification problem.</p>
 <h2>Collection</h2>
 <ul>
 <li><strong>Source:</strong> Open Time Series Datasets – GitHub</li>
-<li><strong>Link:</strong> https://github.com/liaoyuhua/open-time-series-datasets</li>
+<li><strong>Link:</strong> <a href="https://github.com/liaoyuhua/open-time-series-datasets">https://github.com/liaoyuhua/open-time-series-datasets</a></li>
 </ul>
-<h2>Download & Load Instructions</h2>
+<h2>Download &amp; Load Instructions</h2>
 <ol>
 <li>Open the GitHub link above.</li>
 <li>Find a dataset (e.g., airline passengers, air pollution, traffic).</li>
-<li>Click file → "Download" or "Raw" and save as CSV to <code>data/open_ts/</code>.</li>
+<li>Click file → &quot;Download&quot; or &quot;Raw&quot; and save as CSV to <code>data/open_ts/</code>.</li>
 </ol>
 <h2>Data Loading (Example)</h2>
 <pre><code class="language-python">import pandas as pd
-df = pd.read_csv("data/open_ts/example.csv")  # adjust
-df["Date"] = pd.to_datetime(df["Date"])       # adapt column name
-df = df.set_index("Date").sort_index()</code></pre>
+
+df = pd.read_csv(&quot;data/open_ts/example.csv&quot;)  # adjust
+df[&quot;Date&quot;] = pd.to_datetime(df[&quot;Date&quot;])       # adapt column name
+df = df.set_index(&quot;Date&quot;).sort_index()
+</code></pre>
 <h2>Implementation Steps</h2>
 <h3>1. Dataset Selection</h3>
 <ul>
 <li>Browse the open time series collection</li>
 <li>Select a dataset that interests you</li>
-<li>Consider:</li>
+<li>Consider:<ul>
 <li>Data availability and quality</li>
 <li>Problem complexity</li>
 <li>Domain knowledge</li>
 <li>Research questions</li>
 </ul>
+</li>
+</ul>
 <h3>2. Problem Formulation</h3>
 <ul>
-<li>Define clear objectives:</li>
+<li>Define clear objectives:<ul>
 <li>Forecasting (univariate or multivariate)</li>
 <li>Classification</li>
 <li>Anomaly detection</li>
 <li>Pattern recognition</li>
+</ul>
+</li>
 <li>Formulate research questions</li>
 <li>Define success metrics</li>
 </ul>
@@ -108,19 +127,27 @@ df = df.set_index("Date").sort_index()</code></pre>
 </ul>
 <h3>6. Model Building</h3>
 <ul>
-<li><strong>Classical Methods:</strong></li>
+<li><strong>Classical Methods:</strong><ul>
 <li>ARIMA/SARIMA models</li>
 <li>Exponential smoothing</li>
-<li><strong>Machine Learning:</strong></li>
+</ul>
+</li>
+<li><strong>Machine Learning:</strong><ul>
 <li>Feature engineering (lags, rolling stats, calendar features)</li>
 <li>Tree-based models (Random Forest, XGBoost)</li>
 <li>Linear models with features</li>
-<li><strong>Deep Learning (optional):</strong></li>
+</ul>
+</li>
+<li><strong>Deep Learning (optional):</strong><ul>
 <li>LSTM/GRU networks</li>
 <li>CNN for time series</li>
-<li><strong>Hybrid Approaches:</strong></li>
+</ul>
+</li>
+<li><strong>Hybrid Approaches:</strong><ul>
 <li>Combine multiple methods</li>
 <li>Ensemble forecasts</li>
+</ul>
+</li>
 </ul>
 <h3>7. Model Evaluation</h3>
 <ul>
@@ -132,18 +159,24 @@ df = df.set_index("Date").sort_index()</code></pre>
 </ul>
 <h3>8. Advanced Analysis (Customize Based on Problem)</h3>
 <ul>
-<li><strong>If Forecasting:</strong></li>
+<li><strong>If Forecasting:</strong><ul>
 <li>Generate future forecasts</li>
 <li>Analyze forecast uncertainty</li>
 <li>Compare forecast horizons</li>
-<li><strong>If Classification:</strong></li>
+</ul>
+</li>
+<li><strong>If Classification:</strong><ul>
 <li>Build classification models</li>
 <li>Evaluate classification performance</li>
 <li>Analyze feature importance</li>
-<li><strong>If Anomaly Detection:</strong></li>
+</ul>
+</li>
+<li><strong>If Anomaly Detection:</strong><ul>
 <li>Detect anomalies</li>
 <li>Analyze anomaly patterns</li>
 <li>Validate detections</li>
+</ul>
+</li>
 </ul>
 <h3>9. Interpretation and Discussion</h3>
 <ul>
@@ -155,46 +188,43 @@ df = df.set_index("Date").sort_index()</code></pre>
 </ul>
 <h2>Expected Deliverables</h2>
 <ol>
-<li><strong>Problem Definition:</strong></li>
-</ol>
+<li><p><strong>Problem Definition:</strong></p>
 <ul>
 <li>Clear problem statement</li>
 <li>Research questions</li>
 <li>Success criteria</li>
 </ul>
-<ol>
-<li><strong>EDA Report:</strong></li>
-</ol>
+</li>
+<li><p><strong>EDA Report:</strong></p>
 <ul>
 <li>Comprehensive data exploration</li>
 <li>Visualizations</li>
 <li>Domain-specific insights</li>
 </ul>
-<ol>
-<li><strong>Model Results:</strong></li>
-</ol>
+</li>
+<li><p><strong>Model Results:</strong></p>
 <ul>
 <li>Multiple model approaches</li>
 <li>Performance comparison</li>
 <li>Best model selection</li>
 <li>Detailed results</li>
 </ul>
-<ol>
-<li><strong>Code:</strong></li>
-</ol>
+</li>
+<li><p><strong>Code:</strong></p>
 <ul>
 <li>Complete, well-documented notebook</li>
 <li>Reusable functions</li>
 <li>Clear structure</li>
 </ul>
-<ol>
-<li><strong>Discussion:</strong></li>
-</ol>
+</li>
+<li><p><strong>Discussion:</strong></p>
 <ul>
 <li>Interpretation of results</li>
 <li>Domain insights</li>
 <li>Limitations and future work</li>
 </ul>
+</li>
+</ol>
 <h2>Tips</h2>
 <ul>
 <li>Choose a dataset that matches your interests and skill level</li>
@@ -210,62 +240,56 @@ df = df.set_index("Date").sort_index()</code></pre>
 <li>Consult domain literature for context</li>
 <li>Think about what makes your analysis unique or valuable</li>
 </ul>
-    </section>
 
-    <section class="card starter-notebook-section">
-      <h2>Starter Notebook</h2>
-      <p>The starter notebook contains installation instructions and data loading code to help you get started with this topic.</p>
-      <div style="margin-top: 20px;">
-        <a href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/12.Open_Time_Series/starter.ipynb" target="_blank" class="btn" style="display: inline-block;">
-          📓 View Starter Notebook on GitHub
-        </a>
-      </div>
-      <p style="margin-top: 15px; color: var(--muted);">
-        <strong>Note:</strong> You can view the notebook directly on GitHub or download it to run locally in Jupyter.
+    </article>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="prose prose-narrow">
+      <h2>Starter notebook</h2>
+      <p>
+        The starter notebook contains installation instructions and data loading
+        code to help you get started with this topic.
       </p>
-    </section>
+      <p class="cta-row">
+        <a class="btn" href="https://github.com/nghianguyen7171/ts_course/blob/main/Topic/12.Open_Time_Series/starter.ipynb">View starter notebook on GitHub</a>
+      </p>
+      <p>
+        <strong>Note:</strong> you can view the notebook directly on GitHub, or
+        download it to run locally in Jupyter.
+      </p>
 
-    <section class="card">
-      <h2>Getting Started</h2>
+      <h2>Getting started</h2>
       <p>This topic includes:</p>
       <ul>
-        <li><strong>README.md</strong> - Detailed implementation guide (this page)</li>
-        <li><strong>starter.ipynb</strong> - Jupyter notebook with installation and data loading code</li>
-        <li><strong>Featured image</strong> - Visual representation of the topic</li>
+        <li><strong>README.md</strong> — detailed implementation guide (this page)</li>
+        <li><strong>starter.ipynb</strong> — Jupyter notebook with installation and data loading code</li>
+        <li><strong>Featured image</strong> — visual representation of the topic</li>
       </ul>
       <p>Navigate to the <code>Topic/12.Open_Time_Series/</code> directory to access all resources.</p>
-      <div style="margin-top: 20px;">
-        <a href="topics.html" class="btn">← Back to All Topics</a>
-      </div>
-    </section>
+      <p class="cta-row">
+        <a class="btn btn-quiet" href="topics.html">← Back to all topics</a>
+      </p>
+    </div>
+  </div>
+</section>
+
   </main>
 
-  <footer class="footer">
-    <p>Time Series Analysis and Forecasting · National Economics University</p>
-    <a href="index.html">Back to Home</a>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-course">Time Series Analysis and Forecasting</p>
+        <p class="footer-meta">EP16.TOKT11122 · 3 credits · Compulsory</p>
+      </div>
+      <div>
+        <p class="footer-meta">Faculty of Data Science and Artificial Intelligence</p>
+        <p class="footer-meta"><a href="https://neu.edu.vn">National Economics University</a></p>
+        <p class="footer-meta"><a href="https://github.com/nghianguyen7171/ts_course">Source on GitHub</a></p>
+      </div>
+    </div>
   </footer>
-
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const navList = document.querySelector('.nav ul');
-    const themeToggle = document.querySelector('.theme-toggle');
-    const THEME_KEY = 'ts-course-theme';
-
-    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
-
-    const applyTheme = (theme) => {
-      document.documentElement.setAttribute('data-theme', theme);
-      themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
-      localStorage.setItem(THEME_KEY, theme);
-    };
-
-    const savedTheme = localStorage.getItem(THEME_KEY);
-    applyTheme(savedTheme || 'light');
-
-    themeToggle.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-      applyTheme(next);
-    });
-  </script>
 </body>
 </html>

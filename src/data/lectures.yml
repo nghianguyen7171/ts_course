@@ -1,0 +1,134 @@
+# The 15-week teaching plan, migrated verbatim from the hand-written table in
+# the old index.html. Every slide, exercise, and notebook link is preserved.
+#
+#   status: released | draft | tbd   (only `released` emits links)
+#   links:  [{label, href}]          local paths or external URLs
+
+lectures:
+  - week: 1
+    type: "Lecture"
+    content: "Intro, project requirements, Python ecosystem, environment setup, Kaggle overview"
+    activities: "Lecture, demo, Q&A"
+    clos: "1.1, 1.2, 6.1, 6.2"
+    links:
+      - { label: "Download Slides", href: "slides/1.Intro.pdf" }
+
+  - week: 2
+    type: "Lecture"
+    content: "NumPy review; Pandas for time series; resampling, rolling stats; SMA/EMA/RSI/MACD"
+    activities: "Lecture + code walkthrough; Homework 1"
+    clos: "1.2, 2.1, 6.1"
+    links:
+      - { label: "Download Slides", href: "slides/2.Python & Time Series Fundamentals_rvs.pdf" }
+
+  - week: 3
+    type: "Lecture"
+    content: "Time series components; ACF/PACF; decomposition; smoothing"
+    activities: "Lecture + code examples; Homework 2"
+    clos: "2.1, 3.1, 6.1"
+    links:
+      - { label: "Download Slides", href: "slides/3.TimeSeriesAnalysis(eng).pdf" }
+
+  - week: 4
+    type: "Lab"
+    content: "Project kick-off; dataset intro; first plots"
+    activities: "Group presentations; open lab time"
+    clos: "1.2, 5.1, 6.1, 6.2"
+
+  - week: 5
+    type: "Lab"
+    content: "EDA on project data; trends/seasonality; issues"
+    activities: "Group presentations; feedback on modeling direction"
+    clos: "2.1, 3.1, 5.1, 5.2, 6.1, 6.2"
+    links:
+      - { label: "Download Slides", href: "slides/3,5. ACF.pdf" }
+      - { label: "Week 5 Exercises: ACF Problem Set", href: "acf_problem_set_no_solutions.html" }
+
+  - week: 6
+    type: "Lecture"
+    content: "Stationarity; unit root tests; differencing; AR/MA/ARMA models"
+    activities: "Lecture + examples; Homework 3"
+    clos: "3.1, 3.2, 6.1"
+    links:
+      - { label: "Download Slides", href: "slides/4.1. Stationarity – Unit Root Tests – Differencing – AR _ MA _ ARMA models.pdf" }
+      # Deliberately released after the Week 5 exercises above.
+      - { label: "Solution: ACF Problem Set", href: "idea/acf_problem_set.html" }
+
+  - week: 7
+    type: "Lab"
+    content: "Stationarity checks; AR/MA/ARMA on project data"
+    activities: "Group presentations; lab exercises"
+    clos: "3.1, 3.2, 5.1, 6.2"
+    links:
+      - { label: "Download Slides", href: "slides/4.2. Stationarity – Unit Root Tests – Differencing – AR _ MA _ ARMA models.pdf" }
+      - { label: "Supplement: Time Series ARMA Modeling", href: "slides/Time_Series_ARMA_Modeling.pdf" }
+      - { label: "Week 7 Lab: Healthcare (Stationarity/ARIMA)", href: "idea/week6_7_exercise/health_practice_exercises.html" }
+      - { label: "Week 7 Lab: EEG & EMG (Stationarity/ARIMA)", href: "idea/eeg_emg_exercise/eeg_emg_practice_exercises.html" }
+
+  - week: 8
+    type: "Lecture"
+    content: "ARIMA, Box–Jenkins process, model selection, forecasting"
+    activities: "Lecture + worked example; Homework 4"
+    clos: "4.1, 6.1"
+    links:
+      - { label: "Download Slides", href: "slides/5. ARIMA, Box–Jenkins process, model selection, forecasting.pdf" }
+      - { label: "Practice Notebook", href: "https://www.kaggle.com/code/trongnghia7171/arima-example" }
+
+  - week: 9
+    type: "Lecture"
+    content: "Time-series Classification (TSC)"
+    activities: "Lecture + notebooks"
+    clos: "4.2, 5.2"
+    links:
+      - { label: "Download Slides", href: "slides/6. TSC.pdf" }
+      - { label: "TSC Example Notebook", href: "https://www.kaggle.com/code/trongnghia7171/tsc-example-ver0" }
+      - { label: "TSC Advanced Example", href: "https://www.kaggle.com/code/trongnghia7171/tsc-example-advanced" }
+
+  - week: 10
+    type: "Lecture/Presentations"
+    content: "Midterm Project Baseline submissions and presentations"
+    activities: "Midterm Project Baseline — 30%"
+    clos: "1.2–4.1, 5.1, 5.2, 6.1, 6.2"
+    links:
+      - { label: "Midterm Presentation Guide", href: "midterm_presentation_guide.html" }
+
+  - week: 11
+    type: "Lecture"
+    content: "Seasonality, SARIMA structure, seasonal differencing, SARIMA modeling"
+    activities: "Lecture + example"
+    clos: "4.1"
+    links:
+      - { label: "Download Slides", href: "slides/7. Seasonality.pdf" }
+      - { label: "Example Notebook", href: "https://www.kaggle.com/code/trongnghia7171/sarima-example" }
+
+  - week: 12
+    type: "Lab"
+    content: "SARIMA refinements; finalize classical models; plan ML/DL phase"
+    activities: "Group presentations"
+    clos: "4.1, 5.1, 6.2"
+
+  - week: 13
+    type: "Lecture"
+    content: "Time series as supervised learning; features; tree-based models"
+    activities: "Lecture + notebook"
+    clos: "4.2, 5.2"
+    links:
+      - { label: "Download Slides", href: "slides/8. ML.pdf" }
+      - { label: "Example Notebook", href: "https://www.kaggle.com/code/trongnghia7171/ml-ts-example" }
+
+  - week: 14
+    type: "Lecture"
+    content: "Deep learning basics for time series: RNN/LSTM/GRU/CNN; workflow"
+    activities: "Lecture + notebook"
+    clos: "4.3, 5.2"
+    links:
+      - { label: "Download Slides", href: "slides/9. DL.pdf" }
+      - { label: "Example Notebook", href: "https://www.kaggle.com/code/trongnghia7171/dl-example" }
+
+  - week: 15
+    type: "Lab/Presentations"
+    content: "Final project report; model comparison; insights"
+    activities: "Final Project — 50%"
+    clos: "1.1–5.2, 6.1, 6.2"
+    links:
+      - { label: "Final Report Guide & Rubric", href: "Final/final_presentation_guide.html" }

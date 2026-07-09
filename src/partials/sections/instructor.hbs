@@ -1,0 +1,23 @@
+<section id="instructor" class="section section-alt">
+  <div class="wrap">
+    <h2 class="section-title">2. Department and instructor</h2>
+    <p class="section-note">
+      <strong>Department:</strong> {{course.department}}, {{course.university}}.<br>
+      <strong>Address:</strong> {{course.office}}
+    </p>
+    <div class="people-grid">
+      {{#each staff.instructors}}
+      <div class="person">
+        <img class="person-photo" src="{{url this.photo}}" alt="Photograph of {{this.name}}">
+        <div class="person-info">
+          <p class="person-role">{{this.role}}</p>
+          <p class="person-name">{{this.name}}</p>
+          <p class="person-line"><a href="mailto:{{this.email}}">{{this.email}}</a></p>
+          <p class="person-line"><a href="{{this.website}}">{{this.website}}</a></p>
+          {{#if this.office_hours}}<p class="person-line">Office hours: {{this.office_hours}}</p>{{/if}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>

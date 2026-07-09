@@ -1,0 +1,10 @@
+<section id="objectives" class="section">
+  <div class="wrap">
+    <h2 class="section-title">5. Course objectives</h2>
+    <div class="prose prose-narrow">
+      <ul>
+        {{#each course.objectives}}<li><strong>{{this.id}}.</strong> {{this.description}}</li>{{/each}}
+      </ul>
+    </div>
+  </div>
+</section>

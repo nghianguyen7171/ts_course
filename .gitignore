@@ -7,3 +7,16 @@ textbook/
 Opendatabay_recovery_codes.txt
 backup-context.md
 
+
+# Build staging / deploy scratch
+out/
+.deploy/
+node_modules/
+
+# Student submissions, marks, and exam-day material. Never published.
+Final/Final_submission/
+Final/Exam_day/
+Final/Group_topic/
+Final/*.xlsx
+All_Grade_form/
+All_QA_form/
